@@ -111,7 +111,7 @@ controls = dbc.Card(
                     max_date_allowed=dt.date(2020,8,31),
                     initial_visible_month=dt.date(2020,2,1),
                     date=dt.date(2020,8, 25),
-                    display_format="DD MM YY",
+                    display_format="DD/MM/YYYY",
                     className="dash-bootstrap"
                 ),
             ]
