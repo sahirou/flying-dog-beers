@@ -96,6 +96,8 @@ secteur_options = [
 # iris = pd.DataFrame(iris_raw["data"], columns=iris_raw["feature_names"])
 
 app = dash.Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+app.title = "Capillarité"
+server = app.server
 
 controls = dbc.Card(
     [
@@ -152,17 +154,38 @@ controls = dbc.Card(
                 ),
             ]
         ),
+        # Rupure eRecharge
+        dbc.FormGroup(
+            [
+                # html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
+                html.Br(),
+                dbc.Label("Rupture eRecharge"),
+                dbc.Checklist(
+                    options=[{'label': 'Oui', 'value': 'Oui'},{'label': 'Non', 'value': 'Non'}],
+                    value=['Oui','Non'],
+                    id="input-rupture-erecharge",
+                    # switch=True,
+                    inline=True
+                ),
+            ]
+        ),
         # Filtre DACR
         dbc.FormGroup(
             [
                 html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
                 # html.P('Filtres Géo',style={'margin-top':'0','text-align': 'right','font-style': 'italic','color':'red'}),
                 dbc.Label("Régions"),
+                dcc.Checklist(
+                    id="dacr_toutes",
+                    options=[{'label': 'Toutes', 'value': 'Toutes'}],
+                    value=['Toutes'],
+                    style={'float': 'right'},
+                ),     
                 dcc.Dropdown(
                     id="dacr",
                     options=dacr_options,
                     multi=True,
-                    value=DACRS,
+                    value=DACRS
                 ),
             ]
         ),
@@ -170,6 +193,12 @@ controls = dbc.Card(
         dbc.FormGroup(
             [
                 dbc.Label("Zones"),
+                dcc.Checklist(
+                    id="zone_toutes",
+                    options=[{'label': 'Toutes', 'value': 'Toutes'}],
+                    value=['Toutes'],
+                    style={'float': 'right'},
+                ),
                 dcc.Dropdown(
                     id="zone",
                     options=zone_options,
@@ -182,6 +211,12 @@ controls = dbc.Card(
         dbc.FormGroup(
             [
                 dbc.Label("Secteurs"),
+                dcc.Checklist(
+                    id="secteurs_tous",
+                    options=[{'label': 'Tous', 'value': 'Tous'}],
+                    value=['Tous'],
+                    style={'float': 'right'},
+                ),
                 dcc.Dropdown(
                     id="secteur",
                     options=secteur_options,
@@ -279,8 +314,7 @@ app.layout = dbc.Container(
             fluid=True
         )
 
-server = app.server
-app.title='Capillarité'
+
 
 if __name__ == "__main__":
     app.run_server()
