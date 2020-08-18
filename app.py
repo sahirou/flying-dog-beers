@@ -175,7 +175,7 @@ controls = dbc.Card(
                 html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
                 # html.P('Filtres Géo',style={'margin-top':'0','text-align': 'right','font-style': 'italic','color':'red'}),
                 dbc.Label("Régions"),
-                dcc.Checklist(
+                dbc.Checklist(
                     id="dacr_toutes",
                     options=[{'label': 'Toutes', 'value': 'Toutes'}],
                     value=['Toutes'],
@@ -194,7 +194,7 @@ controls = dbc.Card(
         dbc.FormGroup(
             [
                 dbc.Label("Zones"),
-                dcc.Checklist(
+                dbc.Checklist(
                     id="zone_toutes",
                     options=[{'label': 'Toutes', 'value': 'Toutes'}],
                     value=['Toutes'],
@@ -213,7 +213,7 @@ controls = dbc.Card(
         dbc.FormGroup(
             [
                 dbc.Label("Secteurs"),
-                dcc.Checklist(
+                dbc.Checklist(
                     id="secteurs_tous",
                     options=[{'label': 'Tous', 'value': 'Tous'}],
                     value=['Tous'],
