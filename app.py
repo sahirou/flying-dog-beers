@@ -179,7 +179,7 @@ controls = dbc.Card(
                     id="dacr_toutes",
                     options=[{'label': 'Toutes', 'value': 'Toutes'}],
                     value=['Toutes'],
-                    inline=True,
+                    # inline=True,
                     style={'float': 'right'},
                 ),     
                 dcc.Dropdown(
@@ -198,7 +198,7 @@ controls = dbc.Card(
                     id="zone_toutes",
                     options=[{'label': 'Toutes', 'value': 'Toutes'}],
                     value=['Toutes'],
-                    inline=True,
+                    # inline=True,
                     style={'float': 'right'},
                 ),
                 dcc.Dropdown(
@@ -217,7 +217,7 @@ controls = dbc.Card(
                     id="secteurs_tous",
                     options=[{'label': 'Tous', 'value': 'Tous'}],
                     value=['Tous'],
-                    inline=True,
+                    # inline=True,
                     style={'float': 'right'},
                 ),
                 dcc.Dropdown(
