@@ -25,6 +25,7 @@ import pathlib
 from pathlib import Path
 # import json
 # import dash_table
+import dash_auth
 
 mapbox_access_token = 'pk.eyJ1Ijoic2FuaXJvdSIsImEiOiJja2U0cWwweDEwdnlhMnpsZm9oeWJzNm84In0.Xwoh5FQDOPwq-vUWFqzEcA'
 
@@ -50,10 +51,19 @@ date_inf =  pd.to_datetime(str(min(df['DATE']))).strftime('%Y-%m-%d')
 current_date = date_sup
 
 
+# Keep this out of source code repository - save in a file or a database
+VALID_USERNAME_PASSWORD_PAIRS = {
+    'upsales': '123@range'
+}
 
 server = Flask(__name__)
 app = Dash(server=server,external_stylesheets=[dbc.themes.BOOTSTRAP],meta_tags=[{"name": "viewport", "content": "width=device-width"}])
 app.title = "Capillarité"
+
+auth = dash_auth.BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
 
 @server.route("/download/<path:path>")
 def download(path):
