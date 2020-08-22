@@ -26,6 +26,7 @@ from pathlib import Path
 # import json
 # import dash_table
 import dash_auth
+from controls import overview_layout
 
 mapbox_access_token = 'pk.eyJ1Ijoic2FuaXJvdSIsImEiOiJja2U0cWwweDEwdnlhMnpsZm9oeWJzNm84In0.Xwoh5FQDOPwq-vUWFqzEcA'
 
@@ -136,6 +137,18 @@ markers_colors = {
     'Inactif âgé': 'red'
 }
 
+
+table_style = {
+	'align-items': 'center',
+	'border-radius': '5px',
+	'background-color': 'white',
+	'margin': '0.5rem',
+	'padding': '1rem',
+	'position': 'relative',
+	'border': '1px solid #f1f1f1',
+    'height': '500px',
+	'overflow': 'scroll'
+}
 
 # Logo
 logo = html.Div(
@@ -287,6 +300,7 @@ tab1_content = dbc.Card(
         [
             html.P("Overview", className="card-text"),
             # dbc.Button("Click here", color="success"),
+            overview_layout,
         ],
         id="visu_overview"
     ),
@@ -322,7 +336,7 @@ tab3_content = dbc.Card(
             ),
             # html.P(id="tab_len_2"),
             html.Br(),
-            html.Div(id="visu_tab_data"),
+            html.Div(id="visu_tab_data",style={'height': '600px','overflow': 'scroll'}),
             html.Div(id='intermediate_value', style={'display': 'none'})
             # dbc.Button("Click here", color="success"),
         ]        
