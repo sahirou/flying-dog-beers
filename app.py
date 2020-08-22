@@ -7,7 +7,7 @@ import os
 import pathlib
 from urllib.parse import quote as urlquote
 from flask import Flask, send_from_directory
-import dash_table_experiments as dtab
+# import dash_table_experiments as dtab
 
 import dash
 from dash import Dash
