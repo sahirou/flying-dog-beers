@@ -555,7 +555,7 @@ def save_file(filename, fdf):
         decimal=".",
         na_rep="",
         index =False,
-        encoding ='ANSI',
+        encoding ='utf-8',
         date_format='%Y-%m-%d',
         # compression = 'gzip'
     )
