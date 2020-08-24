@@ -564,7 +564,7 @@ def refresh_tab_data(jsonified_cleaned_data):
             columns = tab_columns_rename,
             inplace=True
         )        
-        fdf = fdf[displayed_columns] #.head(100)        
+        fdf = fdf[displayed_columns].head(100)        
     else:
         fdf = pd.DataFrame()
     
