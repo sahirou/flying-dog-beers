@@ -145,7 +145,7 @@ overview_layout = dbc.Card(
         [
             dbc.FormGroup(
                 [
-                    html.H4("Choisir un axe d'analyse...",className="card-title",style={'float':'left'}),
+                    html.H4("Axe d'analyse ...",className="card-title",style={'float':'left'}),
                     dbc.RadioItems(
                         id="overwiew_axe_selector",
                         options=overwiew_axe_options,
@@ -188,7 +188,7 @@ overview_layout = dbc.Card(
             html.Br(),
             dbc.FormGroup(
                 [
-                    html.H4("Choir les détails à afficher... ",className="card-title",style={'float':'left'}),
+                    html.H4("Détails à afficher ... ",className="card-title",style={'float':'left'}),
                     dbc.RadioItems(
                         id="overwiew_geo_filter",
                         options=overwiew_geo_filter_options,
