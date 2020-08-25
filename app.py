@@ -896,7 +896,7 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
             # 'SECTOR': True,
             'NOMBRE DE PDVs': True
         },
-        names = ["{0}<br>{1}".format(dacr_data['DACR'][i],dacr_data['POS_CNT'][i]) for i in range(1,dacr_data.shape[0],1)]
+        labels = ["{0}<br>{1}".format(dacr_data['DACR'][i],dacr_data['POS_CNT'][i]) for i in range(1,dacr_data.shape[0],1)]
         
     )
     fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
