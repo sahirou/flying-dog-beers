@@ -28,6 +28,7 @@ import json
 import dash_auth
 import plotly.figure_factory as ff
 import plotly.express as px
+import locale
 
 #
 import sys
@@ -58,6 +59,8 @@ zoning = df[['DACR','ZONE','SECTEUR']].drop_duplicates(keep='first')
 # date_sup =  pd.to_datetime(str(max(df['DATE']))).strftime('%Y-%m-%d')
 # date_inf =  pd.to_datetime(str(min(df['DATE']))).strftime('%Y-%m-%d')
 # current_date = date_sup
+current_locale = locale.getlocale(locale.LC_ALL) # get current locale
+locale.setlocale(locale.LC_ALL, 'fr_FR')
 MONTHS = [pd.to_datetime(x).strftime('%B %Y') for x in df['MONTH'].unique()]
 MonthSup = pd.to_datetime(df['MONTH'].max()).strftime('%B %Y')
 MonthSupValue  = pd.to_datetime(df['MONTH'].max()).strftime('%Y-%m-%d')
@@ -68,6 +71,13 @@ month_options = [
         "value": pd.to_datetime(month).strftime('%Y-%m-%d')
     } for month in df['MONTH'].unique()
 ]
+
+# locale.setlocale(locale.LC_ALL, '') # use user's preferred locale
+# locale.setlocale(locale.LC_ALL, 'C') # use default (C) locale
+locale.setlocale(locale.LC_ALL, loc) # restore saved locale
+
+
+
 
 # DACR Dropdown options
 DACRS = list(zoning['DACR'].unique())
@@ -665,8 +675,10 @@ def map_selected_data_table(selectedData, jsonified_cleaned_data):
     #
     fdf = pd.read_json(jsonified_cleaned_data) 
     if fdf.shape[0] > 0 and selected_pos != None:
+        current_locale = locale.getlocale(locale.LC_ALL) # get current locale
+        locale.setlocale(locale.LC_ALL, 'fr_FR')
         fdf = fdf[fdf['POS'].isin(selected_pos)]
-        fdf['MONTH'] = [dt.datetime.fromtimestamp(x / 1e3).strftime("%Y-%m-%d") for x in fdf['MONTH']]
+        fdf['MONTH'] = [dt.datetime.fromtimestamp(x / 1e3).strftime("%b.-%y") for x in fdf['MONTH']]
         fdf['DATE'] = [x.strftime('%Y-%m-%d') for x in fdf['DATE']]
         fdf = fdf.replace({"LAST_VISITE_DATE" : '1970-01-01 00:00:00'},np.nan)
         fdf = fdf.replace({"IMPACT_VISITE" : '-'},np.nan)
@@ -674,7 +686,8 @@ def map_selected_data_table(selectedData, jsonified_cleaned_data):
             columns=tab_columns_rename,
             inplace=True        
         )        
-        fdf = fdf[displayed_columns]        
+        fdf = fdf[displayed_columns]    
+        locale.setlocale(locale.LC_ALL, loc) # restore saved locale    
     else:
         # fdf = pd.DataFrame(columns = displayed_columns)
         fdf = pd.DataFrame()
