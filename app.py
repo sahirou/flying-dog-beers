@@ -31,7 +31,7 @@ import plotly.express as px
 
 #
 import sys
-sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
+# sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
 from controls import overview_layout,mapbox_access_token
 from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
 from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
@@ -95,7 +95,7 @@ VALID_USERNAME_PASSWORD_PAIRS = {
 server = Flask(__name__)
 app = Dash(
     server=server,
-    requests_pathname_prefix='/FlaskApp/',
+    # requests_pathname_prefix='/FlaskApp/',
     external_stylesheets=[dbc.themes.BOOTSTRAP],
     meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
