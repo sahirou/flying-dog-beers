@@ -892,8 +892,8 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
         color_discrete_map=chart_color_dict,
         hover_data = {
             'DACR': True,
-            'ZONE': True,
-            'SECTOR': True,
+             geo_axis: True,
+            # 'SECTOR': True,
             'NOMBRE DE PDVs': True
         }
     )
