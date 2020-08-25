@@ -74,7 +74,7 @@ month_options = [
 
 # locale.setlocale(locale.LC_ALL, '') # use user's preferred locale
 # locale.setlocale(locale.LC_ALL, 'C') # use default (C) locale
-locale.setlocale(locale.LC_ALL, loc) # restore saved locale
+locale.setlocale(locale.LC_ALL, current_locale) # restore saved locale
 
 
 
@@ -687,7 +687,7 @@ def map_selected_data_table(selectedData, jsonified_cleaned_data):
             inplace=True        
         )        
         fdf = fdf[displayed_columns]    
-        locale.setlocale(locale.LC_ALL, loc) # restore saved locale    
+        locale.setlocale(locale.LC_ALL, current_locale) # restore saved locale    
     else:
         # fdf = pd.DataFrame(columns = displayed_columns)
         fdf = pd.DataFrame()
