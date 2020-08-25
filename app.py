@@ -889,7 +889,13 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
         path=[geo_axis, analysis_axis], 
         values='NOMBRE DE PDVs', 
         color=analysis_axis,
-        color_discrete_map=chart_color_dict
+        color_discrete_map=chart_color_dict,
+        hover_data = {
+            'DACR': True,
+            'ZONE': True,
+            'SECTOR': True,
+            'NOMBRE DE PDVs': True
+        }
     )
     fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
 
