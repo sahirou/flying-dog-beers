@@ -1,5 +1,5 @@
 """
-Dash App
+Capillarite OM: Upsales, ONE
 
 """
 import base64
@@ -33,13 +33,13 @@ import locale
 #
 import sys
 # sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
-from controls import overview_layout,mapbox_access_token
+from controls import overview_layout,mapbox_access_token,cached_columns
 from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
 from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
 
 
 
-# Get relative data folder
+# Get relative path : data folder
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("data").resolve()
 UPLOAD_DIRECTORY = PATH.joinpath("app_uploaded_files").resolve()
@@ -47,10 +47,12 @@ UPLOAD_DIRECTORY = PATH.joinpath("app_uploaded_files").resolve()
 if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
 
+
 # init export file
 Path(os.path.join(UPLOAD_DIRECTORY, "extract.csv"),exist_ok=True).touch()
 
-# Load data
+
+# Load main data
 df = pd.read_csv(DATA_PATH.joinpath("upsales_app.csv"),sep=";") #low_memory=False)
 df["DATE"] = pd.to_datetime(df["DATE"])
 df["MONTH"] = pd.to_datetime(df["MONTH"])
@@ -116,13 +118,14 @@ auth = dash_auth.BasicAuth(
     VALID_USERNAME_PASSWORD_PAIRS
 )
 
+# Function for export to csv ability
 @server.route("/download/<path:path>")
 def download(path):
     """Serve a file from the upload directory."""
     return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
 
 
-# Logo
+# load logo
 logo = html.Div(
     [
         html.Img(
@@ -140,9 +143,10 @@ logo = html.Div(
     style={"float":"left"}
 )
 
-# Control form
+# Main form ---------------------------------------------------------------------
 controls = dbc.Card(
     [
+        # Month Dropdown selector
         dbc.FormGroup(
             [
                 dbc.Label("Date",style={'margin-right':'0.5rem','marging-top' : '3rem'}),
@@ -168,7 +172,8 @@ controls = dbc.Card(
                 # ),
             ]
         ),
-        # Activités, Status, Commissions
+
+        # Activity selector
         dbc.FormGroup(
             [
                 html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
@@ -183,6 +188,8 @@ controls = dbc.Card(
                 ),
             ]
         ),
+
+        # Global pos status selector
         dbc.FormGroup(
             [
                 html.Br(),
@@ -196,6 +203,8 @@ controls = dbc.Card(
                 ),
             ]
         ),
+        
+        # Cash In/Out status selector
         dbc.FormGroup(
             [
                 html.Br(),
@@ -210,6 +219,8 @@ controls = dbc.Card(
                 ),
             ]
         ),
+        
+        # Commission perf selector
         dbc.FormGroup(
             [
                 html.Br(),
@@ -224,7 +235,8 @@ controls = dbc.Card(
                 ),
             ]
         ),
-        # Filtres Géo
+
+        # DACR selector
         dbc.FormGroup(
             [
                 html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
@@ -239,6 +251,8 @@ controls = dbc.Card(
                 ),
             ]
         ),
+        
+        # Zone selector
         html.Br(),
         dbc.FormGroup(
             [
@@ -252,6 +266,8 @@ controls = dbc.Card(
                 ),
             ]
         ),
+        
+        # Sector selector
         html.Br(),
         dbc.FormGroup(
             [
@@ -265,7 +281,9 @@ controls = dbc.Card(
                 ),
             ]
         ),
-        # Submit
+        
+        
+        # Submit button
         dbc.FormGroup(
             [
                 html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
@@ -277,7 +295,10 @@ controls = dbc.Card(
     body=True,
 )
 
-# Visu
+
+
+# Visualization tabs ---------------------------------------------------------------------
+# Overview tab content
 tab1_content = dbc.Card(
     dbc.CardBody(
         [
@@ -290,6 +311,7 @@ tab1_content = dbc.Card(
     className="mt-3",
 )
 
+# Map tab content
 tab2_content = dbc.Card(
     dbc.CardBody(
         [
@@ -332,14 +354,14 @@ tab2_content = dbc.Card(
     className="mt-3",
 )
 
-
+# Export tab data to csv content
 tab3_content = dbc.Card(
     dbc.CardBody(
         [
             dbc.Row(
                 [
                     dbc.Col(
-                        html.H4(className="card-title",id="tab_len"),
+                        html.H4(className="card-title",id="export_tab_len"),
                     ),
                     dbc.Col(
                         dbc.Button("Download", color="primary",style={"float":"right"},id="download_button",external_link=True),
@@ -349,7 +371,7 @@ tab3_content = dbc.Card(
             ),
             # html.P(id="tab_len_2"),
             html.Br(),
-            html.Div(id="visu_tab_data",style={'height': '600px','overflow': 'scroll'}),
+            html.Div(id="export_tab_data",style={'height': '600px','overflow': 'scroll'}),
             html.Div(id='intermediate_value', style={'display': 'none'})
             # dbc.Button("Click here", color="success"),
         ]        
@@ -358,6 +380,7 @@ tab3_content = dbc.Card(
 )
 
 
+# All tabs toguether
 tabs = dbc.Tabs(
     [
         dbc.Tab(tab1_content, label="Overview",tab_id="Overview"),
@@ -365,10 +388,11 @@ tabs = dbc.Tabs(
         dbc.Tab(tab3_content, label="Export",tab_id="Export")
     ],
     card=True,
-    active_tab="Map"
+    active_tab="Overview"
 )
 
 
+# Main top bar
 navbar = dbc.Navbar(
     [
         html.A(
@@ -386,6 +410,7 @@ navbar = dbc.Navbar(
     color="light",
     dark=False,
 )
+
 
 # main layout
 app.layout = dbc.Container(
@@ -409,33 +434,28 @@ app.layout = dbc.Container(
         )
 
 
+
 # Back End ---------------------------------------------------------------------
 
-# Zone filtered options
+# filter ZONES and SECTORS by DACRS
 @app.callback(
-    Output("zone_selector", "options"), 
-        [
-            Input("dacr_selector", "value")
-        ]
-    )
+    [
+        Output("zone_selector", "options"),
+        Output("sector_selector", "options")
+    ],
+    [
+        Input("dacr_selector", "value")
+    ]
+)
 def zoning_options(selected_dacrs):
     zones = list(zoning[zoning['DACR'].isin(selected_dacrs)]['ZONE'].unique())
-    return [{'label': zone, 'value': zone} for zone in zones]
-
-
-# Sector filtered options
-@app.callback(
-    Output("sector_selector", "options"), 
-        [
-            Input("dacr_selector", "value")
-        ]
-    )
-def sector_options(selected_dacrs):
     sectors = list(zoning[zoning['DACR'].isin(selected_dacrs)]['SECTEUR'].unique())
-    return [{'label': sector, 'value': sector} for sector in sectors]
+    return [{'label': zone, 'value': zone} for zone in zones], [{'label': sector, 'value': sector} for sector in sectors]
 
 
-# Filter and clean data
+
+
+# Cache cleaned data in hiden div
 @app.callback(
     Output("intermediate_value", "children"),
     [
@@ -475,23 +495,30 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
         fdf = fdf[fdf['SECTEUR'].isin(selected_sectors)]
     #    
     if fdf.shape[0] > 0:
+        fdf = fdf[cached_columns]
         save_file(filename='extract.csv', fdf = fdf)
         filtered_data = fdf.to_json()
     else:
         Path(os.path.join(UPLOAD_DIRECTORY, "extract.csv"),exist_ok=True).touch()
         filtered_data = None
 
-    return filtered_data
+    return filtered_data 
 
 
-# Refesh tab visu
+
+
+
+# Refesh Export table
 @app.callback(
-    Output("visu_tab_data", "children"),
+    [
+        Output("export_tab_data", "children"),
+        Output("export_tab_len", "children")
+    ],
     [
         Input("intermediate_value", "children")
     ]
 )
-def refresh_tab_data(jsonified_cleaned_data):
+def refresh_export_tab_data(jsonified_cleaned_data):
     displayed_columns = ['PDV','MOIS','DATE STATUT','CATEGORIE', 'CANAL', 'STATUT', 'DERNIERE TRANSAC.','DERNIERE VISITE','IMPACTE VISITE','COMMISSIONS','DACR','ZONE', 'SECTEUR']
     fdf = pd.read_json(jsonified_cleaned_data) 
     fdf['MONTH'] = [dt.datetime.fromtimestamp(x / 1e3).strftime("%Y-%m-%d") for x in fdf['MONTH']]
@@ -507,21 +534,12 @@ def refresh_tab_data(jsonified_cleaned_data):
     else:
         fdf = pd.DataFrame()
     
-    return dbc.Table.from_dataframe(df = fdf, striped=True, bordered=True, hover=True,responsive='md')
+    return dbc.Table.from_dataframe(df = fdf, striped=True, bordered=True, hover=True,responsive='md'),"{0} résultat(s) selectionné(s)...".format(f"{pd.read_json(jsonified_cleaned_data).shape[0]:,}".replace(',',' '))
 
 
-# Refesh tab lenght
-@app.callback(
-    Output("tab_len", "children"),
-    [
-        Input("intermediate_value", "children")
-    ]
-)
-def refresh_tab_data(jsonified_cleaned_data):    
-    return "{0} résultat(s) selectionné(s)...".format(f"{pd.read_json(jsonified_cleaned_data).shape[0]:,}".replace(',',' '))
 
 
-# Map
+# Generate Map Layout
 def gen_map_layout(center_lon,center_lat,zomm_start):
     return dict(
         autosize=True,
@@ -544,28 +562,43 @@ def gen_map_layout(center_lon,center_lat,zomm_start):
         ),
     )
 
-def gen_map(map_data,map_theme):
+
+def gen_map_content(map_data,map_theme):
     # groupby returns a dictionary mapping the values of the first field
     # 'classification' onto a list of record dictionaries with that
     # classification value.
     longitudes = [float(x) for x in map_data['LONGITUDE']]
     latitudes = [float(x) for x in map_data['LATITUDE']]
-    status_list = list(map_data['POS_STATUS'].unique())
-    visit_impact_list = list(map_data['IMPACT_VISITE'].unique())
+    status_options = list(map_data['POS_STATUS'].unique())
+    visit_impact_options = list(map_data['IMPACT_VISITE'].unique())
     commission_perf_options = list(map_data['COMMISSION_PERF'].unique())
 
     # Theme = Status des PDVs
     if map_theme == "Status des PDVs":
         traces = []
-        for status in status_list:
+        for status in status_options:
             fdf2 = map_data[map_data['POS_STATUS'] == status]
             trace = dict(
                 type="scattermapbox",
                 lon=[float(x) for x in fdf2['LONGITUDE']],
                 lat=[float(x) for x in fdf2['LATITUDE']],
                 hoverinfo='text',
-                text=[["PDV: {0} <br>LOCALITE: {1} <br>DACR: {2} <br>ZONE: {3} <br>SECTEUR: {4}".format(i,j,k,l,m)]
-                                    for i,j,k,l,m in zip(fdf2['POS'], fdf2['LOCALITE'],fdf2['DACR'],fdf2['ZONE'],fdf2['SECTEUR'])],
+                text=[["""PDV: {0} <br>CATEGORIE: {1} <br>CANAL: {2} <br>STATUS: {3} <br>STATUS CASH IN/OUT: {4} <br>COMMISSIONS: {5} <br>DERNIERE TRANSACTION: {6} <br>DERNIERE VISITE: {7} <br>IMPACT VISITE: {8} <br>SITE: {9} <br>LOCALITE: {10} <br>DACR: {11} <br>ZONE: {12} <br>SECTEUR: {13} <br>""".format(a,b,c,d,e,f,g,h,i,j,k,l,m,n)]
+                                    for a,b,c,d,e,f,g,h,i,j,k,l,m,n in zip(
+                                        fdf2['POS'], 
+                                        fdf2['POS_CAT'],
+                                        fdf2['POS_CHANNEL'],
+                                        fdf2['POS_STATUS'],
+                                        fdf2['CASH_IN_OUT_STATUS'],
+                                        fdf2['COMMISSIONS_AMNT'],
+                                        fdf2['LAST_TR_DATE'],
+                                        fdf2['LAST_VISITE_DATE'],
+                                        fdf2['IMPACT_VISITE'],
+                                        fdf2['SITE'],
+                                        fdf2['LOCALITE'],
+                                        fdf2['DACR'],
+                                        fdf2['ZONE'],
+                                        fdf2['SECTEUR'])],
                 customdata=fdf2["POS"],
                 name=status,
                 marker=dict(
@@ -584,15 +617,29 @@ def gen_map(map_data,map_theme):
     # Theme = Impact des visites
     if map_theme == "Impact des visites":
         traces = []
-        for impact in visit_impact_list:
+        for impact in visit_impact_options:
             fdf2 = map_data[map_data['IMPACT_VISITE'] == impact]
             trace = dict(
                 type="scattermapbox",
                 lon=[float(x) for x in fdf2['LONGITUDE']],
                 lat=[float(x) for x in fdf2['LATITUDE']],
                 hoverinfo='text',
-                text=[["PDV: {0} <br>LOCALITE: {1} <br>DACR: {2} <br>ZONE: {3} <br>SECTEUR: {4}".format(i,j,k,l,m)]
-                                    for i,j,k,l,m in zip(fdf2['POS'], fdf2['LOCALITE'],fdf2['DACR'],fdf2['ZONE'],fdf2['SECTEUR'])],
+                text=[["""PDV: {0} <br>CATEGORIE: {1} <br>CANAL: {2} <br>STATUS: {3} <br>STATUS CASH IN/OUT: {4} <br>COMMISSIONS: {5} <br>DERNIERE TRANSACTION: {6} <br>DERNIERE VISITE: {7} <br>IMPACT VISITE: {8} <br>SITE: {9} <br>LOCALITE: {10} <br>DACR: {11} <br>ZONE: {12} <br>SECTEUR: {13} <br>""".format(a,b,c,d,e,f,g,h,i,j,k,l,m,n)]
+                                    for a,b,c,d,e,f,g,h,i,j,k,l,m,n in zip(
+                                        fdf2['POS'], 
+                                        fdf2['POS_CAT'],
+                                        fdf2['POS_CHANNEL'],
+                                        fdf2['POS_STATUS'],
+                                        fdf2['CASH_IN_OUT_STATUS'],
+                                        fdf2['COMMISSIONS_AMNT'],
+                                        fdf2['LAST_TR_DATE'],
+                                        fdf2['LAST_VISITE_DATE'],
+                                        fdf2['IMPACT_VISITE'],
+                                        fdf2['SITE'],
+                                        fdf2['LOCALITE'],
+                                        fdf2['DACR'],
+                                        fdf2['ZONE'],
+                                        fdf2['SECTEUR'])],
                 customdata=fdf2["POS"],
                 name=impact,
                 marker=dict(
@@ -618,8 +665,22 @@ def gen_map(map_data,map_theme):
                 lon=[float(x) for x in fdf2['LONGITUDE']],
                 lat=[float(x) for x in fdf2['LATITUDE']],
                 hoverinfo='text',
-                text=[["PDV: {0} <br>LOCALITE: {1} <br>DACR: {2} <br>ZONE: {3} <br>SECTEUR: {4}".format(i,j,k,l,m)]
-                                    for i,j,k,l,m in zip(fdf2['POS'], fdf2['LOCALITE'],fdf2['DACR'],fdf2['ZONE'],fdf2['SECTEUR'])],
+                text=[["""PDV: {0} <br>CATEGORIE: {1} <br>CANAL: {2} <br>STATUS: {3} <br>STATUS CASH IN/OUT: {4} <br>COMMISSIONS: {5} <br>DERNIERE TRANSACTION: {6} <br>DERNIERE VISITE: {7} <br>IMPACT VISITE: {8} <br>SITE: {9} <br>LOCALITE: {10} <br>DACR: {11} <br>ZONE: {12} <br>SECTEUR: {13} <br>""".format(a,b,c,d,e,f,g,h,i,j,k,l,m,n)]
+                                    for a,b,c,d,e,f,g,h,i,j,k,l,m,n in zip(
+                                        fdf2['POS'], 
+                                        fdf2['POS_CAT'],
+                                        fdf2['POS_CHANNEL'],
+                                        fdf2['POS_STATUS'],
+                                        fdf2['CASH_IN_OUT_STATUS'],
+                                        fdf2['COMMISSIONS_AMNT'],
+                                        fdf2['LAST_TR_DATE'],
+                                        fdf2['LAST_VISITE_DATE'],
+                                        fdf2['IMPACT_VISITE'],
+                                        fdf2['SITE'],
+                                        fdf2['LOCALITE'],
+                                        fdf2['DACR'],
+                                        fdf2['ZONE'],
+                                        fdf2['SECTEUR'])],
                 customdata=fdf2["POS"],
                 name=commission_perf,
                 marker=dict(
@@ -648,12 +709,7 @@ def gen_map(map_data,map_theme):
 )
 def refresh_map(jsonified_cleaned_data,map_theme):
     source_data = pd.read_json(jsonified_cleaned_data)
-    # tmp = list(source_data['LATITUDE'])
-    # lat = [float(x) for x in tmp]
-    # tmp = list(source_data['LONGITUDE'])
-    # lon = [float(x) for x in tmp]
-    # popup = list(source_data['POS'])
-    return gen_map(source_data,map_theme)
+    return gen_map_content(source_data,map_theme)
 
 
 
@@ -764,6 +820,8 @@ def update_output(n_clicks):
     ]
 )
 def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
+    if json.dumps(jsonified_cleaned_data,indent=2) == "null":
+        return px.sunburst()         #emptyFig()
     # Axe definition
     if selected_axis == 'Statut des PDVs':
         analysis_axis = 'POS_STATUS'
@@ -844,7 +902,11 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
     ]
 )
 def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filter,selected_axis):
-    # Axe definition
+    # Init chart when none click
+    if json.dumps(clickData,indent=2) == "null":
+        return px.sunburst()
+
+    # Axe definition    
     if selected_axis == 'Statut des PDVs':
         analysis_axis = 'POS_STATUS'
     else:
@@ -884,7 +946,8 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
     else:
         chart_color_dict = {x:impact_markers_colors[x] for x in dacr_data[analysis_axis]}
 
-    fig = go.sunburst(
+    
+    fig = px.sunburst(
         dacr_data, 
         path=[geo_axis, analysis_axis], 
         values='NOMBRE DE PDVs', 
@@ -893,6 +956,8 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
         # hovertemplate='<extra>{fullData.DACR}</extra>'        
     )
     fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
+
+    
 
     return fig
 
