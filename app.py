@@ -26,9 +26,17 @@ from pathlib import Path
 import json
 # import dash_table
 import dash_auth
-from controls import overview_layout
+import plotly.figure_factory as ff
+import plotly.express as px
 
-mapbox_access_token = 'pk.eyJ1Ijoic2FuaXJvdSIsImEiOiJja2U0cWwweDEwdnlhMnpsZm9oeWJzNm84In0.Xwoh5FQDOPwq-vUWFqzEcA'
+#
+import sys
+# sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
+from controls import overview_layout,mapbox_access_token
+from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
+from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
+
+
 
 # Get relative data folder
 PATH = pathlib.Path(__file__).parent
@@ -61,6 +69,23 @@ month_options = [
     } for month in df['MONTH'].unique()
 ]
 
+# DACR Dropdown options
+DACRS = list(zoning['DACR'].unique())
+dacr_options = [
+    {"label": dacr, "value": dacr} for dacr in DACRS
+]
+
+# Zone Dropdown options
+ZONES = list(zoning['ZONE'].unique())
+zone_options = [
+    {"label": zone, "value": zone} for zone in ZONES
+]
+
+# Sector Dropdown options
+SECTEURS = list(zoning['SECTEUR'].unique())
+secteur_options = [
+    {"label": secteur, "value": secteur} for secteur in SECTEURS
+]
 
 # Keep this out of source code repository - save in a file or a database
 VALID_USERNAME_PASSWORD_PAIRS = {
@@ -68,7 +93,12 @@ VALID_USERNAME_PASSWORD_PAIRS = {
 }
 
 server = Flask(__name__)
-app = Dash(server=server,external_stylesheets=[dbc.themes.BOOTSTRAP],meta_tags=[{"name": "viewport", "content": "width=device-width"}])
+app = Dash(
+    server=server,
+    # requests_pathname_prefix='/FlaskApp/',
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    meta_tags=[{"name": "viewport", "content": "width=device-width"}]
+)
 app.title = "Capillarité"
 
 auth = dash_auth.BasicAuth(
@@ -82,145 +112,22 @@ def download(path):
     return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
 
 
-# load data
-
-
-# DACR Dropdown options
-DACRS = list(zoning['DACR'].unique())
-dacr_options = [
-    {"label": dacr, "value": dacr} for dacr in DACRS
-]
-
-# Zone Dropdown options
-ZONES = list(zoning['ZONE'].unique())
-zone_options = [
-    {"label": zone, "value": zone} for zone in ZONES
-]
-
-
-# Sector Dropdown options
-SECTEURS = list(zoning['SECTEUR'].unique())
-secteur_options = [
-    {"label": secteur, "value": secteur} for secteur in SECTEURS
-]
-
-# POS activity Dropdown options
-ACTIVITIES = [
-    'Orange Money'
-]
-activity_options = [
-    {"label": activity, "value": activity} for activity in ACTIVITIES
-]
-
-# POS global stutus options
-STATUS = [
-    'Actif',
-    'Futur inactif',
-    'Inactif récent',
-    'Inactif âgé'
-]
-status_options = [
-    {"label": status, "value": status} for status in STATUS
-]
-
-# POS cx status options
-OM_CX_CATEGORIES = [
-    'Performant',
-    'Presque performant',
-    'Non performant'
-]
-om_cx_category_options = [
-    {"label": category, "value": category} for category in OM_CX_CATEGORIES
-]
-
-MAP_THEMES_VALUES = [
-    "Status des PDVs",
-    "Impact des visites",
-    "Commissions"
-]
-MAP_THEMES_LABEL = {
-    "Status des PDVs": "Status des PDVs",
-    "Impact des visites": "Impact des visites",
-    "Commissions": "Commissions mensuelles ≥ 1 000F"
-}
-map_theme_options = [
-    {"label": MAP_THEMES_LABEL[map_theme], "value": map_theme} for map_theme in MAP_THEMES_VALUES
-]
-
-
-# Colors
-COLORS = {
-    'foucha' : '#ff00ff'
-}
-
-# Status Colors
-status_markers_colors = {
-    'Actif': 'green',
-    'Futur inactif': 'blue',
-    'Inactif récent': 'orange',
-    'Inactif âgé': 'red'
-}
-
-# Impact Colors
-impact_markers_colors = {
-    'A réagi': 'green',
-    'A maintenu son statut': 'orange',
-    "N'a pas réagi": 'red',
-    'Jamais visité': 'black',
-    'Non visité' : 'rgb(153,153,153)',
-    "Nouveau PDV visité" : 'blue'
-}
-
-# Commissions Colors
-commission_markers_colors = {
-    'Oui': 'green',
-    'Non': 'red'
-}
-
-
-
-table_style = {
-	'align-items': 'center',
-	'border-radius': '5px',
-	'background-color': 'white',
-	'margin': '0.5rem',
-	'padding': '1rem',
-	'position': 'relative',
-	'border': '1px solid #f1f1f1',
-    'height': '500px',
-	'overflow': 'scroll'
-}
-
-tab_columns_rename = {
-    'POS': 'PDV',
-    'MONTH': 'MOIS',
-    'DATE': 'DATE STATUT',
-    'POS_CAT': 'CATEGORIE',
-    'POS_CHANNEL': 'CANAL',
-    'POS_GROUP': 'GROUPE',
-    'POS_STATUS': 'STATUT',
-    'LAST_TR_DATE': 'DERNIERE TRANSAC.',
-    'LAST_VISITE_DATE': 'DERNIERE VISITE',
-    'IMPACT_VISITE': 'IMPACTE VISITE',
-    'COMMISSIONS_AMNT': 'COMMISSIONS'
-}
-
-
 # Logo
 logo = html.Div(
     [
         html.Img(
-            src=app.get_asset_url("orange_logo.png"),
+            src=app.get_asset_url("orange.com.png"),
             id="logo_orange",
             style={
                 "height": "60px",
                 "width": "auto",
-                "margin-bottom": "25px",
+                "float": "left",
+                'margin-right': '1.5rem'
             }
         )
     ],
     className="dash-bootstrap",
-    style={"float":"right"}
+    style={"float":"left"}
 )
 
 # Control form
@@ -364,7 +271,7 @@ controls = dbc.Card(
 tab1_content = dbc.Card(
     dbc.CardBody(
         [
-            html.P("Overview", className="card-text"),
+            # html.P("Overview", className="card-text"),
             # dbc.Button("Click here", color="success"),
             overview_layout,
         ],
@@ -452,12 +359,35 @@ tabs = dbc.Tabs(
     active_tab="Map"
 )
 
+
+navbar = dbc.Navbar(
+    [
+        html.A(
+            # Use row and col to control vertical alignment of logo / brand
+            dbc.Row(
+                [
+                    dbc.Col(html.Img(src=app.get_asset_url("orange.com.png"), height="60px")),
+                    dbc.Col(dbc.NavbarBrand("Capillarité Orange Monney   |   Update: 2020-08-16", className="ml-2",style={"font-weight": "bold","fontSize": "1.5rem"})),
+                ],
+                align="center",
+                # no_gutters=True,
+            ),
+        )
+    ],
+    color="light",
+    dark=False,
+)
+
 # main layout
 app.layout = dbc.Container(
             [
-                html.H1("Capillarité Orange Niger",className="display-5",style={'margin-top':'2rem'}),
+              
                 # logo,
-                html.Hr(className="dash-bootstrap",style={'margin-bottom':'2rem','border-top': '1px solid rgb(200,200,200)'}),
+                # html.H1("Capillarité Orange Money",style={'margin': 0}),      
+                navbar,  
+                html.Br(),  
+                html.Br(),       
+                # html.Hr(className="dash-bootstrap",style={'margin-bottom':'2rem','border-top': '1px solid rgb(200,200,200)'}),
                 dbc.Row(
                     [
                         dbc.Col(controls, md=4),
@@ -809,9 +739,171 @@ def update_output(n_clicks):
 # Fonctionnalié *************************************************************************************************
 
 
+@app.callback(
+    [
+        Output('overview_dacr_chart','figure'),
+        Output('overview_main_comment_main_str','children'),
+        Output('overview_main_comment_detail_str','children')
+    ],
+    [
+        Input('intermediate_value', 'children'),
+        Input('overwiew_axe_selector', 'value')
+    ]
+)
+def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
+    # Axe definition
+    if selected_axis == 'Statut des PDVs':
+        analysis_axis = 'POS_STATUS'
+    else:
+        analysis_axis = 'IMPACT_VISITE'
+
+    # Load and filter data
+    df2 = pd.read_json(jsonified_cleaned_data)
+    # DACR POS CNT
+    dacr_data = (
+    df2
+    .groupby(['MONTH','DACR',analysis_axis])
+    .agg({"POS" : "nunique"})
+    .reset_index()
+    .rename(columns={"POS" : "NOMBRE DE PDVs"})
+    # .pivot(index="DACR",columns='POS_STATUS',values='POS_CNT')
+    # .reset_index()
+    )
+
+    # Chart colo dict
+    if selected_axis == 'Statut des PDVs':
+        chart_color_dict = {x:status_markers_colors[x] for x in dacr_data[analysis_axis]}
+    else:
+        chart_color_dict = {x:impact_markers_colors[x] for x in dacr_data[analysis_axis]}
+
+    # Chart
+    fig = px.sunburst(dacr_data, path=['DACR', analysis_axis], values='NOMBRE DE PDVs', color=analysis_axis,color_discrete_map=chart_color_dict)
+    fig.update_layout(
+        margin = dict(t=5, l=5, r=5, b=5)
+        # color  = [x:status_markers_colors[x] for x in dacr_data['POS_STATUS']]
+    )
+
+
+    # Overview comments
+    if selected_axis == 'Statut des PDVs':
+        main_str = """
+        {0} PDV(s) actif(s) au {1}.
+        """.format(
+            dacr_data[dacr_data['POS_STATUS'].isin(['Actif','Futur inactif'])]['NOMBRE DE PDVs'].sum(),
+            DateSup
+        )
+        detail_str = """
+        {0} actif(s) et {1} futur inactis(s). Ces PDVs sont repartis comme suit:
+        """.format(
+            dacr_data[dacr_data['POS_STATUS'].isin(['Actif'])]['NOMBRE DE PDVs'].sum(),
+            dacr_data[dacr_data['POS_STATUS'].isin(['Futur inactif'])]['NOMBRE DE PDVs'].sum()
+        )
+    else:
+        main_str = """
+        {0} PDV(s) ont été visités en {1}.
+        """.format(
+            dacr_data[dacr_data['IMPACT_VISITE'].isin(["N'a pas réagi", 'A réagi','Nouveau PDV visité', 'A maintenu son statut'])]['NOMBRE DE PDVs'].sum(),
+            MonthSup
+        )
+        detail_str = """
+        {0} ont réagi suite à la visite, {1} ont maintenu leur statut, {2} n'ont pas réagi et {3} nouveaux PDV visités.  
+        """.format(
+            dacr_data[dacr_data['IMPACT_VISITE'].isin(['A réagi'])]['NOMBRE DE PDVs'].sum(),
+            dacr_data[dacr_data['IMPACT_VISITE'].isin(['A maintenu son statut'])]['NOMBRE DE PDVs'].sum(),
+            dacr_data[dacr_data['IMPACT_VISITE'].isin(["N'a pas réagi"])]['NOMBRE DE PDVs'].sum(),
+            dacr_data[dacr_data['IMPACT_VISITE'].isin(['Nouveau PDV visité'])]['NOMBRE DE PDVs'].sum(),
+        )
+
+    return fig, main_str, detail_str
 
 
 
+
+
+
+@app.callback(
+    Output('overview_zone_sector_chart','figure'),
+    [
+        Input('intermediate_value', 'children'),
+        Input('overview_dacr_chart', 'clickData'),
+        Input('overwiew_geo_filter', 'value'),
+        Input('overwiew_axe_selector', 'value')
+    ]
+)
+def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filter,selected_axis):
+    # Axe definition
+    if selected_axis == 'Statut des PDVs':
+        analysis_axis = 'POS_STATUS'
+    else:
+        analysis_axis = 'IMPACT_VISITE'
+
+    # Clicked DACR
+    if clickData['points'][0]['currentPath'] == '/':
+        dacr_name = clickData['points'][0]['id']
+    elif clickData['points'][0]['currentPath'] in ['/Agadez/','/Diffa/','/Dosso/','/Maradi/','/Niamey/','/Tahoua/','/Tillaberi/','/Zinder/']:
+        dacr_name = clickData['points'][0]['parent']
+    else:
+        dacr_name = "Agadez"
+
+    # load pos data
+    df2 = pd.read_json(jsonified_cleaned_data)
+    df2 = df2[df2['DACR'] == dacr_name]
+
+    if geo_filter == 'Zones':
+        geo_axis = "ZONE"
+    else:
+        geo_axis = "SECTEUR"
+
+    # AGG DATA
+    dacr_data = (
+    df2
+    .groupby(['MONTH','DACR',geo_axis,analysis_axis])
+    .agg({"POS" : "nunique"})
+    .reset_index()
+    .rename(columns={"POS" : "NOMBRE DE PDVs"})
+    # .pivot(index="DACR",columns='POS_STATUS',values='POS_CNT')
+    # .reset_index()
+    )
+
+    # Chart colo dict
+    if selected_axis == 'Statut des PDVs':
+        chart_color_dict = {x:status_markers_colors[x] for x in dacr_data[analysis_axis]}
+    else:
+        chart_color_dict = {x:impact_markers_colors[x] for x in dacr_data[analysis_axis]}
+
+    fig = px.sunburst(
+        dacr_data, 
+        path=[geo_axis, analysis_axis], 
+        values='NOMBRE DE PDVs', 
+        color=analysis_axis,
+        color_discrete_map=chart_color_dict
+    )
+    fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
+
+    return fig
+
+
+
+
+
+
+@app.callback(
+    Output('click_data','children'),
+    [
+        Input('overview_dacr_chart', 'clickData')
+    ]
+)
+def json_print(clickData):
+    # return json.dumps(clickData,indent=2)
+    # data = json.dumps(clickData,indent=2)
+    data = clickData
+    if data['points'][0]['currentPath'] == '/':
+        dacr_name = data['points'][0]['id']
+    elif data['points'][0]['currentPath'] in ['/Agadez/','/Diffa/','/Dosso/','/Maradi/','/Niamey/','/Tahoua/','/Tillaberi/','/Zinder/']:
+        dacr_name = data['points'][0]['parent']
+    else:
+        dacr_name = None
+    return dacr_name
 
 
 if __name__ == "__main__":
