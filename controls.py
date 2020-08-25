@@ -214,12 +214,13 @@ overview_layout = dbc.Card(
 
             html.Br(),            
             html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
-            html.Br(),
-            dbc.Row(
-                [
-                    html.Pre(id='click_data',style={'paddingTop':35})
-                ]
-            )
+            html.Br()
+            html.Br()
+            # dbc.Row(
+            #    [
+            #        html.Pre(id='click_data',style={'paddingTop':35})
+            #    ]
+            # )
         ]        
     ),
     className="mt-3"
