@@ -31,7 +31,7 @@ import plotly.express as px
 
 #
 import sys
-# sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
+sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
 from controls import overview_layout,mapbox_access_token
 from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
 from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
@@ -95,7 +95,7 @@ VALID_USERNAME_PASSWORD_PAIRS = {
 server = Flask(__name__)
 app = Dash(
     server=server,
-    # requests_pathname_prefix='/FlaskApp/',
+    requests_pathname_prefix='/FlaskApp/',
     external_stylesheets=[dbc.themes.BOOTSTRAP],
     meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
@@ -793,7 +793,7 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
             DateSup
         )
         detail_str = """
-        {0} actif(s) et {1} futur inactis(s). Ces PDVs sont repartis comme suit:
+        {0} actif(s) et {1} futur inactis(s).
         """.format(
             dacr_data[dacr_data['POS_STATUS'].isin(['Actif'])]['NOMBRE DE PDVs'].sum(),
             dacr_data[dacr_data['POS_STATUS'].isin(['Futur inactif'])]['NOMBRE DE PDVs'].sum()
@@ -884,32 +884,23 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
 
 
 
-
-
-
-@app.callback(
-    Output('click_data','children'),
-    [
-        Input('overview_dacr_chart', 'clickData')
-    ]
-)
-def json_print(clickData):
-    # return json.dumps(clickData,indent=2)
-    # data = json.dumps(clickData,indent=2)
-    data = clickData
-    if data['points'][0]['currentPath'] == '/':
-        dacr_name = data['points'][0]['id']
-    elif data['points'][0]['currentPath'] in ['/Agadez/','/Diffa/','/Dosso/','/Maradi/','/Niamey/','/Tahoua/','/Tillaberi/','/Zinder/']:
-        dacr_name = data['points'][0]['parent']
-    else:
-        dacr_name = None
-    return dacr_name
-
-
-
-
-
-
+# @app.callback(
+#     Output('click_data','children'),
+#     [
+#         Input('overview_dacr_chart', 'clickData')
+#     ]
+# )
+# def json_print(clickData):
+#     # return json.dumps(clickData,indent=2)
+#     # data = json.dumps(clickData,indent=2)
+#     data = clickData
+#     if data['points'][0]['currentPath'] == '/':
+#         dacr_name = data['points'][0]['id']
+#     elif data['points'][0]['currentPath'] in ['/Agadez/','/Diffa/','/Dosso/','/Maradi/','/Niamey/','/Tahoua/','/Tillaberi/','/Zinder/']:
+#         dacr_name = data['points'][0]['parent']
+#     else:
+#         dacr_name = None
+#     return dacr_name
 
 
 
