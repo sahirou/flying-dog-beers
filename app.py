@@ -297,12 +297,11 @@ tab2_content = dbc.Card(
                 ]
             ),
             html.Br(),
+            html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(255,89,0)'}),
             html.Br(),
             # html.P("Map", className="card-text"),
             dcc.Graph(id="mapbox_fig"),
-            # dbc.Button("Click here", color="success"),
-            html.Br(),            
-            # html.P(id="tab_len_2"),
+            html.Br(), 
             html.Br(),
             html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(255,89,0)'}),
             html.Br(),
@@ -518,6 +517,7 @@ def gen_map_layout(center_lon,center_lat,zomm_start):
         autosize=True,
         automargin=True,
         height=600,
+        # width='100%',
         # margin=dict(l=30, r=30, b=20, t=40),
         margin=dict(l=0, r=0, b=0, t=0),
         showlegend=True,
@@ -904,6 +904,14 @@ def json_print(clickData):
     else:
         dacr_name = None
     return dacr_name
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
