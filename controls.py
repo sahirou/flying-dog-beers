@@ -214,7 +214,7 @@ overview_layout = dbc.Card(
 
             html.Br(),            
             html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
-            html.Br()
+            html.Br(),
             html.Br()
             # dbc.Row(
             #    [
