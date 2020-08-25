@@ -1,6 +1,7 @@
 import dash_html_components as html
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
+import plotly.graph_objects as go
 
 mapbox_access_token = 'pk.eyJ1Ijoic2FuaXJvdSIsImEiOiJja2U0cWwweDEwdnlhMnpsZm9oeWJzNm84In0.Xwoh5FQDOPwq-vUWFqzEcA'
 
@@ -175,11 +176,11 @@ overview_layout = dbc.Card(
                     html.Br(),
                     html.Br(),
                     dcc.Graph(
-                        id="overview_dacr_chart",
-                        style={'justify':'center'}
+                        id="overview_dacr_chart"  
                     ),
-                    html.Br(), 
-                ]
+                    html.Br()
+                ],justify="center", align="center", className="h-50"
+                # style={'justify':'center','align':'center'} 
             ),
 
             # ZONE/SECTOR
@@ -208,20 +209,50 @@ overview_layout = dbc.Card(
                         id="overview_zone_sector_chart"
                     ),
                     html.Br(), 
-                ],               
+                ], justify="center", align="center", className="h-50"              
             ),
 
 
             html.Br(),            
             html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
             html.Br(),
-            html.Br()
-            # dbc.Row(
-            #    [
-            #        html.Pre(id='click_data',style={'paddingTop':35})
-            #    ]
-            # )
+            html.Br(),
+            dbc.Row(
+               [
+                   html.Pre(id='click_data',style={'paddingTop':35})
+               ]
+            )
         ]        
     ),
     className="mt-3"
 )
+
+
+cached_columns = [
+    "POS",
+    "MONTH",
+    "DATE",
+    "POS_CAT",
+    "POS_CHANNEL",
+    "POS_GROUP",
+    "LAST_TR_DATE",
+    "POS_STATUS",
+    "CASH_IN_OUT_STATUS",
+    "SITE",
+    "LOCALITE",
+    "MILIEU",
+    "ZONE",
+    "DACR",
+    "BALANCE",
+    "LONGITUDE",
+    "LATITUDE",
+    "LOCALISATION",
+    "SECTEUR",
+    "LAST_VISITE_DATE",
+    "VISITE",
+    "COMMISSIONS_AMNT",
+    "IMPACT_VISITE",
+    "COMMISSION_PERF"
+]
+
+
