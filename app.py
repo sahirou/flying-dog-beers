@@ -830,6 +830,8 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
 
     # Load and filter data
     df2 = pd.read_json(jsonified_cleaned_data)
+    status_date  = pd.to_datetime(df2['DATE'].max()).strftime('%d') + ' ' + MONTH_NAMES[pd.to_datetime(df2['DATE'].max()).strftime('%B')] + ' ' + pd.to_datetime(df2['DATE'].max()).strftime('%Y')
+    status_month  = MONTH_NAMES[pd.to_datetime(df2['DATE'].max()).strftime('%B')] + ' ' + pd.to_datetime(df2['DATE'].max()).strftime('%Y')
     # DACR POS CNT
     dacr_data = (
     df2
@@ -861,7 +863,7 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
         {0} PDV(s) actif(s) au {1}.
         """.format(
             dacr_data[dacr_data['POS_STATUS'].isin(['Actif','Futur inactif'])]['NOMBRE DE PDVs'].sum(),
-            DateSup
+            status_date
         )
         detail_str = """
         {0} actif(s) et {1} futur inactis(s).
@@ -874,7 +876,7 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
         {0} PDV(s) ont été visités en {1}.
         """.format(
             dacr_data[dacr_data['IMPACT_VISITE'].isin(["N'a pas réagi", 'A réagi','Nouveau PDV visité', 'A maintenu son statut'])]['NOMBRE DE PDVs'].sum(),
-            MonthSup
+            status_month
         )
         detail_str = """
         {0} ont réagi suite à la visite, {1} ont maintenu leur statut, {2} n'ont pas réagi et {3} nouveaux PDV visités.  
