@@ -33,7 +33,7 @@ import locale
 #
 import sys
 # sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
-from controls import overview_layout,mapbox_access_token,cached_columns
+from controls import overview_layout,mapbox_access_token,cached_columns,MONTH_NAMES
 from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
 from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
 
@@ -63,13 +63,13 @@ zoning = df[['DACR','ZONE','SECTEUR']].drop_duplicates(keep='first')
 # current_date = date_sup
 # current_locale = locale.getlocale(locale.LC_ALL) # get current locale
 # locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
-MONTHS = [pd.to_datetime(x).strftime('%B %Y') for x in df['MONTH'].unique()]
-MonthSup = pd.to_datetime(df['MONTH'].max()).strftime('%B %Y')
+MONTHS = [MONTH_NAMES[pd.to_datetime(x).strftime('%B')] + ' ' + pd.to_datetime(x).strftime('%Y') for x in df['MONTH'].unique()]
+MonthSup = MONTH_NAMES[pd.to_datetime(df['MONTH'].max()).strftime('%B')] + ' ' + pd.to_datetime(df['MONTH'].max()).strftime('%Y')
 MonthSupValue  = pd.to_datetime(df['MONTH'].max()).strftime('%Y-%m-%d')
-DateSup  = pd.to_datetime(df['DATE'].max()).strftime('%d %B %Y')
+DateSup  = pd.to_datetime(df['DATE'].max()).strftime('%d') + ' ' + MONTH_NAMES[pd.to_datetime(df['DATE'].max()).strftime('%B')] + ' ' + pd.to_datetime(df['DATE'].max()).strftime('%Y')
 month_options = [
     {
-        "label": pd.to_datetime(month).strftime('%B %Y'), 
+        "label": MONTH_NAMES[pd.to_datetime(month).strftime('%B')] + ' ' + pd.to_datetime(month).strftime('%Y'), 
         "value": pd.to_datetime(month).strftime('%Y-%m-%d')
     } for month in df['MONTH'].unique()
 ]
