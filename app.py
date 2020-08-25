@@ -285,7 +285,7 @@ tab2_content = dbc.Card(
         [
             dbc.FormGroup(
                 [
-                    html.H4("Choisir le thème",className="card-title",style={'width':'50%','float':'left'}),
+                    html.H4("Axe d'analyse ... ",className="card-title",style={'width':'50%','float':'left'}),
                     dcc.Dropdown(
                         id="map_theme_selector",
                         placeholder="Select theme",
@@ -297,13 +297,13 @@ tab2_content = dbc.Card(
                 ]
             ),
             html.Br(),
-            html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(255,89,0)'}),
+            html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
             html.Br(),
             # html.P("Map", className="card-text"),
             dcc.Graph(id="mapbox_fig"),
             html.Br(), 
             html.Br(),
-            html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(255,89,0)'}),
+            html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
             html.Br(),
             dbc.Row(
                 [
@@ -508,7 +508,7 @@ def refresh_tab_data(jsonified_cleaned_data):
     ]
 )
 def refresh_tab_data(jsonified_cleaned_data):    
-    return "{0} résultat(s) trouvé(s)...".format(f"{pd.read_json(jsonified_cleaned_data).shape[0]:,}".replace(',',' '))
+    return "{0} résultat(s) selectionné(s)...".format(f"{pd.read_json(jsonified_cleaned_data).shape[0]:,}".replace(',',' '))
 
 
 # Map
