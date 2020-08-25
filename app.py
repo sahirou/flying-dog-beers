@@ -890,7 +890,7 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
         values='NOMBRE DE PDVs', 
         color=analysis_axis,
         color_discrete_map=chart_color_dict
-        # hovertemplate='<b>%{label} </b> <br> DACR: %{DACR}<br> Value: %{'NOMBRE DE PDVs':.2f}'        
+        hovertemplate='<extra>{fullData.DACR}</extra>'        
     )
     fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
 
