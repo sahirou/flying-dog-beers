@@ -884,7 +884,7 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
     else:
         chart_color_dict = {x:impact_markers_colors[x] for x in dacr_data[analysis_axis]}
 
-    fig = px.sunburst(
+    fig = go.sunburst(
         dacr_data, 
         path=[geo_axis, analysis_axis], 
         values='NOMBRE DE PDVs', 
