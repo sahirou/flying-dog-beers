@@ -59,8 +59,8 @@ zoning = df[['DACR','ZONE','SECTEUR']].drop_duplicates(keep='first')
 # date_sup =  pd.to_datetime(str(max(df['DATE']))).strftime('%Y-%m-%d')
 # date_inf =  pd.to_datetime(str(min(df['DATE']))).strftime('%Y-%m-%d')
 # current_date = date_sup
-current_locale = locale.getlocale(locale.LC_ALL) # get current locale
-locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
+# current_locale = locale.getlocale(locale.LC_ALL) # get current locale
+# locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
 MONTHS = [pd.to_datetime(x).strftime('%B %Y') for x in df['MONTH'].unique()]
 MonthSup = pd.to_datetime(df['MONTH'].max()).strftime('%B %Y')
 MonthSupValue  = pd.to_datetime(df['MONTH'].max()).strftime('%Y-%m-%d')
@@ -74,7 +74,7 @@ month_options = [
 
 # locale.setlocale(locale.LC_ALL, '') # use user's preferred locale
 # locale.setlocale(locale.LC_ALL, 'C') # use default (C) locale
-locale.setlocale(locale.LC_ALL, current_locale) # restore saved locale
+# locale.setlocale(locale.LC_ALL, current_locale) # restore saved locale
 
 
 
@@ -675,8 +675,8 @@ def map_selected_data_table(selectedData, jsonified_cleaned_data):
     #
     fdf = pd.read_json(jsonified_cleaned_data) 
     if fdf.shape[0] > 0 and selected_pos != None:
-        current_locale = locale.getlocale(locale.LC_ALL) # get current locale
-        locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
+        # current_locale = locale.getlocale(locale.LC_ALL) # get current locale
+        # locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
         fdf = fdf[fdf['POS'].isin(selected_pos)]
         fdf['MONTH'] = [dt.datetime.fromtimestamp(x / 1e3).strftime("%b.-%y") for x in fdf['MONTH']]
         fdf['DATE'] = [x.strftime('%Y-%m-%d') for x in fdf['DATE']]
@@ -687,7 +687,7 @@ def map_selected_data_table(selectedData, jsonified_cleaned_data):
             inplace=True        
         )        
         fdf = fdf[displayed_columns]    
-        locale.setlocale(locale.LC_ALL, current_locale) # restore saved locale    
+        # locale.setlocale(locale.LC_ALL, current_locale) # restore saved locale    
     else:
         # fdf = pd.DataFrame(columns = displayed_columns)
         fdf = pd.DataFrame()
