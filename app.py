@@ -149,7 +149,7 @@ controls = dbc.Card(
         # Month Dropdown selector
         dbc.FormGroup(
             [
-                dbc.Label("Date",style={'margin-right':'0.5rem','marging-top' : '3rem'}),
+                dbc.Label("Mois",style={'margin-right':'0.5rem','marging-top' : '3rem'}),
                 html.Br(),
                 dcc.Dropdown(
                     id="month_selector",
