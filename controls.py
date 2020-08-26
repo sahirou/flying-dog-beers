@@ -283,3 +283,6 @@ MONTH_NAMES = {
     'Nov.' : 'Nov.',
     'Dec.': 'Déc.'
 }
+
+def format_int(x):
+    return f"{x:,}".replace(',',' ')
