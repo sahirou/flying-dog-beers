@@ -66,7 +66,7 @@ zoning = df[['DACR','ZONE','SECTEUR']].drop_duplicates(keep='first')
 MONTHS = [MONTH_NAMES[pd.to_datetime(x).strftime('%B')] + ' ' + pd.to_datetime(x).strftime('%Y') for x in df['MONTH'].unique()]
 MonthSup = MONTH_NAMES[pd.to_datetime(df['MONTH'].max()).strftime('%B')] + ' ' + pd.to_datetime(df['MONTH'].max()).strftime('%Y')
 MonthSupValue  = pd.to_datetime(df['MONTH'].max()).strftime('%Y-%m-%d')
-DateSup  = pd.to_datetime(df['DATE'].max()).strftime('%d') + ' ' + MONTH_NAMES[pd.to_datetime(df['DATE'].max()).strftime('%B')] + ' ' + pd.to_datetime(df['DATE'].max()).strftime('%Y')
+DateSup  = pd.to_datetime(df['DATE'].max()).strftime('%d') + ' ' + MONTH_NAMES[pd.to_datetime(df['DATE'].max()).strftime('%B')].lower() + ' ' + pd.to_datetime(df['DATE'].max()).strftime('%Y')
 month_options = [
     {
         "label": MONTH_NAMES[pd.to_datetime(month).strftime('%B')] + ' ' + pd.to_datetime(month).strftime('%Y'), 
@@ -399,11 +399,11 @@ navbar = dbc.Navbar(
             # Use row and col to control vertical alignment of logo / brand
             dbc.Row(
                 [
-                    dbc.Col(html.Img(src=app.get_asset_url("logo_upsales.jfif"), height="60px")),
-                    dbc.Col(dbc.NavbarBrand("Capillarité Orange Monney   |   Update: 2020-08-16", className="ml-2",style={"font-weight": "bold","fontSize": "1.5rem"})),
+                    dbc.Col(html.Img(src=app.get_asset_url("logo_upsales.jfif"), height="60px"),md=3),
+                    dbc.Col(dbc.NavbarBrand("Capillarité Orange Money | {0}".format(DateSup), className="ml-2",style={"font-weight": "bold","fontSize": "2rem"})),
                 ],
                 align="center",
-                # no_gutters=True,
+                no_gutters=True
             ),
         )
     ],
