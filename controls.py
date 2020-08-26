@@ -217,11 +217,11 @@ overview_layout = dbc.Card(
             html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
             html.Br(),
             html.Br(),
-            dbc.Row(
-               [
-                   html.Pre(id='click_data',style={'paddingTop':35})
-               ]
-            )
+            # dbc.Row(
+            #    [
+            #        html.Pre(id='click_data',style={'paddingTop':35})
+            #    ]
+            # )
         ]        
     ),
     className="mt-3"
@@ -268,5 +268,18 @@ MONTH_NAMES = {
     'September' : 'Septembre',
     'October' : 'Octobre',
     'November' : 'Novembre',
-    'December': 'Décembre'
+    'December': 'Décembre',
+    #
+    'Jan.': 'Janv.',
+    'Feb.': 'Févr.',
+    'Mar.' : 'Mars.',
+    'Apr.' : 'Avr.',
+    'May' : 'Mai.',
+    'Jun.' : 'Juin.',
+    'Jul.' : 'Juil.',
+    'Aug.' : 'Août.',
+    'Sep.' : 'Sept.',
+    'Oct.' : 'Oct.',
+    'Nov.' : 'Nov.',
+    'Dec.': 'Déc.'
 }

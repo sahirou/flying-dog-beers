@@ -129,8 +129,8 @@ def download(path):
 logo = html.Div(
     [
         html.Img(
-            src=app.get_asset_url("orange.com.png"),
-            id="logo_orange",
+            src=app.get_asset_url("logo_upsales.jfif"),
+            id="logo_upsales",
             style={
                 "height": "60px",
                 "width": "auto",
@@ -399,7 +399,7 @@ navbar = dbc.Navbar(
             # Use row and col to control vertical alignment of logo / brand
             dbc.Row(
                 [
-                    dbc.Col(html.Img(src=app.get_asset_url("orange.com.png"), height="60px")),
+                    dbc.Col(html.Img(src=app.get_asset_url("logo_upsales.jfif"), height="60px")),
                     dbc.Col(dbc.NavbarBrand("Capillarité Orange Monney   |   Update: 2020-08-16", className="ml-2",style={"font-weight": "bold","fontSize": "1.5rem"})),
                 ],
                 align="center",
@@ -521,7 +521,7 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
 def refresh_export_tab_data(jsonified_cleaned_data):
     displayed_columns = ['PDV','MOIS','DATE STATUT','CATEGORIE', 'CANAL', 'STATUT', 'DERNIERE TRANSAC.','DERNIERE VISITE','IMPACTE VISITE','COMMISSIONS','DACR','ZONE', 'SECTEUR']
     fdf = pd.read_json(jsonified_cleaned_data) 
-    fdf['MONTH'] = [dt.datetime.fromtimestamp(x / 1e3).strftime("%Y-%m-%d") for x in fdf['MONTH']]
+    fdf['MONTH'] = [MONTH_NAMES[dt.datetime.fromtimestamp(x / 1e3).strftime("%b.")].lower() + dt.datetime.fromtimestamp(x / 1e3).strftime("-%y") for x in fdf['MONTH']]
     fdf['DATE'] = [x.strftime('%Y-%m-%d') for x in fdf['DATE']]
     fdf = fdf.replace({"LAST_VISITE_DATE" : '1970-01-01 00:00:00'},np.nan)
     fdf = fdf.replace({"IMPACT_VISITE" : '-'},np.nan)
@@ -534,7 +534,8 @@ def refresh_export_tab_data(jsonified_cleaned_data):
     else:
         fdf = pd.DataFrame()
     
-    return dbc.Table.from_dataframe(df = fdf, striped=True, bordered=True, hover=True,responsive='md'),"{0} résultat(s) selectionné(s)...".format(f"{pd.read_json(jsonified_cleaned_data).shape[0]:,}".replace(',',' '))
+    # responsive='md'
+    return dbc.Table.from_dataframe(df = fdf, striped=True, bordered=True, hover=True),"{0} résultat(s) selectionné(s)...".format(f"{pd.read_json(jsonified_cleaned_data).shape[0]:,}".replace(',',' '))
 
 
 
@@ -722,19 +723,24 @@ def refresh_map(jsonified_cleaned_data,map_theme):
 )
 def map_selected_data_table(selectedData, jsonified_cleaned_data):
     displayed_columns = ['PDV','MOIS','CATEGORIE', 'CANAL', 'STATUT', 'DERNIERE TRANSAC.','DERNIERE VISITE','IMPACTE VISITE','COMMISSIONS','DACR','ZONE', 'SECTEUR']
-    if selectedData != None:
+    if json.dumps(selectedData) != 'null':
         json_str = json.dumps(selectedData,indent=2)
         json_obj = json.loads(json_str)
         selected_pos = list(set([x['customdata'] for x in json_obj['points']]))
+        fdf = pd.read_json(jsonified_cleaned_data)
+        fdf = fdf[fdf['POS'].isin(selected_pos)]
+
     else:
-        selected_pos = None
+        # selected_pos = []
+        fdf = pd.DataFrame()
+
     #
-    fdf = pd.read_json(jsonified_cleaned_data) 
-    if fdf.shape[0] > 0 and selected_pos != None:
+    # fdf = pd.read_json(jsonified_cleaned_data) 
+    if fdf.shape[0] > 0:
         # current_locale = locale.getlocale(locale.LC_ALL) # get current locale
         # locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
-        fdf = fdf[fdf['POS'].isin(selected_pos)]
-        fdf['MONTH'] = [dt.datetime.fromtimestamp(x / 1e3).strftime("%b.-%y") for x in fdf['MONTH']]
+        # fdf = fdf[fdf['POS'].isin(selected_pos)]
+        fdf['MONTH'] = [MONTH_NAMES[dt.datetime.fromtimestamp(x / 1e3).strftime("%b.")].lower() + dt.datetime.fromtimestamp(x / 1e3).strftime("-%y")  for x in fdf['MONTH']]
         fdf['DATE'] = [x.strftime('%Y-%m-%d') for x in fdf['DATE']]
         fdf = fdf.replace({"LAST_VISITE_DATE" : '1970-01-01 00:00:00'},np.nan)
         fdf = fdf.replace({"IMPACT_VISITE" : '-'},np.nan)
@@ -748,7 +754,8 @@ def map_selected_data_table(selectedData, jsonified_cleaned_data):
         # fdf = pd.DataFrame(columns = displayed_columns)
         fdf = pd.DataFrame()
     
-    return dbc.Table.from_dataframe(df = fdf, striped=True, bordered=True, hover=True,responsive='md')
+    # ,responsive='md'
+    return dbc.Table.from_dataframe(df = fdf, striped=True, bordered=True, hover=True)
 
 
 
@@ -830,8 +837,8 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
 
     # Load and filter data
     df2 = pd.read_json(jsonified_cleaned_data)
-    status_date  = pd.to_datetime(df2['DATE'].max()).strftime('%d') + ' ' + MONTH_NAMES[pd.to_datetime(df2['DATE'].max()).strftime('%B')] + ' ' + pd.to_datetime(df2['DATE'].max()).strftime('%Y')
-    status_month  = MONTH_NAMES[pd.to_datetime(df2['DATE'].max()).strftime('%B')] + ' ' + pd.to_datetime(df2['DATE'].max()).strftime('%Y')
+    status_date  = pd.to_datetime(df2['DATE'].max()).strftime('%d') + ' ' + MONTH_NAMES[pd.to_datetime(df2['DATE'].max()).strftime('%B')].lower() + ' ' + pd.to_datetime(df2['DATE'].max()).strftime('%Y')
+    status_month  = MONTH_NAMES[pd.to_datetime(df2['DATE'].max()).strftime('%B')].lower() + ' ' + pd.to_datetime(df2['DATE'].max()).strftime('%Y')
     # DACR POS CNT
     dacr_data = (
     df2
