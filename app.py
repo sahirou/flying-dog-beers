@@ -372,7 +372,8 @@ tab3_content = dbc.Card(
             # html.P(id="tab_len_2"),
             html.Br(),
             html.Div(id="export_tab_data",style={'height': '600px','overflow': 'scroll'}),
-            html.Div(id='intermediate_value', style={'display': 'none'})
+            html.Div(id='intermediate_value', style={'display': 'none'}),
+            html.Div(id='intermediate_value2', style={'display': 'none'})
             # dbc.Button("Click here", color="success"),
         ]        
     ),
@@ -437,20 +438,29 @@ app.layout = dbc.Container(
 
 # Back End ---------------------------------------------------------------------
 
-# filter ZONES and SECTORS by DACRS
+# Drildown geo
 @app.callback(
-    [
-        Output("zone_selector", "options"),
-        Output("sector_selector", "options")
-    ],
+    Output("zone_selector", "options"),
     [
         Input("dacr_selector", "value")
     ]
 )
-def zoning_options(selected_dacrs):
+def down_to_zones(selected_dacrs):
     zones = list(zoning[zoning['DACR'].isin(selected_dacrs)]['ZONE'].unique())
-    sectors = list(zoning[zoning['DACR'].isin(selected_dacrs)]['SECTEUR'].unique())
-    return [{'label': zone, 'value': zone} for zone in zones], [{'label': sector, 'value': sector} for sector in sectors]
+    return [{'label': zone, 'value': zone} for zone in zones]
+
+@app.callback(
+    Output("sector_selector", "options"),
+    [
+        Input("dacr_selector", "value"),
+        Input("zone_selector", "value")
+    ]
+)
+def down_to_sectors(selected_dacrs,selected_zones):
+    tmp = zoning[zoning['DACR'].isin(selected_dacrs)]
+    tmp = tmp[tmp['ZONE'].isin(selected_zones)]
+    sectors = list(tmp['SECTEUR'].unique())
+    return [{'label': sector, 'value': sector} for sector in sectors]
 
 
 
@@ -523,14 +533,14 @@ def refresh_export_tab_data(jsonified_cleaned_data):
     fdf = pd.read_json(jsonified_cleaned_data) 
     fdf['MONTH'] = [MONTH_NAMES[dt.datetime.fromtimestamp(x / 1e3).strftime("%b.")].lower() + dt.datetime.fromtimestamp(x / 1e3).strftime("-%y") for x in fdf['MONTH']]
     fdf['DATE'] = [x.strftime('%Y-%m-%d') for x in fdf['DATE']]
-    fdf = fdf.replace({"LAST_VISITE_DATE" : '1970-01-01 00:00:00'},np.nan)
+    fdf = fdf.replace({"LAST_VISITE_DATE" : '1970-01-01'},np.nan)
     fdf = fdf.replace({"IMPACT_VISITE" : '-'},np.nan)
     if fdf.shape[0] > 0:
         fdf.rename(
             columns = tab_columns_rename,
             inplace=True
         )        
-        fdf = fdf[displayed_columns].head(100)        
+        fdf = fdf[displayed_columns] # .head(100)        
     else:
         fdf = pd.DataFrame()
     
@@ -742,7 +752,7 @@ def map_selected_data_table(selectedData, jsonified_cleaned_data):
         # fdf = fdf[fdf['POS'].isin(selected_pos)]
         fdf['MONTH'] = [MONTH_NAMES[dt.datetime.fromtimestamp(x / 1e3).strftime("%b.")].lower() + dt.datetime.fromtimestamp(x / 1e3).strftime("-%y")  for x in fdf['MONTH']]
         fdf['DATE'] = [x.strftime('%Y-%m-%d') for x in fdf['DATE']]
-        fdf = fdf.replace({"LAST_VISITE_DATE" : '1970-01-01 00:00:00'},np.nan)
+        fdf = fdf.replace({"LAST_VISITE_DATE" : '1970-01-01'},np.nan)
         fdf = fdf.replace({"IMPACT_VISITE" : '-'},np.nan)
         fdf.rename(
             columns=tab_columns_rename,
@@ -902,20 +912,24 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
 
 
 @app.callback(
-    Output('overview_zone_sector_chart','figure'),
+    [
+        Output('overview_zone_chart','figure'),
+        Output('intermediate_value2','children'),
+        Output('zone_chart_title', 'children')
+    ],    
     [
         Input('intermediate_value', 'children'),
         Input('overview_dacr_chart', 'clickData'),
-        Input('overwiew_geo_filter', 'value'),
         Input('overwiew_axe_selector', 'value')
     ]
 )
-def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filter,selected_axis):
+def refresh_overview_zone_chart(jsonified_cleaned_data,clickData,selected_axis):
     # Init chart when none click
     if json.dumps(clickData,indent=2) == "null":
-        return px.sunburst()
+        return px.sunburst(), None, None
 
-    # Axe definition    
+    # Axe definition 
+    geo_axis = "ZONE"   
     if selected_axis == 'Statut des PDVs':
         analysis_axis = 'POS_STATUS'
     else:
@@ -932,11 +946,7 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
     # load pos data
     df2 = pd.read_json(jsonified_cleaned_data)
     df2 = df2[df2['DACR'] == dacr_name]
-
-    if geo_filter == 'Zones':
-        geo_axis = "ZONE"
-    else:
-        geo_axis = "SECTEUR"
+    filtered_data = df2.to_json()
 
     # AGG DATA
     dacr_data = (
@@ -949,7 +959,7 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
     # .reset_index()
     )
 
-    # Chart colo dict
+    # Chart color dict
     if selected_axis == 'Statut des PDVs':
         chart_color_dict = {x:status_markers_colors[x] for x in dacr_data[analysis_axis]}
     else:
@@ -966,11 +976,77 @@ def refresh_overview_zone_sector_chart(jsonified_cleaned_data,clickData,geo_filt
     )
     fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
 
+    return fig,filtered_data, "Zones de {0}: ".format(dacr_name)
+
+
+
+
+
+@app.callback(
+    [
+        Output('overview_sector_chart','figure'),
+        Output('sector_chart_title','children'),
+    ],  
+    [
+        Input('intermediate_value2', 'children'),
+        Input('overview_zone_chart', 'clickData'),
+        Input('overwiew_axe_selector', 'value')
+    ]
+)
+def refresh_overview_sector_chart(jsonified_cleaned_data,clickData,selected_axis):
+    # Init chart when none click
+    if json.dumps(clickData,indent=2) == "null":
+        return px.sunburst(), None
+
+    # Axis definition 
+    geo_axis = "SECTEUR"   
+    if selected_axis == 'Statut des PDVs':
+        analysis_axis = 'POS_STATUS'
+    else:
+        analysis_axis = 'IMPACT_VISITE'
+
+    # Clicked DACR
+    if clickData['points'][0]['currentPath'] == '/':
+        zone_name = clickData['points'][0]['id']
+    else:
+        zone_name = clickData['points'][0]['parent']
+
+
+    # load pos data
+    df2 = pd.read_json(jsonified_cleaned_data)
+    df2 = df2[df2['ZONE'] == zone_name]
+    dacr_name = list(df2['DACR'].unique())[0]
+
+    # AGG DATA
+    zone_data = (
+    df2
+    .groupby(['MONTH','DACR',geo_axis,analysis_axis])
+    .agg({"POS" : "nunique"})
+    .reset_index()
+    .rename(columns={"POS" : "NOMBRE DE PDVs"})
+    # .pivot(index="DACR",columns='POS_STATUS',values='POS_CNT')
+    # .reset_index()
+    )
+
+    # Chart color dict
+    if selected_axis == 'Statut des PDVs':
+        chart_color_dict = {x:status_markers_colors[x] for x in zone_data[analysis_axis]}
+    else:
+        chart_color_dict = {x:impact_markers_colors[x] for x in zone_data[analysis_axis]}
+
     
+    fig = px.sunburst(
+        zone_data, 
+        path=[geo_axis, analysis_axis], 
+        values='NOMBRE DE PDVs', 
+        color=analysis_axis,
+        color_discrete_map=chart_color_dict
+        # hovertemplate='<extra>{fullData.DACR}</extra>'        
+    )
+    fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
 
-    return fig
-
-
+    return fig, "Secteurs de {0} {1}: ".format(dacr_name,zone_name)
+    
 
 # @app.callback(
 #     Output('click_data','children'),

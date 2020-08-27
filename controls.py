@@ -168,7 +168,8 @@ overview_layout = dbc.Card(
             html.Br(),            
             html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
             html.Br(),
-
+            html.H4("Détails par DACR: ",className="card-title",style={'float':'left'}), 
+            html.Br(), 
             # DACR
             dbc.Row(
                 [
@@ -183,30 +184,18 @@ overview_layout = dbc.Card(
                 # style={'justify':'center','align':'center'} 
             ),
 
-            # ZONE/SECTOR
+            # ZONE
             html.Br(),            
             html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
             html.Br(),
-            dbc.FormGroup(
-                [
-                    html.H4("Détails à afficher ... ",className="card-title",style={'float':'left'}),
-                    dbc.RadioItems(
-                        id="overwiew_geo_filter",
-                        options=overwiew_geo_filter_options,
-                        inline=True,
-                        value=OVERVIEW_GEO_FILTERS[0],
-                        style={'float':'right'}
-                    ),                    
-                ],
-            ),
+            html.H4(id="zone_chart_title",className="card-title",style={'float':'left'}),     
             html.Br(), 
             dbc.Row(
                 [
-                    # html.H4(children="ZONE/SECTOR Chart",className="card-title",id="overview_zone_sector_chart_title"),
                     html.Br(),
                     html.Br(),
                     dcc.Graph(
-                        id="overview_zone_sector_chart"
+                        id="overview_zone_chart"
                     ),
                     html.Br(), 
                 ], justify="center", align="center", className="h-50"              
@@ -214,14 +203,28 @@ overview_layout = dbc.Card(
 
 
             html.Br(),            
+            # SECTOR
+            html.Br(),            
             html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
             html.Br(),
-            html.Br(),
-            # dbc.Row(
-            #    [
-            #        html.Pre(id='click_data',style={'paddingTop':35})
-            #    ]
-            # )
+            html.H4(id="sector_chart_title",className="card-title",style={'float':'left'}),     
+            html.Br(), 
+            dbc.Row(
+                [
+                    html.Br(),
+                    html.Br(),
+                    dcc.Graph(
+                        id="overview_sector_chart"
+                    ),
+                    html.Br(), 
+                ], justify="center", align="center", className="h-50"              
+            ),
+
+            dbc.Row(
+               [
+                   html.Pre(id='click_data',style={'paddingTop':35})
+               ]
+            )
         ]        
     ),
     className="mt-3"
