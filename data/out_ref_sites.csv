@@ -1,0 +1,619 @@
+"SITE";"LOCALITE";"MILIEU";"SECTEUR";"ZONE";"DACR";"LONGITUDE";"LATITUDE"
+"CHIRFA BTS MOBILE";"CHIRFA";"Rural";"Dirkou";"Centre";"Agadez";12.319933;20.922028
+"DIRKOU";"DIRKOU";"Rural";"Dirkou";"Centre";"Agadez";12.89130556;18.98980556
+"DJADO _MARCHÉ";"DJADO MINE D'OR";"Rural";"Dirkou";"Centre";"Agadez";11.82114;21.38686
+"SIGUIDIM";"SIGUIDIM";"Rural";"Dirkou";"Centre";"Agadez";12.96120833;20.18734722
+"BILMA";"BILMA";"Urbain";"Dirkou";"Centre";"Agadez";12.91630556;18.68933333
+"ABARDAKE";"ABARDAKE";"Rural";"Tabelote";"Centre";"Agadez";8.747;17.616
+"AMZIGUER";"AMZIGUER";"Rural";"Tabelote";"Centre";"Agadez";9.54564;17.45772
+"AOUDARAS";"AOUDARAS";"Rural";"Tabelote";"Centre";"Agadez";8.41271;17.63098
+"DABAGA";"DABAGA";"Rural";"Tabelote";"Centre";"Agadez";8.137619;17.311239
+"TABELOTE";"TABELOTE";"Rural";"Tabelote";"Centre";"Agadez";8.93838889;17.60383333
+"TEFARAOUTE";"TEFARAOUTE";"Rural";"Tabelote";"Centre";"Agadez";8.00125;18.010647222222
+"TIMIA";"TIMIA";"Rural";"Tabelote";"Centre";"Agadez";8.829583333;18.193
+"GOUGARAMA";"GOUGARAMA";"Rural";"Arlit 1";"Nord";"Agadez";7.80564723;18.45047778
+"IFEROUANE";"IFEROUANE";"Rural";"Arlit 1";"Nord";"Agadez";8.4225;19.064431
+"RTA";"RTA";"Rural";"Arlit 1";"Nord";"Agadez";7.53004731;18.08268583
+"ARLIT-SOMAIR";"ARLIT";"Urbain";"Arlit 1";"Nord";"Agadez";7.39009139;18.73877656
+"ARLIT SOMAIR KARÉ";"ARLIT";"Urbain";"Arlit 1";"Nord";"Agadez";7.40022222;18.74052778
+"ARLIT_SOMAIR_DENSIF";"ARLIT";"Urbain";"Arlit 1";"Nord";"Agadez";7.3918583333333;18.747536111111
+"ASSAMAKA";"ASSAMAKA";"Rural";"Arlit 2";"Nord";"Agadez";5.771158333;19.33405
+"PK40_TCHIBARKATEN";"PK40_TCHIBARKATEN";"Rural";"Arlit 2";"Nord";"Agadez";8.75171;21.55657
+"TCHIBARKATEN_2";"TCHIBARKTEN";"Rural";"Arlit 2";"Nord";"Agadez";9.05776113;21.74946476
+"TCHIBARKTEN";"TCHIBARKTEN";"Rural";"Arlit 2";"Nord";"Agadez";9.04039;21.75351
+"ARLIT AKOKAN";"ARLIT";"Urbain";"Arlit 2";"Nord";"Agadez";7.3404227;18.71143357
+"ARLIT AKOKAN TCHETCHENI";"ARLIT";"Urbain";"Arlit 2";"Nord";"Agadez";7.33393334;18.71024723
+"ARLIT BOUKOKI 1";"ARLIT";"Urbain";"Arlit 2";"Nord";"Agadez";7.38917778;18.72693612
+"ARLIT HQ_AIRTEL";"ARLIT";"Urbain";"Arlit 2";"Nord";"Agadez";7.3841;18.7369
+"COMINAK ZI";"ARLIT";"Urbain";"Arlit 2";"Nord";"Agadez";7.30722223;18.67894445
+"SOMAIR LIXI";"ARLIT";"Urbain";"Arlit 2";"Nord";"Agadez";7.34494445;18.77994445
+"SOMAIR TAMGAK";"ARLIT";"Urbain";"Arlit 2";"Nord";"Agadez";7.30527778;18.73944445
+"SOMAIR TAZA";"ARLIT";"Urbain";"Arlit 2";"Nord";"Agadez";7.31705556;18.74622223
+"ANIOKKAN";"ANIOKKAN";"Rural";"Ingall";"Sud";"Agadez";6.93601;16.98873
+"ABALAMA";"ABALAMA";"Rural";"Agadez 1";"Sud";"Agadez";7.843938889;16.26826944
+"ADERBISSINAT";"ADERBISSINAT";"Rural";"Agadez 1";"Sud";"Agadez";7.90103126;15.61641668
+"TEGUIRWITE";"TEGUIRWITE";"Rural";"Agadez 1";"Sud";"Agadez";7.45438334;16.72645278
+"AGADEZ  DOUANE";"AGADEZ";"Urbain";"Agadez 1";"Sud";"Agadez";7.9655;16.947167
+"AGADEZ DAGAMANET";"AGADEZ";"Urbain";"Agadez 1";"Sud";"Agadez";7.973667;16.9585
+"AGADEZ_DAGAMANET_2";"AGADEZ";"Urbain";"Agadez 1";"Sud";"Agadez";7.9688;16.9649
+"AGADEZ_MISRATA";"AGADEZ";"Urbain";"Agadez 1";"Sud";"Agadez";7.97886;16.94902
+"ATTRI";"ATTRI";"Rural";"Agadez 2";"Sud";"Agadez";8.26248889;17.03578056
+"TENDAYEN MACRO";"TENDAYEN";"Rural";"Agadez 2";"Sud";"Agadez";8.49387306;16.9837925
+"AGADEZ EMAIR AIRTEL";"AGADEZ";"Urbain";"Agadez 2";"Sud";"Agadez";8.00477778;16.97302778
+"AGADEZ SABON GARI";"AGADEZ";"Urbain";"Agadez 2";"Sud";"Agadez";8.011167;16.977667
+"AGADEZ 2 MOOV";"AGADEZ";"Urbain";"Agadez 3";"Sud";"Agadez";7.973333;16.9695
+"AGADEZ HILIN SARKI";"AGADEZ";"Urbain";"Agadez 3";"Sud";"Agadez";7.981;16.971333
+"AGADEZ_RIMBO AIRTEL";"AGADEZ";"Urbain";"Agadez 3";"Sud";"Agadez";7.9815;16.9759
+"AGADEZ ELEVAGE";"AGADEZ";"Urbain";"Agadez 4";"Sud";"Agadez";7.985333;16.9785
+"AGADEZ JEUNE CADRE";"AGADEZ";"Urbain";"Agadez 4";"Sud";"Agadez";7.998833;16.987
+"TCHIROZERINE";"TCHIROZERINE";"Urbain";"Agadez 4";"Sud";"Agadez";7.83322208;17.26652965
+"AZEL";"AZEL";"Rural";"Agadez 5";"Sud";"Agadez";8.05725;17.078717
+"AGADEZ MARCHE LEGUMES";"AGADEZ";"Urbain";"Agadez 5";"Sud";"Agadez";8.001;16.9775
+"AGADEZ MOOV OLD VILLE";"AGADEZ";"Urbain";"Agadez 5";"Sud";"Agadez";7.988167;16.971167
+"AGADEZ_LI";"AGADEZ";"Urbain";"Agadez 5";"Sud";"Agadez";7.9794;16.9659
+"AGHOR";"AGHOR";"Rural";"Ingall";"Sud";"Agadez";6.40166667;16.6388889
+"AMATALTAL";"AMATALTAL";"Rural";"Ingall";"Sud";"Agadez";7.16730136;16.2093372
+"CENTRE BAZENE";"BAZEN";"Rural";"Ingall";"Sud";"Agadez";6.5216;16.89359
+"INGALL";"INGALL";"Rural";"Ingall";"Sud";"Agadez";6.93444064;16.78900142
+"INJITAN MACRO";"INJITAN";"Rural";"Ingall";"Sud";"Agadez";7.248353;17.17597
+"MARARABA_INGAL";"MARARABA INGALL";"Rural";"Ingall";"Sud";"Agadez";7.32;16.450001
+"TAGDOUMTE";"TAGDOUMTE";"Rural";"Ingall";"Sud";"Agadez";6.70394;16.52217
+"BOSSO";"BOSSO";"Rural";"Diffa 1";"Est";"Diffa";13.30889269;13.70335657
+"CHETIMARI";"CHETIMARI";"Rural";"Diffa 1";"Est";"Diffa";12.42270459;13.1870997
+"KABALEWA";"KABALEWA";"Rural";"Diffa 1";"Est";"Diffa";12.97783333;13.97763889
+"N'GOURTI";"N'GOURTI";"Rural";"Diffa 1";"Est";"Diffa";13.20000335;15.29999811
+"DIFFA_18_DECEMBRE";"DIFFA";"Urbain";"Diffa 1";"Est";"Diffa";12.590212;13.310959
+"DIFFA_JEUNE_CADRE";"DIFFA";"Urbain";"Diffa 1";"Est";"Diffa";12.60645;13.31052
+"N'GUIGMI";"N'GUIGMI";"Urbain";"Diffa 1";"Est";"Diffa";13.1179;14.25129653
+"WOULWAGUESKEROU";"GUESKEROU";"Rural";"Diffa 2";"Est";"Diffa";12.81980556;13.49408333
+"ISSARI";"ISSARI";"Rural";"Diffa 2";"Est";"Diffa";12.27819444;13.64625
+"MOUSTAPHARI";"MOUSTAPHARI";"Rural";"Diffa 2";"Est";"Diffa";12.57055556;13.2765
+"NGUELKOLO";"N'GUEL KOLO";"Rural";"Diffa 2";"Est";"Diffa";12.37055556;13.42283333
+"ZAWARAM";"ZARWARAM";"Rural";"Diffa 2";"Est";"Diffa";12.52231111;13.16221944
+"DIFFA MARCHE";"DIFFA";"Urbain";"Diffa 2";"Est";"Diffa";12.6183;13.31214
+"DIFFA VILLE";"DIFFA";"Urbain";"Diffa 2";"Est";"Diffa";12.61581458;13.31426628
+"DIFFA STADE";"DIFFA";"Urbain";"Diffa 3";"Est";"Diffa";12.60897;13.322
+"DIFFA_ADMINISTRATION";"DIFFA";"Urbain";"Diffa 3";"Est";"Diffa";12.608748;13.315947
+"BOUTTI";"BOUTTI";"Rural";"Mainé Soroa";"Ouest";"Diffa";11.33836111;13.98338889
+"CHERI";"CHERI";"Rural";"Mainé Soroa";"Ouest";"Diffa";11.38505556;13.42847222
+"DJADJERI";"DJADJERI";"Rural";"Mainé Soroa";"Ouest";"Diffa";11.50841667;13.589
+"FOULATARI";"FOULATARI";"Rural";"Mainé Soroa";"Ouest";"Diffa";12.0587;13.5484
+"GOUDOUMARIA";"GOUDOUMARIA";"Rural";"Mainé Soroa";"Ouest";"Diffa";11.18744444;13.7165
+"KELAKAM";"KELAKAM";"Rural";"Mainé Soroa";"Ouest";"Diffa";11.73541667;13.55491667
+"MAINE SOROA";"MAINE SOROA";"Urbain";"Mainé Soroa";"Ouest";"Diffa";12.0246369;13.22036356
+"BOUMBA";"BOUMBA";"Rural";"Birni N'Gaouré";"Centre";"Dosso";2.8525556;12.408639
+"FALMEY";"FALMEY";"Rural";"Birni N'Gaouré";"Centre";"Dosso";2.86006111;12.59565
+"HARRIKINASSOU";"HARRIKINASSOU";"Rural";"Birni N'Gaouré";"Centre";"Dosso";2.83898888888889;13.2531805555556
+"KIOTA";"KIOTA";"Rural";"Birni N'Gaouré";"Centre";"Dosso";2.96046714;13.28803389
+"LAMBA";"LAMBA";"Rural";"Birni N'Gaouré";"Centre";"Dosso";2.99939114;13.09627996
+"SINA KOUARA";"SINA KOUARA";"Rural";"Birni N'Gaouré";"Centre";"Dosso";2.66428919;13.24556047
+"KOFFO WAZEY";"WAZEY";"Rural";"Birni N'Gaouré";"Centre";"Dosso";2.76538843;13.14316749
+"BIRNI N'GAOUARE";"BIRNI N'GAOUARE";"Urbain";"Birni N'Gaouré";"Centre";"Dosso";2.90837217;13.08145184
+"DOSSO_18DEC";"DOSSO";"Urbain";"Dosso 1";"Centre";"Dosso";3.1643;13.0495
+"DOSSO_ECOLE KOIRA TEGUI";"DOSSO";"Urbain";"Dosso 1";"Centre";"Dosso";3.1904;13.0544
+"DOSSO_QUARTIER BAGUÉ KOIRA";"DOSSO";"Urbain";"Dosso 1";"Centre";"Dosso";3.18567;13.04949
+"DOSSO_QUARTIER BOUKOKI";"DOSSO";"Urbain";"Dosso 1";"Centre";"Dosso";3.20536;13.0626
+"AGALI";"AGALI";"Rural";"Dosso 2";"Centre";"Dosso";3.18616667;12.94236111
+"FAARI";"FAARI";"Rural";"Dosso 2";"Centre";"Dosso";3.37267737;12.98701229
+"KOYGOLO YENI";"KOYGOLO YENI";"Rural";"Dosso 2";"Centre";"Dosso";3.00291971;13.47827194
+"MOKKO";"MOKKO";"Rural";"Dosso 2";"Centre";"Dosso";3.27;13.170556
+"YAMBARE";"YAMBARE";"Rural";"Dosso 2";"Centre";"Dosso";3.03223;12.88305
+"DOSSO 500";"DOSSO";"Urbain";"Dosso 2";"Centre";"Dosso";3.19471984;13.04394917
+"DOSSO 501";"DOSSO";"Urbain";"Dosso 2";"Centre";"Dosso";3.20783046;13.0383235
+"DOSSO_MOOV2";"DOSSO";"Urbain";"Dosso 2";"Centre";"Dosso";3.20693056;13.05049167
+"DOSSO_SAMARIA_OUDOUN_KOUKOU";"DOSSO";"Urbain";"Dosso 2";"Centre";"Dosso";3.19625;13.050104
+"DOSSO_TONDOBON";"DOSSO";"Urbain";"Dosso 2";"Centre";"Dosso";3.20293;13.04696
+"DOSSO_TOUBAL";"DOSSO";"Urbain";"Dosso 2";"Centre";"Dosso";3.19783583;13.01145278
+"BOLBOL";"BOLBOL";"Rural";"Dosso 3";"Centre";"Dosso";3.57199374;12.96255237
+"DOUMEGA";"DOUMEGA";"Rural";"Dosso 3";"Centre";"Dosso";3.97114893;12.96979655
+"GUECHEME";"GUECHEME";"Rural";"Dosso 3";"Centre";"Dosso";3.86854236;12.90468736
+"KARAKARA";"KARAKARA";"Rural";"Dosso 3";"Centre";"Dosso";3.64683056;12.7857
+"LIDO";"LIDO";"Rural";"Dosso 3";"Centre";"Dosso";3.72149321;12.89610132
+"WASSANGOU";"WASSANGOU";"Rural";"Dosso 3";"Centre";"Dosso";3.80556998;12.90449108
+"DAREY";"DAREY";"Rural";"Loga";"Centre";"Dosso";3.12023014;13.68946191
+"FALWAL";"FALWAL";"Rural";"Loga";"Centre";"Dosso";3.5955319;13.52086777
+"MOUSSADEY BERI";"MOUSSADEY BERI";"Rural";"Loga";"Centre";"Dosso";3.1846;13.3937
+"TOMBOTAMEYE";"TOMBOTAMEYE";"Rural";"Loga";"Centre";"Dosso";3.3733298;13.55973581
+"LOGA";"LOGA";"Urbain";"Loga";"Centre";"Dosso";3.23593307;13.61970868
+"DAN KASSARI";"DAN KASSARI";"Rural";"Doutchi 1";"Est";"Dosso";4.38000155;13.71999709
+"GOUBEY";"GOUBEY";"Rural";"Doutchi 1";"Est";"Dosso";4.15266185;13.69078606
+"DOGONDOUTCHI";"DOGONDOUTCHI";"Urbain";"Doutchi 1";"Est";"Dosso";4.03864412;13.63977557
+"DOUTCHI_II";"DOGONDOUTCHI";"Urbain";"Doutchi 1";"Est";"Dosso";4.0221666666667;13.64625
+"BAGAGI";"BAGAGI";"Rural";"Doutchi 2";"Est";"Dosso";4.03897222;13.84494444
+"DOGONKIRYA";"DOGONKIRYA";"Rural";"Doutchi 2";"Est";"Dosso";4.36019444;14.05772222
+"MALAM KOIRA";"GARI 'NALAM";"Rural";"Doutchi 2";"Est";"Dosso";3.7013935;13.56824356
+"MATANKARI";"MATANKARI";"Rural";"Doutchi 2";"Est";"Dosso";4.00257864;13.76130796
+"MAZOUGA";"MAZOUGA";"Rural";"Doutchi 2";"Est";"Dosso";3.87878055;13.63098959
+"SOUKOUKOUTAN";"SOUKOUKOUTANE";"Rural";"Doutchi 2";"Est";"Dosso";3.88185;14.18771944
+"BOUREIMI";"BOUREIMI";"Rural";"Koré";"Est";"Dosso";3.7383771;13.17236008
+"FADAMA";"FADAMA";"Rural";"Koré";"Est";"Dosso";3.90408561;13.03550002
+"KIECHE";"KIEche";"Rural";"Koré";"Est";"Dosso";4.0112895;13.44508051
+"KORE MAIROUA";"KORE MAIROUA";"Rural";"Koré";"Est";"Dosso";3.9011961;13.2971014
+"SANKEY";"SANKEY";"Rural";"Koré";"Est";"Dosso";3.97537577;13.44507756
+"TIBIRI DOSSO";"TIBIRI DOSSO";"Rural";"Koré";"Est";"Dosso";3.99938348;13.11579939
+"DOLE";"DOLE";"Rural";"Gaya 1";"Sud";"Dosso";3.62855675;11.71266236
+"TANDA";"TANDA";"Rural";"Gaya 1";"Sud";"Dosso";3.31000264;11.99000161
+"GAYA";"GAYA";"Urbain";"Gaya 1";"Sud";"Dosso";3.43802081;11.88552662
+"GAYA PARC AUTO";"GAYA";"Urbain";"Gaya 1";"Sud";"Dosso";3.4108;11.88661
+"GAYA_III";"GAYA";"Urbain";"Gaya 1";"Sud";"Dosso";3.457758;11.881508
+"GAYA2";"GAYA";"Urbain";"Gaya 1";"Sud";"Dosso";3.45541101;11.89066278
+"BELLA";"BELLA";"Rural";"Gaya 2";"Sud";"Dosso";3.35073556;12.37074102
+"BENGOU";"BENGOU";"Rural";"Gaya 2";"Sud";"Dosso";3.58506206;11.99719446
+"DIOUNDIOU";"DIOUNDIOU";"Rural";"Gaya 2";"Sud";"Dosso";3.5487502;12.6212215
+"MALGOROU";"MALGOROU";"Rural";"Gaya 2";"Sud";"Dosso";3.45999666;12.17381283
+"OUNA";"OUNA";"Rural";"Gaya 2";"Sud";"Dosso";3.15372222;12.1705
+"SABON BIRNI";"SABON BIRNI";"Rural";"Gaya 2";"Sud";"Dosso";3.57017094;11.89567219
+"SAMBERA";"SAMBERA";"Rural";"Gaya 2";"Sud";"Dosso";3.07195;12.39025
+"SIA";"SIA";"Rural";"Gaya 2";"Sud";"Dosso";3.29036111;12.10775
+"YELLOU";"YELLOU";"Rural";"Gaya 2";"Sud";"Dosso";3.58091814;12.25982631
+"DAN KADA";"DAN KADA";"Rural";"Aguié";"Est";"Maradi";7.64478;13.52408
+"GAZAOUA";"GAZAOUA";"Rural";"Aguié";"Est";"Maradi";7.91232463;13.52005836
+"KONAMADOBI";"KONA MADOBI";"Rural";"Aguié";"Est";"Maradi";8.00383333;13.5595
+"AGUIE";"AGUIE";"Urbain";"Aguié";"Est";"Maradi";7.77168626;13.50180786
+"DAN MAIRO";"DAN MAIRO";"Rural";"Mayahi";"Est";"Maradi";7.31344512;13.89127632
+"GUIDAN WARI";"GUIDAN WARI";"Rural";"Mayahi";"Est";"Maradi";7.23386297;14.13655566
+"KANAN-BAKACHE";"KANAMBAKACHE";"Rural";"Mayahi";"Est";"Maradi";7.82733051;13.86756523
+"SERKIN_HAOUSSA";"SERKIN HAOUSSA";"Rural";"Mayahi";"Est";"Maradi";7.58761378;13.84455369
+"MAYAHI";"MAYAHI";"Urbain";"Mayahi";"Est";"Maradi";7.67415244;13.9487273
+"BAOUDETA";"BAOUDETA";"Rural";"Tessaoua";"Est";"Maradi";8.099;13.62405556
+"DADINKOWA";"DADINKOWA";"Rural";"Tessaoua";"Est";"Maradi";8.14816734;13.37957968
+"DARGAZA";"DARGAZA";"Rural";"Tessaoua";"Est";"Maradi";8.33051667;13.848
+"KORGOME";"KORGOME";"Rural";"Tessaoua";"Est";"Maradi";8.25783333;13.45785278
+"MAIJIRGUI";"MAIJIRGUI";"Rural";"Tessaoua";"Est";"Maradi";8.14045407;13.73874811
+"OURAFANE";"OURAFANE";"Rural";"Tessaoua";"Est";"Maradi";8.11666906;14.08333526
+"TESSAOUA";"TESSAOUA";"Urbain";"Tessaoua";"Est";"Maradi";7.98009954;13.74103591
+"TESSAOUA_2";"TESSAOUA";"Urbain";"Tessaoua";"Est";"Maradi";7.99066667;13.7543333
+"BERMO";"BERMO";"Rural";"Dakoro";"Nord";"Maradi";6.821806;15.140333
+"DAN_KOULOU";"DAN KOULOU";"Rural";"Dakoro";"Nord";"Maradi";7.22641583;14.46725341
+"ELGOULABADER";"EL GOULA - BADER";"Rural";"Dakoro";"Nord";"Maradi";7.23269444;14.65827778
+"GANDOU";"GANDOU";"Rural";"Dakoro";"Nord";"Maradi";7.55411111;14.80738889
+"INTOUILLA";"INTOUILLA";"Rural";"Dakoro";"Nord";"Maradi";6.62258333;14.70427778
+"KORAHAN";"KORAHAN";"Rural";"Dakoro";"Nord";"Maradi";6.57136111;14.55952778
+"DAKORO";"DAKORO";"Urbain";"Dakoro";"Nord";"Maradi";6.76555152;14.50036121
+"ADJEKORIA";"ADJEKORIA";"Rural";"Kornaka";"Nord";"Maradi";6.7909779;14.3406919
+"DAN GOMA";"DAN GOMA";"Rural";"Kornaka";"Nord";"Maradi";7.22946529;14.30349489
+"KORNAKA";"KORNAKA";"Rural";"Kornaka";"Nord";"Maradi";6.90080779;14.10833686
+"SABON MACHI";"SABON MACHI";"Rural";"Kornaka";"Nord";"Maradi";6.98408095;13.87441457
+"DAN GOULBI";"DAN GOULBI";"Rural";"Guidan Roumdji";"Sud";"Maradi";6.54158333;13.96252778
+"DOGONFAROU";"DOGONFAROU";"Rural";"Guidan Roumdji";"Sud";"Maradi";6.48351044;13.73342738
+"KARAZOME";"KARAZOME";"Rural";"Guidan Roumdji";"Sud";"Maradi";6.86109275;13.65777868
+"GUIDAN ROUMJI";"GUIDAN ROUMDJI";"Urbain";"Guidan Roumdji";"Sud";"Maradi";6.69692468;13.66182616
+"DAN ISSA";"DAN ISSA";"Rural";"Madarounfa";"Sud";"Maradi";7.25381976;13.15696724
+"DAN ISSA VILLAGE";"DAN ISSA";"Rural";"Madarounfa";"Sud";"Maradi";7.2588333333334;13.1968065
+"GABI";"GABI";"Rural";"Madarounfa";"Sud";"Maradi";7.03632933;13.23994353
+"SAFO OUBANDAWAKI";"SAFO OUBANDAWAKI";"Rural";"Madarounfa";"Sud";"Maradi";7.11972132;13.41437484
+"SERKIN_YAMA";"SERKIN YAMA";"Rural";"Madarounfa";"Sud";"Maradi";6.93386237;13.36022011
+"MADAROUNFA";"MADAROUNFA";"Urbain";"Madarounfa";"Sud";"Maradi";7.16186557;13.29964714
+"ALI DAN SOFO 2";"MARADI";"Urbain";"Maradi 1";"Sud";"Maradi";7.123217;13.48038
+"ALI DAN SOFO AIRTEL";"MARADI";"Urbain";"Maradi 1";"Sud";"Maradi";7.11719167;13.473
+"MARADI 600";"MARADI";"Urbain";"Maradi 1";"Sud";"Maradi";7.11403355;13.48222818
+"MARADI BOURJA";"MARADI";"Urbain";"Maradi 1";"Sud";"Maradi";7.10759723;13.47256389
+"MARADI ECOLE NORMALE";"MARADI";"Urbain";"Maradi 1";"Sud";"Maradi";7.11846667;13.48912778
+"MARADI UNIVERSITE";"MARADI";"Urbain";"Maradi 1";"Sud";"Maradi";7.12788889;13.49197223
+"MARADI_CHÂTEAU_JANGORZO";"MARADI";"Urbain";"Maradi 1";"Sud";"Maradi";7.1128;13.4944
+"MARADI 601";"MARADI";"Urbain";"Maradi 2";"Sud";"Maradi";7.1081302;13.49763452
+"MARADI_MOOV";"MARADI";"Urbain";"Maradi 2";"Sud";"Maradi";7.10569444;13.48608333
+"YANDAKA ONI";"MARADI";"Urbain";"Maradi 2";"Sud";"Maradi";7.09893056;13.49496667
+"CHADAKORI";"CHADAKORI";"Rural";"Maradi 3";"Sud";"Maradi";6.98474818;13.67874742
+"MARADI BELBELOU";"MARADI";"Urbain";"Maradi 3";"Sud";"Maradi";7.10920556;13.52766112
+"MARADI BILDI";"MARADI";"Urbain";"Maradi 3";"Sud";"Maradi";7.09416667;13.51025
+"MARADI CITÉ CAISSE";"MARADI";"Urbain";"Maradi 3";"Sud";"Maradi";7.10040834;13.51698056
+"MARADI INDAKA AIRTEL";"MARADI";"Urbain";"Maradi 3";"Sud";"Maradi";7.09069167;13.49355556
+"MARADI_ARENE";"MARADI";"Urbain";"Maradi 3";"Sud";"Maradi";7.1024;13.5118
+"NOUVEAU CARRÉ";"MARADI";"Urbain";"Maradi 3";"Sud";"Maradi";7.10011389;13.50396945
+"TIBIRI MARADI";"TIBIRI MARADI";"Urbain";"Maradi 3";"Sud";"Maradi";7.0622595;13.57117215
+"DOGON GAO";"DOGON GAO";"Rural";"Maradi 4";"Sud";"Maradi";7.19877778;13.60738889
+"GARIN BORI";"GARIN BORI";"Rural";"Maradi 4";"Sud";"Maradi";7.22896;13.5286
+"MALLOUMEY SABOUA";"MALLOUMEY SABOUA";"Rural";"Maradi 4";"Sud";"Maradi";7.35997222;13.53088889
+"TCHADOUA";"TCHADOUA";"Rural";"Maradi 4";"Sud";"Maradi";7.45514112;13.55169732
+"MARADI 602";"MARADI";"Urbain";"Maradi 4";"Sud";"Maradi";7.10942871;13.51529538
+"MARADI ZARIA ONI";"MARADI";"Urbain";"Maradi 4";"Sud";"Maradi";7.12046112;13.52076945
+"MARADI ZARIA RELIEF";"MARADI";"Urbain";"Maradi 4";"Sud";"Maradi";7.121;13.51322222
+"MARADI_AÉROPORT";"MARADI";"Urbain";"Maradi 4";"Sud";"Maradi";7.1104;13.5036
+"MARADI_ZARIA3";"MARADI";"Urbain";"Maradi 4";"Sud";"Maradi";7.1128;13.5104
+"SMALL_CELL_NOUVEAU_BATIMENT";"NIAMEY";"Urbain";"Grand Marché 5";"Grand Marché";"Niamey";2.125197;13.513307
+"BONKANEY";"NIAMEY";"Urbain";"Grand Marché 1";"Grand Marché";"Niamey";2.136;13.53713889
+"ECOLE BOUKOUKI IV";"NIAMEY";"Urbain";"Grand Marché 1";"Grand Marché";"Niamey";2.12744741;13.53064333
+"RIMBO COURANT NORD";"NIAMEY";"Urbain";"Grand Marché 1";"Grand Marché";"Niamey";2.13108312;13.53459803
+"BANDABARI";"NIAMEY";"Urbain";"Grand Marché 2";"Grand Marché";"Niamey";2.13766809;13.53049793
+"BANIFANDOU COCORBADO2";"NIAMEY";"Urbain";"Grand Marché 2";"Grand Marché";"Niamey";2.14066489;13.54258758
+"ECOLE MADINA3";"NIAMEY";"Urbain";"Grand Marché 2";"Grand Marché";"Niamey";2.14357652;13.5320643
+"MARCHE CEREAL";"NIAMEY";"Urbain";"Grand Marché 2";"Grand Marché";"Niamey";2.13551234;13.52355572
+"TOURBINANI_AIRTEL";"NIAMEY";"Urbain";"Grand Marché 2";"Grand Marché";"Niamey";2.14651;13.5441
+"TOURBOUNANI_ATC";"NIAMEY";"Urbain";"Grand Marché 2";"Grand Marché";"Niamey";2.1465;13.5364
+"BOUKOKI";"NIAMEY";"Urbain";"Grand Marché 3";"Grand Marché";"Niamey";2.1236648;13.52646203
+"BOUKOKI ASKIA";"NIAMEY";"Urbain";"Grand Marché 3";"Grand Marché";"Niamey";2.12204005;13.53107649
+"BOUKOKI GORORA";"NIAMEY";"Urbain";"Grand Marché 3";"Grand Marché";"Niamey";2.11346675;13.52803549
+"BOUKOKI I";"NIAMEY";"Urbain";"Grand Marché 3";"Grand Marché";"Niamey";2.11901145;13.52792848
+"ECOLE ASKIA";"NIAMEY";"Urbain";"Grand Marché 3";"Grand Marché";"Niamey";2.11610974;13.53299047
+"IPSP FACE";"NIAMEY";"Urbain";"Grand Marché 3";"Grand Marché";"Niamey";2.11999455;13.53700949
+"BANQUE ATLANTIQUE";"NIAMEY";"Urbain";"Grand Marché 4";"Grand Marché";"Niamey";2.11525049;13.51793354
+"CHRONOPOSTE";"NIAMEY";"Urbain";"Grand Marché 4";"Grand Marché";"Niamey";2.114508333;13.5104639
+"FACE LAKO";"NIAMEY";"Urbain";"Grand Marché 4";"Grand Marché";"Niamey";2.11980767;13.52247933
+"GRAND MARCHE";"NIAMEY";"Urbain";"Grand Marché 4";"Grand Marché";"Niamey";2.1184048;13.516863
+"PHARMACIE DEZEYBON";"NIAMEY";"Urbain";"Grand Marché 4";"Grand Marché";"Niamey";2.11196172;13.52273191
+"STADE MUNICIPALE";"NIAMEY";"Urbain";"Grand Marché 4";"Grand Marché";"Niamey";2.11662121;13.51205243
+"UGAN AIRTEL";"NIAMEY";"Urbain";"Grand Marché 4";"Grand Marché";"Niamey";2.1161;13.5142
+"ASSOCIATION ISLAMIQUE";"NIAMEY";"Urbain";"Grand Marché 5";"Grand Marché";"Niamey";2.1305576;13.51898169
+"DEUXIEME ARRONDISSEMENT";"NIAMEY";"Urbain";"Grand Marché 5";"Grand Marché";"Niamey";2.12161864;13.51494516
+"TERRAIN MUSULMAN";"NIAMEY";"Urbain";"Grand Marché 5";"Grand Marché";"Niamey";2.12616754;13.51417447
+"KALLEY PLATEAU";"NIAMEY";"Urbain";"Nord 1";"Grand Marché";"Niamey";2.15214;13.56171
+"KIRTACHI";"KIRTACHI";"Rural";"Haro Banda 1";"Haro Banda";"Niamey";2.47341;12.80074
+"LIBORE";"LIBORE";"Rural";"Haro Banda 1";"Haro Banda";"Niamey";2.19412214;13.40278383
+"NDOUNGA";"NDOUNGA";"Rural";"Haro Banda 1";"Haro Banda";"Niamey";2.2389;13.3539
+"SEIKEY";"SEIKEY";"Rural";"Haro Banda 1";"Haro Banda";"Niamey";2.43932969;13.28741036
+"KOLLO";"KOLLO";"Urbain";"Haro Banda 1";"Haro Banda";"Niamey";2.30775136;13.34493658
+"CITÉ_OLANI";"NIAMEY";"Urbain";"Haro Banda 1";"Haro Banda";"Niamey";2.14408467;13.46727495
+"SAGA SATIRE BANDA";"NIAMEY";"Urbain";"Haro Banda 1";"Haro Banda";"Niamey";2.14083028;13.4628064
+"SAGA_ECOLE";"NIAMEY";"Urbain";"Haro Banda 1";"Haro Banda";"Niamey";2.14069316;13.47016569
+"SAGA_GOUDRON";"NIAMEY";"Urbain";"Haro Banda 1";"Haro Banda";"Niamey";2.14727759;13.46044139
+"CES_LAMORDE";"NIAMEY";"Urbain";"Haro Banda 2";"Haro Banda";"Niamey";2.07511397;13.50532964
+"ECOLE RIVE DROITE 3";"NIAMEY";"Urbain";"Haro Banda 2";"Haro Banda";"Niamey";2.08496821;13.49677654
+"KARAGUE RIVE DROITE 1";"NIAMEY";"Urbain";"Haro Banda 2";"Haro Banda";"Niamey";2.089686;13.49281552
+"KARAGUE RIVE DROITE 2";"NIAMEY";"Urbain";"Haro Banda 2";"Haro Banda";"Niamey";2.09219299;13.49441588
+"LAMORDE MOOV";"NIAMEY";"Urbain";"Haro Banda 2";"Haro Banda";"Niamey";2.08675;13.50702778
+"RIVE_DROITE_INJS";"NIAMEY";"Urbain";"Haro Banda 2";"Haro Banda";"Niamey";2.09338658;13.50619203
+"UNIVERSITE";"NIAMEY";"Urbain";"Haro Banda 2";"Haro Banda";"Niamey";2.09797912;13.50115448
+"ALLAMBARE";"ALLAMBARE";"Rural";"Haro Banda 3";"Haro Banda";"Niamey";2.22813;12.66478
+"BOKKI";"BOKKI";"Rural";"Haro Banda 3";"Haro Banda";"Niamey";2.32789;12.95285
+"TAMOU";"TAMOU";"Rural";"Haro Banda 3";"Haro Banda";"Niamey";2.17546;12.75072
+"GAWEYE 2EME PONT";"NIAMEY";"Urbain";"Haro Banda 3";"Haro Banda";"Niamey";2.109355556;13.48002778
+"GAWEYE RIVE DROITE";"NIAMEY";"Urbain";"Haro Banda 3";"Haro Banda";"Niamey";2.101909;13.49043647
+"GNALGA EATON";"NIAMEY";"Urbain";"Haro Banda 3";"Haro Banda";"Niamey";2.1168;13.4771
+"KIRKISSOYE_ZAMAN_LAFIA";"NIAMEY";"Urbain";"Haro Banda 3";"Haro Banda";"Niamey";2.10725164;13.48479563
+"KIRKISSOYE_ZOULORA";"NIAMEY";"Urbain";"Haro Banda 3";"Haro Banda";"Niamey";2.10358537;13.47694369
+"SAGUIA _EATON";"NIAMEY";"Urbain";"Haro Banda 3";"Haro Banda";"Niamey";2.1014;13.4621
+"SAY";"SAY";"Urbain";"Haro Banda 3";"Haro Banda";"Niamey";2.35735781;13.09753206
+"KOBADGE";"KOBADGE";"Rural";"Haro Banda 4";"Haro Banda";"Niamey";1.87858056;13.23788056
+"MAKALONDI";"MAKALONDI";"Rural";"Haro Banda 4";"Haro Banda";"Niamey";1.6823076;12.82899306
+"TORODI";"TORODI";"Rural";"Haro Banda 4";"Haro Banda";"Niamey";1.81249076;13.12631998
+"BANGABANA MOOV";"NIAMEY";"Urbain";"Haro Banda 4";"Haro Banda";"Niamey";2.09435741;13.4815036
+"CHEICK_ANTA_DIOP";"NIAMEY";"Urbain";"Haro Banda 4";"Haro Banda";"Niamey";2.08867095;13.48761306
+"OPVN_ROUTE_TORODI";"NIAMEY";"Urbain";"Haro Banda 4";"Haro Banda";"Niamey";2.07991745;13.49114341
+"ROUTE TORODI MOOV";"NIAMEY";"Urbain";"Haro Banda 4";"Haro Banda";"Niamey";2.06757571;13.49550096
+"CITE DEPUTE EXTENSION";"NIAMEY";"Urbain";"Nord 1";"Nord";"Niamey";2.13607;13.56475
+"CITÉ_DÉPUTÉ";"NIAMEY";"Urbain";"Nord 1";"Nord";"Niamey";2.12796;13.57032
+"FRANCOPHONIE_MOOV";"NIAMEY";"Urbain";"Nord 1";"Nord";"Niamey";2.09845;13.574986
+"LAZARET MOSQUE TOUKOUR";"NIAMEY";"Urbain";"Nord 1";"Nord";"Niamey";2.12534611;13.55693739
+"LAZARET NORD FAISCEAU";"NIAMEY";"Urbain";"Nord 1";"Nord";"Niamey";2.12033649;13.56213667
+"LAZARET_AIRTEL";"NIAMEY";"Urbain";"Nord 1";"Nord";"Niamey";2.11441667;13.55836111
+"CENTRE_AERE_BCEAO";"NIAMEY";"Urbain";"Nord 2";"Nord";"Niamey";2.07595567;13.56736499
+"CITÉ DE LA RENAISSANCE";"NIAMEY";"Urbain";"Nord 2";"Nord";"Niamey";2.051;13.581
+"ECOLE QUATAR";"NIAMEY";"Urbain";"Nord 2";"Nord";"Niamey";2.079702778;13.55580556
+"FRANCOPHONIE AIRTEL";"NIAMEY";"Urbain";"Nord 2";"Nord";"Niamey";2.102139;13.56775
+"HOPTAL DE REFERENCE";"NIAMEY";"Urbain";"Nord 2";"Nord";"Niamey";2.09698294;13.58887886
+"TCHANGAREY";"NIAMEY";"Urbain";"Nord 2";"Nord";"Niamey";2.08948486;13.57733299
+"BOBIEL";"NIAMEY";"Urbain";"Nord 3";"Nord";"Niamey";2.09408755;13.55539747
+"BOBIEL MOOV";"NIAMEY";"Urbain";"Nord 3";"Nord";"Niamey";2.0875761;13.55197424
+"BOBIEL_AIRTEL";"NIAMEY";"Urbain";"Nord 3";"Nord";"Niamey";2.09227778;13.56069444
+"CITÉ CHINOISE";"NIAMEY";"Urbain";"Nord 3";"Nord";"Niamey";2.1063;13.5611
+"DAR SALAM PAVÉ";"NIAMEY";"Urbain";"Nord 3";"Nord";"Niamey";2.09980556;13.54994445
+"DAR SALAM SOS";"NIAMEY";"Urbain";"Nord 3";"Nord";"Niamey";2.10608213;13.55070301
+"RT_BOBIEL";"NIAMEY";"Urbain";"Nord 3";"Nord";"Niamey";2.08597705;13.55688686
+"BANIFANDOU";"NIAMEY";"Urbain";"Nord 4";"Nord";"Niamey";2.1293899;13.5529733
+"CITE CAISSE";"NIAMEY";"Urbain";"Nord 4";"Nord";"Niamey";2.12841039;13.54533896
+"CITE CAISSE MOOV";"NIAMEY";"Urbain";"Nord 4";"Nord";"Niamey";2.13414306;13.54703153
+"LAZARET ZAKEY KOIRA";"NIAMEY";"Urbain";"Nord 4";"Nord";"Niamey";2.11835388;13.54841393
+"TONDIGAMEY";"TONDIGAMEYE";"Rural";"Nord 5";"Nord";"Niamey";2.268961;13.75955
+"FRANCOPHONIE";"NIAMEY";"Urbain";"Nord 5";"Nord";"Niamey";2.11143388;13.57032373
+"KOIRA TEGUI MOOV";"NIAMEY";"Urbain";"Nord 5";"Nord";"Niamey";2.11452402;13.58937577
+"KOIRA TEGUI ROUTE OUALLAM";"NIAMEY";"Urbain";"Nord 5";"Nord";"Niamey";2.10131;13.60194
+"NORD FAISCEAUX";"NIAMEY";"Urbain";"Nord 5";"Nord";"Niamey";2.11566667;13.5765
+"GOUDEL EATON";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.0427;13.536
+"BOUBON";"BOUBON";"Rural";"Petit Marché 1";"Petit Marché";"Niamey";1.92621795;13.60903193
+"AMBASSADE LYBIE";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.0799302;13.52637744
+"AMBASSADE USA";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.07538864;13.52755416
+"CES GOUDEL";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.06783312;13.52912644
+"GABGOURA";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.033358;13.550021
+"GENDARMERIE";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.08450001;13.52669445
+"GOUDEL_LES_RONIERS";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.05380556;13.52728889
+"KOUARAKANO NIGELEC";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.06469874;13.54143798
+"LOSSA GOUNGOU";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.04268998;13.53605656
+"PARC KOIRA KANO";"NIAMEY";"Urbain";"Petit Marché 1";"Petit Marché";"Niamey";2.06625;13.534083
+"CEG 25";"NIAMEY";"Urbain";"Petit Marché 2";"Petit Marché";"Niamey";2.076027778;13.5505
+"CITÉ_SONUCI";"NIAMEY";"Urbain";"Petit Marché 2";"Petit Marché";"Niamey";2.06953138;13.55816426
+"ECOLE PRIMAIRE SONUCI";"NIAMEY";"Urbain";"Petit Marché 2";"Petit Marché";"Niamey";2.06544445;13.55469445
+"KOUBIA_EATON";"NIAMEY";"Urbain";"Petit Marché 2";"Petit Marché";"Niamey";2.060994;13.550619
+"KOUBIA_RPS";"NIAMEY";"Urbain";"Petit Marché 2";"Petit Marché";"Niamey";2.052119;13.554089
+"RYAD";"NIAMEY";"Urbain";"Petit Marché 2";"Petit Marché";"Niamey";2.08116723;13.54836137
+"UNIVERSITE IRAN";"NIAMEY";"Urbain";"Petit Marché 2";"Petit Marché";"Niamey";2.085676;13.54618991
+"CALL CENTER NODAL";"NIAMEY";"Urbain";"Petit Marché 3";"Petit Marché";"Niamey";2.09971124;13.53200075
+"CINEMA HD";"NIAMEY";"Urbain";"Petit Marché 3";"Petit Marché";"Niamey";2.0911951;13.52614735
+"DAR SALAM CASSIS4";"NIAMEY";"Urbain";"Petit Marché 3";"Petit Marché";"Niamey";2.09703566;13.54313906
+"DAR SALAM ONI";"NIAMEY";"Urbain";"Petit Marché 3";"Petit Marché";"Niamey";2.10862655;13.53996193
+"MOOV PLATEAU (EAMAC)";"NIAMEY";"Urbain";"Petit Marché 3";"Petit Marché";"Niamey";2.103204;13.529472
+"ORTN_AIRTEL";"NIAMEY";"Urbain";"Petit Marché 3";"Petit Marché";"Niamey";2.09805556;13.53805556
+"PLATEAU";"NIAMEY";"Urbain";"Petit Marché 3";"Petit Marché";"Niamey";2.09508114;13.52969659
+"STADE GSK";"NIAMEY";"Urbain";"Petit Marché 3";"Petit Marché";"Niamey";2.10825;13.532389
+"AFFAIRES ETRANGERES";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.09773374;13.51481508
+"BRS";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.11793591;13.50630673
+"CLINIQUE PASTEUR";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.1008006;13.51996159
+"COOPERATION";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.1008;13.5113
+"CORNICHE YANTALA";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.08480556;13.51969445
+"GRAND HÔTEL";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.11255687;13.50422631
+"PETIT MARCHE";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.11036212;13.51304292
+"RADISSON";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.1069;13.52090556
+"RADISSON_SMALL_CELL_1";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.1069;13.52090556
+"RADISSON_SMALL_CELL_2";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.1069;13.52090556
+"RADISSON_SMALL_CELL_3";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.1069;13.52090556
+"RADISSON_SMALL_CELL_4";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.1069;13.52090556
+"RADISSON_SMALL_CELL_5";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.1069;13.52090556
+"SONUCI CHATEAU 1";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.096777778;13.52683333
+"ZONGO";"NIAMEY";"Urbain";"Petit Marché 4";"Petit Marché";"Niamey";2.108058;13.513028
+"CAMPING KOIRA KANO";"NIAMEY";"Urbain";"Petit Marché 5";"Petit Marché";"Niamey";2.07738889;13.53258334
+"CIMETIERE YANTALA";"NIAMEY";"Urbain";"Petit Marché 5";"Petit Marché";"Niamey";2.07693655;13.53830996
+"CLINIQUE PLATEAU";"NIAMEY";"Urbain";"Petit Marché 5";"Petit Marché";"Niamey";2.08894244;13.53534322
+"DEUXIEME FORAGE";"NIAMEY";"Urbain";"Petit Marché 5";"Petit Marché";"Niamey";2.083305556;13.54208333
+"DEUXIEME LATERITE";"NIAMEY";"Urbain";"Petit Marché 5";"Petit Marché";"Niamey";2.090333333;13.54266667
+"KALAO";"NIAMEY";"Urbain";"Petit Marché 5";"Petit Marché";"Niamey";2.083444444;13.53463889
+"RECASEMENT";"NIAMEY";"Urbain";"Petit Marché 5";"Petit Marché";"Niamey";2.08641924;13.53789271
+"SMALL_CELL_SUMA_AIRPORT";"NIAMEY";"Urbain";"Wadata 5";"Wadata";"Niamey";2.178612;13.477309
+"BARKIAWAL";"BARKIAWAL";"Rural";"Wadata 1";"Wadata";"Niamey";2.2791919;13.54248275
+"HAMDALLAYE";"HAMDALEYE";"Rural";"Wadata 1";"Wadata";"Niamey";2.40673712;13.55986183
+"BASSORA MOOV";"NIAMEY";"Urbain";"Wadata 1";"Wadata";"Niamey";2.17075;13.512277
+"CITE_SALOU_DJIBO";"NIAMEY";"Urbain";"Wadata 1";"Wadata";"Niamey";2.1858;13.5049
+"NIAMEY 2000";"NIAMEY";"Urbain";"Wadata 1";"Wadata";"Niamey";2.17963228;13.52176928
+"NIAMEY 2000 SAGA FANDOU";"NIAMEY";"Urbain";"Wadata 1";"Wadata";"Niamey";2.17766;13.53314
+"NIAMEY2000_BASSORA";"NIAMEY";"Urbain";"Wadata 1";"Wadata";"Niamey";2.16241264;13.50461482
+"NIAMEY2000_MARTABA";"NIAMEY";"Urbain";"Wadata 1";"Wadata";"Niamey";2.18624837;13.50816527
+"NIAMEY2000_ROUTE_FILINGUEE";"NIAMEY";"Urbain";"Wadata 1";"Wadata";"Niamey";2.18839267;13.52981766
+"CITÉ KOWEIT";"NIAMEY";"Urbain";"Wadata 2";"Wadata";"Niamey";2.13355579;13.50241914
+"NOUVEAU MARCHE";"NIAMEY";"Urbain";"Wadata 2";"Wadata";"Niamey";2.12874718;13.50862298
+"PNA AL OUMA SIEGE";"NIAMEY";"Urbain";"Wadata 2";"Wadata";"Niamey";2.13934952;13.51258359
+"POUDRIERE CEG 7";"NIAMEY";"Urbain";"Wadata 2";"Wadata";"Niamey";2.1385588;13.50891909
+"RADIO KAKAKI";"NIAMEY";"Urbain";"Wadata 2";"Wadata";"Niamey";2.13031619;13.50400826
+"ECOLE DE LA POLICE";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.11859629;13.50260208
+"GALERIE WAZIR";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.132583333;13.498
+"GAMKALEY GARNISON";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.12325;13.49444445
+"MATERNITE TALLADJE";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.15314872;13.49838125
+"MICRO BTS BRANIGER";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.129756;13.487893
+"ORIBA FACE";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.13289093;13.49207344
+"SITE CENTRAL";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.14183971;13.49060332
+"TALLADJE DAGODA";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.15575001;13.48880556
+"TALLADJE_MARCHE";"NIAMEY";"Urbain";"Wadata 3";"Wadata";"Niamey";2.14927628;13.49347671
+"ARENE DE LUTTE";"NIAMEY";"Urbain";"Wadata 4";"Wadata";"Niamey";2.14080371;13.52191935
+"DANGAO_AIRTEL";"NIAMEY";"Urbain";"Wadata 4";"Wadata";"Niamey";2.14505556;13.52419167
+"EGLISE GARBADO";"NIAMEY";"Urbain";"Wadata 4";"Wadata";"Niamey";2.14565235;13.52003723
+"FAMEY";"NIAMEY";"Urbain";"Wadata 4";"Wadata";"Niamey";2.148638889;13.51266667
+"DANTIANDOU";"DANTIANDOU";"Rural";"Wadata 5";"Wadata";"Niamey";2.75916;13.4151
+"KOURE";"KOURE";"Rural";"Wadata 5";"Wadata";"Niamey";2.58937769;13.32571952
+"AÉROPORT CHÂTEAU";"NIAMEY";"Urbain";"Wadata 5";"Wadata";"Niamey";2.2045;13.45711
+"AEROPORT DIORI HAMANI";"NIAMEY";"Urbain";"Wadata 5";"Wadata";"Niamey";2.1801978;13.47520723
+"AÉROPORT GAWADO_AIRTEL";"NIAMEY";"Urbain";"Wadata 5";"Wadata";"Niamey";2.17822222;13.45986111
+"AEROPORT QUARTIER";"NIAMEY";"Urbain";"Wadata 5";"Wadata";"Niamey";2.18196536;13.46889294
+"ROUTE TCHANGA";"NIAMEY";"Urbain";"Wadata 5";"Wadata";"Niamey";2.18999737;13.46500395
+"SOREY";"NIAMEY";"Urbain";"Wadata 5";"Wadata";"Niamey";2.241306;13.437472
+"AMBAGOURA";"AMBAGOURA";"Rural";"Illéla";"Centre";"Tahoua";4.64997222;14.29727778
+"BADAGUICHIRI";"BADAGUICHIRI";"Rural";"Illéla";"Centre";"Tahoua";5.37572681;14.52415266
+"BAGAROUA";"BAGAROUA";"Rural";"Illéla";"Centre";"Tahoua";4.34638889;14.64283333
+"CHAGNASSOU";"CHANGNASSOU";"Rural";"Illéla";"Centre";"Tahoua";4.74206;14.45898
+"DJINGUINIS";"DJINGUINIS";"Rural";"Illéla";"Centre";"Tahoua";5.00327778;14.39630556
+"KAOURA ACHA";"KAOURA ACHA";"Rural";"Illéla";"Centre";"Tahoua";5.66513889;14.43633333
+"MOUJIA";"MOUJIA";"Rural";"Illéla";"Centre";"Tahoua";5.37541104;14.37485562
+"TOUBOUT";"TOUBOUT";"Rural";"Illéla";"Centre";"Tahoua";5.58766667;14.33944444
+"ILLELA";"ILLELA";"Urbain";"Illéla";"Centre";"Tahoua";5.25619291;14.46548295
+"BAGGA";"BAGGA";"Rural";"Tahoua 1";"Centre";"Tahoua";5.34263056;14.67003056
+"FOUNKOYE";"FOUNKOYE";"Rural";"Tahoua 1";"Centre";"Tahoua";5.345699;14.77301293
+"TEBARAM";"TEBARAM";"Rural";"Tahoua 1";"Centre";"Tahoua";4.46038889;14.83297222
+"TAHOUA 700";"TAHOUA";"Urbain";"Tahoua 1";"Centre";"Tahoua";5.27256423;14.89363192
+"TAHOUA UNIVERSITE";"TAHOUA";"Urbain";"Tahoua 1";"Centre";"Tahoua";5.28025;14.865528
+"TAHOUA_CERCLE_MESS";"TAHOUA";"Urbain";"Tahoua 1";"Centre";"Tahoua";5.2735;14.884944
+"TAHOUA_SORTIE_MOOV";"TAHOUA";"Urbain";"Tahoua 1";"Centre";"Tahoua";5.28736112;14.87636112
+"AFFALA";"AFFALA";"Rural";"Tahoua 2";"Centre";"Tahoua";5.24958609;15.1190598
+"TAZA";"TAZA";"Rural";"Tahoua 2";"Centre";"Tahoua";5.21466944;15.35278611
+"TILLIA";"TILLIA";"Rural";"Tahoua 2";"Centre";"Tahoua";4.792784;16.137007
+"TAHOUA 702";"TAHOUA";"Urbain";"Tahoua 2";"Centre";"Tahoua";5.25687845;14.90226198
+"TAHOUA GENDARMERIE";"TAHOUA";"Urbain";"Tahoua 2";"Centre";"Tahoua";5.27442223;14.90123612
+"TAHOUA LYCEE AGABA";"TAHOUA";"Urbain";"Tahoua 2";"Centre";"Tahoua";5.24816945;14.90079167
+"TAHOUA_AIRTEL";"TAHOUA";"Urbain";"Tahoua 2";"Centre";"Tahoua";5.24833334;14.89305556
+"KOLOMA BABBA";"KOLOMA BABBA";"Rural";"Tahoua 3";"Centre";"Tahoua";5.36764496;14.8895973
+"MARARABA KOUREY";"MARARABA KOUREY";"Rural";"Tahoua 3";"Centre";"Tahoua";5.45815731;14.93888247
+"TABALACK";"TABALACK";"Rural";"Tahoua 3";"Centre";"Tahoua";5.64995032;15.08425284
+"TORO";"TORO";"Rural";"Tahoua 3";"Centre";"Tahoua";5.40288889;14.99741667
+"ECOLE CHEIK HAMDAN";"TAHOUA";"Urbain";"Tahoua 3";"Centre";"Tahoua";5.287222;14.886167
+"TAHOUA TARKA";"TAHOUA";"Urbain";"Tahoua 3";"Centre";"Tahoua";5.2889;14.882
+"TAHOUA_AYARAGGOUA";"TAHOUA";"Urbain";"Tahoua 3";"Centre";"Tahoua";5.2597;14.8919
+"BAMBEYE";"BAMBEYE";"Rural";"Tahoua 4";"Centre";"Tahoua";5.07936111;14.71572222
+"EDIR";"EDIR";"Rural";"Tahoua 4";"Centre";"Tahoua";4.78341667;14.81836111
+"SALKADAMNA";"SALKADAMNA";"Rural";"Tahoua 4";"Centre";"Tahoua";4.9958002777778;15.1867338
+"TAKANAMAT";"TAKANAMAT";"Rural";"Tahoua 4";"Centre";"Tahoua";4.81;15.1364861
+"TAHOUA 701";"TAHOUA";"Urbain";"Tahoua 4";"Centre";"Tahoua";5.25593499;14.88392984
+"TAHOUA ABATOIRE";"TAHOUA";"Urbain";"Tahoua 4";"Centre";"Tahoua";5.24369723;14.87930278
+"TAHOUA AEROPORT";"TAHOUA";"Urbain";"Tahoua 4";"Centre";"Tahoua";5.25734167;14.87593612
+"ALAKEYE";"ALAKEYE";"Rural";"Bouza";"Est";"Tahoua";5.74563889;14.40522222
+"DAN ALLA";"DAN ALLA";"Rural";"Bouza";"Est";"Tahoua";6.25446944;14.53027778
+"DJIBALE";"DJIBALE";"Rural";"Bouza";"Est";"Tahoua";5.98817952;14.49344828
+"KAROFANE";"KAROFANE";"Rural";"Bouza";"Est";"Tahoua";6.14938889;14.31638889
+"MADATA";"MADATA";"Rural";"Bouza";"Est";"Tahoua";6.01986111;14.25941667
+"OURNO";"OURNO";"Rural";"Bouza";"Est";"Tahoua";6.454028;14.300417
+"TABOTAKE";"TABOTAKE";"Rural";"Bouza";"Est";"Tahoua";6.15196638;14.6254764
+"BOUZA";"BOUZA";"Urbain";"Bouza";"Est";"Tahoua";6.0411271;14.42155438
+"GADAMATTA";"GADAMATTA";"Rural";"Keita";"Est";"Tahoua";6.086694;14.813917
+"GARHANGA";"GARHANGA";"Rural";"Keita";"Est";"Tahoua";5.77141667;14.56516667
+"IBOHAMANE";"IBOHAMANE";"Rural";"Keita";"Est";"Tahoua";5.93218756;14.79432146
+"INSAFRI";"INSAFRI";"Rural";"Keita";"Est";"Tahoua";5.75419444;14.94475
+"KALFOURAFI";"KALFOU RAFI";"Rural";"Keita";"Est";"Tahoua";5.52011111;14.8675
+"LABA";"LABA";"Rural";"Keita";"Est";"Tahoua";5.93141322;14.62246077
+"SAMO";"SAMO";"Rural";"Keita";"Est";"Tahoua";5.58344444;14.69311111
+"TAMASKE";"TAMASKE";"Rural";"Keita";"Est";"Tahoua";5.64513889;14.86358333
+"KEITA";"KEITA";"Urbain";"Keita";"Est";"Tahoua";5.77149869;14.74863865
+"AZNAK";"AZNAK";"Rural";"Tchinta";"Nord";"Tahoua";6.002791;16.940673
+"ILLAGADER";"ILLAGADER";"Rural";"Abalak";"Nord";"Tahoua";5.950944;15.545667
+"REP_TABALAK_KAOU";"MARARABA KAO";"Rural";"Abalak";"Nord";"Tahoua";5.810861;15.214139
+"TAGIGAL";"TAGIGAL";"Rural";"Tchinta";"Nord";"Tahoua";5.78;16.14
+"ABOUHAYA";"ABOUHAYA";"Rural";"Abalak";"Nord";"Tahoua";6.7015;15.37602778
+"AKOUBOUNOU";"AKOUBOUNOU";"Rural";"Abalak";"Nord";"Tahoua";6.08161111;15.3510833
+"IBECETANE";"IBECETANE";"Rural";"Abalak";"Nord";"Tahoua";5.8834751;15.33391885
+"INIRIGANE";"INIRIGANE";"Rural";"Abalak";"Nord";"Tahoua";6.16996944;15.474175
+"KAOU";"KAOU";"Rural";"Abalak";"Nord";"Tahoua";5.72325262;15.405606
+"TAMAYA";"TAMAYA";"Rural";"Abalak";"Nord";"Tahoua";6.76626458;15.82879204
+"TOFAMINIR";"TOFAMINIR";"Rural";"Abalak";"Nord";"Tahoua";6.5521777;15.8322388
+"ABALAK";"ABALAK";"Urbain";"Abalak";"Nord";"Tahoua";6.28794826;15.4643044
+"ABALAK EATON";"ABALAK";"Urbain";"Abalak";"Nord";"Tahoua";6.2799;15.4537
+"ALBADAA";"ALBADAA";"Rural";"Tchinta";"Nord";"Tahoua";6.03079;17.27593
+"BAZAGORE";"BAZAGORE";"Rural";"Tchinta";"Nord";"Tahoua";6.24072222;16.50577778
+"DAMBOUTANE";"DAMBOUTANE";"Rural";"Tchinta";"Nord";"Tahoua";5.49239;15.94217
+"EDAGUE";"EDAGUE";"Rural";"Tchinta";"Nord";"Tahoua";6.3273;16.04644
+"EUGAWANE";"EUGAWANE";"Rural";"Tchinta";"Nord";"Tahoua";5.91999547;16.5199978
+"GHARO";"GAROUA";"Rural";"Tchinta";"Nord";"Tahoua";5.751713;16.282195
+"INTAMAT";"INTAMAT";"Rural";"Tchinta";"Nord";"Tahoua";4.943558333;16.56419722
+"LOUBERAT";"LOUBERAT";"Rural";"Tchinta";"Nord";"Tahoua";6.14219445;16.88977778
+"MIDAL";"MIDAL";"Rural";"Tchinta";"Nord";"Tahoua";4.4543;16.9215
+"TARRISADAT";"TARRISADAT";"Rural";"Tchinta";"Nord";"Tahoua";5.4887583333333;16.47575
+"TASSARA";"TASSARA";"Rural";"Tchinta";"Nord";"Tahoua";5.6472432;16.81046549
+"TCHINTABARADEN";"TCHINTABARADEN";"Urbain";"Tchinta";"Nord";"Tahoua";5.80419144;15.89475077
+"DOUKOU DOUKOU";"DOUKOU DOUKOU";"Rural";"Madaoua";"Sud";"Tahoua";6.32212;13.85382
+"TAFOUKA";"TAFOUKA";"Rural";"Konni";"Sud";"Tahoua";4.93161;13.7855
+"ADOUA";"ADOUA";"Rural";"Konni";"Sud";"Tahoua";4.585;14.16419444
+"ALLELA";"ALLELA";"Rural";"Konni";"Sud";"Tahoua";4.83477334;13.89430969
+"CERASSA GOUNE";"CERASSA GOUNE";"Rural";"Konni";"Sud";"Tahoua";5.30635877;13.8370549
+"DABNOU";"DABNOU";"Rural";"Konni";"Sud";"Tahoua";5.35467217;14.15315315
+"DAFAWA";"DAFAWA";"Rural";"Konni";"Sud";"Tahoua";5.07061111;14.13177778
+"DOSSEY";"DOSSEY";"Rural";"Konni";"Sud";"Tahoua";5.19192528;13.87656336
+"GOUGOUHEMA";"GOUGOUHEMA";"Rural";"Konni";"Sud";"Tahoua";4.81341667;14.19944444
+"GOUMBIN KANO";"GOUMBIN KANO";"Rural";"Konni";"Sud";"Tahoua";4.92557;14.02199
+"GUIDAN IDER";"GUIDAN IDER";"Rural";"Konni";"Sud";"Tahoua";5.32262906;14.00608085
+"MASSALATA";"MASSALATA";"Rural";"Konni";"Sud";"Tahoua";5.19903835;13.78803522
+"MUNTSEKA";"MUNTSEKA";"Rural";"Konni";"Sud";"Tahoua";4.66638889;13.82428889
+"TOULOU";"TOULOU";"Rural";"Konni";"Sud";"Tahoua";5.19430556;14.17277778
+"TSERNAWA";"TSERNAWA";"Rural";"Konni";"Sud";"Tahoua";5.34887364;13.89754011
+"YAYA";"YAYA";"Rural";"Konni";"Sud";"Tahoua";4.74999905;13.83999701
+"KONNI 710";"KONNI";"Urbain";"Konni";"Sud";"Tahoua";5.25162801;13.78918567
+"KONNI 711";"KONNI";"Urbain";"Konni";"Sud";"Tahoua";5.24713577;13.8028078
+"KONNI_DOLEKAZONAN";"KONNI";"Urbain";"Konni";"Sud";"Tahoua";5.2456;13.7838
+"KONNI_SORTIE_NIGÉRIA";"KONNI";"Urbain";"Konni";"Sud";"Tahoua";5.2602;13.7855
+"BANGUI";"BANGUI";"Rural";"Madaoua";"Sud";"Tahoua";6.1969;13.6747
+"DOGUERAOUA";"DOGUERAOUA";"Rural";"Madaoua";"Sud";"Tahoua";5.585119444;13.96262778
+"EROUFA";"EROUFA";"Rural";"Madaoua";"Sud";"Tahoua";5.8965;13.81908333
+"FOURRAGUIRKE";"FOURRA GUIRKE";"Rural";"Madaoua";"Sud";"Tahoua";5.53838889;14.12408333
+"GALMI";"GALMI";"Rural";"Madaoua";"Sud";"Tahoua";5.6651;13.969
+"GANDASSAMOU";"GANDASSAMOU";"Rural";"Madaoua";"Sud";"Tahoua";6.07005277;14.19389601
+"KAWARA";"KAWARA";"Rural";"Madaoua";"Sud";"Tahoua";5.666944;14.078667
+"MAGARIYA-HAYI";"MAGARIYA HAYI";"Rural";"Madaoua";"Sud";"Tahoua";5.77050119;14.0086906
+"MALBAZA";"MALBAZA";"Rural";"Madaoua";"Sud";"Tahoua";5.51056005;13.95434638
+"MANZOU";"MANZOU";"Rural";"Madaoua";"Sud";"Tahoua";6.3264;14.0465
+"SABONGA";"SABONGA";"Rural";"Madaoua";"Sud";"Tahoua";5.65002433;14.17952233
+"TAKORKA";"TAKORKA";"Rural";"Madaoua";"Sud";"Tahoua";6.18114;13.9254
+"TAMA";"TAMA";"Rural";"Madaoua";"Sud";"Tahoua";5.77077422;14.26658406
+"TOUNFAFI";"TOUNFAFI";"Rural";"Madaoua";"Sud";"Tahoua";5.70881;14.20137
+"MADAOUA";"MADAOUA";"Urbain";"Madaoua";"Sud";"Tahoua";5.95000203;14.06447082
+"MADAOUA_2";"MADAOUA";"Urbain";"Madaoua";"Sud";"Tahoua";5.9598;14.0712
+"BALEYARA";"BALEYARA";"Rural";"Baleyara";"Est";"Tillaberi";2.93789649;13.7778255
+"BANI KOSSEYE";"BANI KOSSEYE";"Rural";"Baleyara";"Est";"Tillaberi";2.6874908;13.66903051
+"DAMANA";"DAMANA";"Rural";"Baleyara";"Est";"Tillaberi";3.07396434;13.89737701
+"FANDOU";"FANDOU";"Rural";"Baleyara";"Est";"Tillaberi";2.89113889;13.90358333
+"KABE";"KABE";"Rural";"Baleyara";"Est";"Tillaberi";3.02959398;13.62436706
+"MBAMA";"MBAMA";"Rural";"Baleyara";"Est";"Tillaberi";2.85340368;13.73557188
+"SANDIRE";"SANDIRE";"Rural";"Baleyara";"Est";"Tillaberi";2.8963;13.6546
+"ABALA";"ABALA";"Rural";"Filingué";"Est";"Tillaberi";3.44206111;14.92723889
+"AMASSAGAL";"AMASSAGAL";"Rural";"Filingué";"Est";"Tillaberi";3.21947929;13.94908213
+"BONKOUKOU";"BONKOUKOU";"Rural";"Filingué";"Est";"Tillaberi";3.22433699;14.00363684
+"CHIKAL";"CHIKAL";"Rural";"Filingué";"Est";"Tillaberi";3.44665;14.24794
+"GAO";"GAO";"Rural";"Filingué";"Est";"Tillaberi";3.30979831;14.24334901
+"EKRAFAN";"IKARFAN";"Rural";"Filingué";"Est";"Tillaberi";3.60365;15.36703
+"LOUMA";"LOUMA";"Rural";"Filingué";"Est";"Tillaberi";3.25762835;14.15352679
+"SANAM";"SANAM";"Rural";"Filingué";"Est";"Tillaberi";3.90669444;14.83505556
+"TOUKOUNOUS";"TOUKOUNOUS";"Rural";"Filingué";"Est";"Tillaberi";3.30094;14.5035
+"FILINGUE";"FILINGUE";"Urbain";"Filingué";"Est";"Tillaberi";3.32540327;14.35567066
+"DINGAZI BANDA MACRO";"DINGAZI BANDA";"Rural";"Ouallam";"Est";"Tillaberi";2.5512;14.181
+"GOTHEYE";"GOTHEYE";"Rural";"Gotheye";"Ouest";"Tillaberi";1.56943703;13.85393909
+"KOULI KOARA";"KOULI KOARA";"Rural";"Gotheye";"Ouest";"Tillaberi";1.48311865;13.87416468
+"LARBA BIRNO";"LARBA BIRNO";"Rural";"Gotheye";"Ouest";"Tillaberi";1.55606431;13.70706658
+"MBANGA";"MBANGA";"Rural";"Gotheye";"Ouest";"Tillaberi";1.56001;13.62184
+"MEHANNA";"MEHANNA";"Rural";"Gotheye";"Ouest";"Tillaberi";1.13266592;14.39066272
+"SAMIRA";"SAMIRA";"Rural";"Gotheye";"Ouest";"Tillaberi";1.21750067;13.43427533
+"TOURE";"TOURE";"Rural";"Gotheye";"Ouest";"Tillaberi";1.45063496;13.61814169
+"BANJO";"BANJO";"Rural";"Koma Bangou";"Ouest";"Tillaberi";1.10583431;13.88836124
+"DARGOL";"DARGOL";"Rural";"Koma Bangou";"Ouest";"Tillaberi";1.24088581;13.91905294
+"KOMA BANGOU";"KOMA BANGOU";"Rural";"Koma Bangou";"Ouest";"Tillaberi";1.05971563;14.07745026
+"BANIBANGOU";"BANIBANGOU";"Rural";"Ouallam";"Ouest";"Tillaberi";2.70033215;15.04442076
+"MANGAIZE";"MANGAIZE";"Rural";"Ouallam";"Ouest";"Tillaberi";1.9522683;14.68246365
+"OUALLAM";"OUALLAM";"Urbain";"Ouallam";"Ouest";"Tillaberi";2.09033381;14.3217194
+"BANGARE";"BANGARE";"Rural";"Téra";"Ouest";"Tillaberi";0.628083;13.783917
+"BANGOUTARA";"BANGOUTARA";"Rural";"Téra";"Ouest";"Tillaberi";1.36777317;13.84661273
+"BANKILARE";"BANKILARE";"Rural";"Téra";"Ouest";"Tillaberi";0.71873889;14.58171944
+"DJAGOUROU";"DJAGOUROU";"Rural";"Téra";"Ouest";"Tillaberi";0.81263602;13.9108876
+"DOLBEL";"DOLBEL";"Rural";"Téra";"Ouest";"Tillaberi";0.286305;14.611388
+"DOUNGOURO";"DOUNGOURO";"Rural";"Téra";"Ouest";"Tillaberi";0.75272222;14.29680556
+"KOKOROU";"KOKOROU";"Rural";"Téra";"Ouest";"Tillaberi";0.91791667;14.21022222
+"TEGUE";"TEGUE";"Rural";"Téra";"Ouest";"Tillaberi";0.535083;14.655861
+"TERA";"TERA";"Urbain";"Téra";"Ouest";"Tillaberi";0.75998541;14.00450028
+"AYOROU";"AYOROU";"Rural";"Tillabéri";"Ouest";"Tillaberi";0.94115344;14.73937905
+"BOURKÉ BOURKÉ";"BOURKÉ BOURKÉ";"Rural";"Tillabéri";"Ouest";"Tillaberi";1.22972223;13.63425001
+"DJAMBALA";"DJAMBALA";"Rural";"Tillabéri";"Ouest";"Tillaberi";1.29985927;14.3180277
+"FARIE HAOUSSA";"FARIE HAOUSSA";"Rural";"Tillabéri";"Ouest";"Tillaberi";1.63832841;13.79460562
+"GABOU";"GABOU";"Rural";"Tillabéri";"Ouest";"Tillaberi";1.04556607;14.59645401
+"KARMA ROUTE";"KARMA";"Rural";"Tillabéri";"Ouest";"Tillaberi";1.78721542;13.70435776
+"KARMA VILLAGE";"KARMA";"Rural";"Tillabéri";"Ouest";"Tillaberi";1.81980668;13.67896695
+"TOUNDI FARKA";"TOUNDI FARKA";"Rural";"Tillabéri";"Ouest";"Tillaberi";1.55205861;14.037076
+"TILLABERI";"TILLABERI";"Urbain";"Tillabéri";"Ouest";"Tillaberi";1.4543625;14.20702819
+"TILLABERI_ENTREE";"TILLABERI";"Urbain";"Tillabéri";"Ouest";"Tillaberi";1.46219445;14.19741667
+"SORODAYA (GARAGOUMSA)";"SORODAYA";"Rural";"Matameye";"Centre";"Zinder";8.39735596;13.66603373
+"TACHAL MALLAM";"TACHAL MALLAM";"Rural";"Matameye";"Centre";"Zinder";8.63013889;13.72230556
+"TAKIETA";"TAKIETA";"Rural";"Matameye";"Centre";"Zinder";8.53309585;13.68313161
+"ZINDER 801";"ZINDER";"Urbain";"Zinder 1";"Centre";"Zinder";8.9959251;13.8036989
+"ZINDER CEG 8";"ZINDER";"Urbain";"Zinder 1";"Centre";"Zinder";8.99358;13.82292
+"ZINDER DEPOT SONIDEP";"ZINDER";"Urbain";"Zinder 1";"Centre";"Zinder";8.99144;13.83295
+"ZINDER GARIN MALAM";"ZINDER";"Urbain";"Zinder 1";"Centre";"Zinder";8.9961;13.81135
+"ZINDER JAGUINDI";"ZINDER";"Urbain";"Zinder 1";"Centre";"Zinder";8.98083056;13.82438333
+"ZINDER_AUTOGARE";"ZINDER";"Urbain";"Zinder 1";"Centre";"Zinder";8.9871;13.8064
+"GARIN SALEY";"GARIN SALEY";"Rural";"Zinder 2";"Centre";"Zinder";9.11733333;13.58269444
+"KOLERAM";"KOLERAM";"Rural";"Zinder 2";"Centre";"Zinder";9.08266111;13.71458889
+"MIRRIAH";"MIRRIAH";"Urbain";"Zinder 2";"Centre";"Zinder";9.15940293;13.71503692
+"CIMETIERE NASSARA IDI";"ZINDER";"Urbain";"Zinder 2";"Centre";"Zinder";9.00642;13.79515
+"ZINDER FRANCO";"ZINDER";"Urbain";"Zinder 2";"Centre";"Zinder";9.00308333;13.78566667
+"ZINDER NASSARAWA IDI";"ZINDER";"Urbain";"Zinder 2";"Centre";"Zinder";9.00422;13.80363
+"CEG 13 FRANCO ARABE";"ZINDER";"Urbain";"Zinder 3";"Centre";"Zinder";8.9663;13.82301
+"ECOLE CHARÉE ZAMNA 2";"ZINDER";"Urbain";"Zinder 3";"Centre";"Zinder";8.96332;13.81533
+"ZINDER 800";"ZINDER";"Urbain";"Zinder 3";"Centre";"Zinder";8.98060931;13.81289183
+"ZINDER BANIBIYE";"ZINDER";"Urbain";"Zinder 3";"Centre";"Zinder";8.96935833;13.81219444
+"ZINDER CEG 5";"ZINDER";"Urbain";"Zinder 3";"Centre";"Zinder";8.96299;13.80792
+"ZINDER CEG10";"ZINDER";"Urbain";"Zinder 3";"Centre";"Zinder";8.97324;13.83101
+"ZINDER UNIV";"ZINDER";"Urbain";"Zinder 3";"Centre";"Zinder";8.98863;13.84394
+"ZINDER_SATOM";"ZINDER";"Urbain";"Zinder 3";"Centre";"Zinder";8.985;13.887
+"BABANTABKI";"BABANTABKI";"Rural";"Zinder 4";"Centre";"Zinder";9.02854971;13.70606611
+"DOGO CHAIBOU";"DOGO CHAIBOU";"Rural";"Zinder 4";"Centre";"Zinder";9.01233575;13.49725516
+"DROUM MALORI";"DROUM MALORI";"Rural";"Zinder 4";"Centre";"Zinder";8.89520773;13.56565174
+"GOGO";"GOGO";"Rural";"Zinder 4";"Centre";"Zinder";8.95208889;13.66051111
+"TIRMINI";"TIRMINI";"Rural";"Zinder 4";"Centre";"Zinder";8.79887441;13.76888726
+"ZINDER 802";"ZINDER";"Urbain";"Zinder 4";"Centre";"Zinder";8.97630649;13.79837472
+"ZINDER GOUVERNORAT";"ZINDER";"Urbain";"Zinder 4";"Centre";"Zinder";8.98826;13.79142
+"ZINDER ROUTE MAGARIA";"ZINDER";"Urbain";"Zinder 4";"Centre";"Zinder";8.99693;13.77268
+"ZINDER ROUTE NIAMEY";"ZINDER";"Urbain";"Zinder 4";"Centre";"Zinder";8.96291;13.80155
+"DAMAGARAN TAKAYA";"DAMAGARAM TAKAYA";"Rural";"Damagaram Takaya";"Est";"Zinder";9.49119444;14.14433333
+"KASSAMA";"KASSAMA";"Rural";"Damagaram Takaya";"Est";"Zinder";9.27319444;13.98925
+"MOA HAUOSSA";"MOA HAUOSSA";"Rural";"Damagaram Takaya";"Est";"Zinder";9.75825;14.17319444
+"ZERMOU";"ZERMOU";"Rural";"Damagaram Takaya";"Est";"Zinder";9.32113889;13.87191667
+"BOUNE";"BOUNE";"Rural";"Gouré";"Est";"Zinder";10.136;13.51945
+"GUIDIGUIR";"GUIDIGUIR";"Rural";"Gouré";"Est";"Zinder";9.82665846;13.67872693
+"GUIDIMOUNI";"GUIDIMOUNI";"Rural";"Gouré";"Est";"Zinder";9.50721535;13.68892846
+"KARGUERI";"KARGUERI";"Rural";"Gouré";"Est";"Zinder";10.41756111;13.44183056
+"KAZOE";"KAZOE";"Rural";"Gouré";"Est";"Zinder";9.96930556;14.22788889
+"SOUBDOU";"SOUBDOU";"Rural";"Gouré";"Est";"Zinder";10.54652778;13.81163889
+"TESKER";"TESKER";"Rural";"Gouré";"Est";"Zinder";10.69041843;15.115612
+"GOURE";"GOURE";"Urbain";"Gouré";"Est";"Zinder";10.27009771;13.98519741
+"AROUNGOUZA";"AROUNGOUZA";"Rural";"Bakin Birgi";"Nord";"Zinder";8.94710319;14.03550976
+"BAKIN BIRGI";"BAKIN BIRGI";"Rural";"Bakin Birgi";"Nord";"Zinder";8.78746999;14.25541072
+"GUEZAOUA";"GUEZAOUA";"Rural";"Bakin Birgi";"Nord";"Zinder";8.72433333;14.44411111
+"SABON KAFI";"SABON KAFI";"Rural";"Bakin Birgi";"Nord";"Zinder";8.74797456;14.65252048
+"SORAZ";"SORAZ";"Rural";"Bakin Birgi";"Nord";"Zinder";8.79030556;14.18816667
+"BATTE";"BATTE";"Rural";"Tanout";"Nord";"Zinder";7.98133775;14.95242006
+"BELBEJI";"BELBEJI";"Rural";"Tanout";"Nord";"Zinder";7.9999626;14.68518824
+"INYALWA";"INYALWA";"Rural";"Tanout";"Nord";"Zinder";8.59063889;14.115
+"YAGADJI";"YAGADJI";"Rural";"Tanout";"Nord";"Zinder";8.394794;14.36530179
+"TANOUT";"TANOUT";"Urbain";"Tanout";"Nord";"Zinder";8.87919853;14.97219606
+"BANDE HAOUSSA";"BANDE HAOUSSA";"Rural";"Magaria";"Sud";"Zinder";8.88754471;13.17735712
+"DAN TCHIAOU";"DAN TCHIAOU";"Rural";"Magaria";"Sud";"Zinder";9.09513889;12.87996389
+"DOGO DOGO";"DOGO DOGO";"Rural";"Magaria";"Sud";"Zinder";9.32658889;12.90168056
+"DUNGASS";"DUNGASS";"Rural";"Magaria";"Sud";"Zinder";9.33486111;13.06163889
+"GUIRARI";"GUIRARI";"Rural";"Magaria";"Sud";"Zinder";9.15605407;13.40416932
+"TINKIM";"TINKIM";"Rural";"Magaria";"Sud";"Zinder";8.96721462;12.88343947
+"TSATSOUMBOUROUM";"TSATSOUMBOUROUM";"Rural";"Magaria";"Sud";"Zinder";8.49218767;13.11984574
+"WACHA";"WACHA";"Rural";"Magaria";"Sud";"Zinder";9.29988889;13.3639
+"YEKOUA";"YEKOUA";"Rural";"Magaria";"Sud";"Zinder";8.67319;13.039944
+"MAGARIA";"MAGARIA";"Urbain";"Magaria";"Sud";"Zinder";8.90280859;12.99281537
+"DOUNGOU HAOUSSA";"DOUNGOU HAOUSSA";"Rural";"Matameye";"Sud";"Zinder";8.63233889;13.42283056
+"KANTCHE";"KANTCHE";"Rural";"Matameye";"Sud";"Zinder";8.46454771;13.53904814
+"MAY MOUJIA";"MAY MOUJIA";"Rural";"Matameye";"Sud";"Zinder";8.29005;13.18073889
+"MATAMEYE";"MATAMEYE";"Urbain";"Matameye";"Sud";"Zinder";8.47313493;13.41766521
+"GADA";"GADA";"Rural";"Zinder 3";"Sud";"Zinder";8.98525;13.37472222

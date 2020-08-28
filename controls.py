@@ -7,29 +7,24 @@ mapbox_access_token = 'pk.eyJ1Ijoic2FuaXJvdSIsImEiOiJja2U0cWwweDEwdnlhMnpsZm9oeW
 
 # Form data *********************************
 
-OVERVIEW_AXES = [
+# Overview tab analysis axis options
+OVERVIEW_AXIS = [
     'Statut des PDVs',
     'Impact des visites'
 ]
-overwiew_axe_options = [
-    {"label": axe, "value": axe} for axe in OVERVIEW_AXES
+overwiew_axis_options = [
+    {"label": axe, "value": axe} for axe in OVERVIEW_AXIS
 ]
 
 
-OVERVIEW_GEO_FILTERS = [
-    'Zones',
-    'Secteurs']
-overwiew_geo_filter_options = [
-    {"label": geo_filter, "value": geo_filter} for geo_filter in OVERVIEW_GEO_FILTERS
-]
-
-# POS activity Dropdown options
+# POS activities dropdown options
 ACTIVITIES = [
     'Orange Money'
 ]
 activity_options = [
     {"label": activity, "value": activity} for activity in ACTIVITIES
 ]
+
 
 # POS global stutus options
 STATUS = [
@@ -42,7 +37,8 @@ status_options = [
     {"label": status, "value": status} for status in STATUS
 ]
 
-# POS cx status options
+
+# POS cash x status options
 OM_CX_CATEGORIES = [
     'Performant',
     'Presque performant',
@@ -52,6 +48,7 @@ om_cx_category_options = [
     {"label": category, "value": category} for category in OM_CX_CATEGORIES
 ]
 
+# Thematic maps options
 MAP_THEMES_VALUES = [
     "Status des PDVs",
     "Impact des visites",
@@ -67,7 +64,7 @@ map_theme_options = [
 ]
 
 
-# Colors
+# App colors
 COLORS = {
     'green': 'rgb(112,173,71)',                  
     'blue': 'rgb(0,175,240)',            
@@ -81,7 +78,7 @@ COLORS = {
 }
 
 
-# Status Colors
+# POS status colors
 status_markers_colors = {
     'Actif': COLORS['green'],                   
     'Futur inactif': COLORS['blue'],            
@@ -89,7 +86,7 @@ status_markers_colors = {
     'Inactif âgé': COLORS['red'],                 
 }
 
-# Impact Colors
+# Visite impact colors
 impact_markers_colors = {
     'A réagi': COLORS['green'],                   
     'A maintenu son statut': COLORS['blue'],       
@@ -99,13 +96,15 @@ impact_markers_colors = {
     "Nouveau PDV visité" : COLORS['orange']
 }
 
-# Commissions Colors
+
+# Commissions performance colors
 commission_markers_colors = {
     'Oui': COLORS['green'],
     'Non': COLORS['red']
 }
 
 
+# Define coulumns names that appear in tabular data
 tab_columns_rename = {
     'POS': 'PDV',
     'MONTH': 'MOIS',
@@ -121,6 +120,7 @@ tab_columns_rename = {
 }
 
 
+# Overview tab main comment
 overview_main_comment = dbc.Jumbotron(
     [
         html.H1(className="display-5",id='overview_main_comment_main_str'), # children= "Jumbotron"
@@ -140,6 +140,7 @@ overview_main_comment = dbc.Jumbotron(
     ]
 )
 
+
 # Overview filters
 overview_layout = dbc.Card(
     dbc.CardBody(
@@ -149,9 +150,9 @@ overview_layout = dbc.Card(
                     html.H4("Axe d'analyse ...",className="card-title",style={'float':'left'}),
                     dbc.RadioItems(
                         id="overwiew_axe_selector",
-                        options=overwiew_axe_options,
+                        options=overwiew_axis_options,
                         inline=True,
-                        value=OVERVIEW_AXES[0],
+                        value=OVERVIEW_AXIS[0],
                         style={'float':'right'}
                     )                            
                 ]

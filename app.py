@@ -1,7 +1,12 @@
-"""
-Capillarite OM: Upsales, ONE
+# package imports
+import dash
+import dash_bootstrap_components as dbc
+import dash_html_components as html
+import dash_core_components as dcc
+from dash.dependencies import Input, Output, State
+from dash import no_update
+from flask import session, copy_current_request_context
 
-"""
 import base64
 import os
 import pathlib
@@ -28,7 +33,7 @@ import json
 import dash_auth
 import plotly.figure_factory as ff
 import plotly.express as px
-import locale
+
 
 #
 import sys
@@ -37,6 +42,19 @@ from controls import overview_layout,mapbox_access_token,cached_columns,MONTH_NA
 from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
 from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
 
+
+# local imports
+from auth import authenticate_user, validate_login_session
+from server import app, server
+
+# Function for export to csv ability
+@server.route("/download/<path:path>")
+def download(path):
+    """Serve a file from the upload directory."""
+    return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
+
+
+#*****************************************************************************************************************************
 
 
 # Get relative path : data folder
@@ -52,34 +70,25 @@ if not os.path.exists(UPLOAD_DIRECTORY):
 Path(os.path.join(UPLOAD_DIRECTORY, "extract.csv"),exist_ok=True).touch()
 
 
-# Load main data
-df = pd.read_csv(DATA_PATH.joinpath("upsales_app.csv"),sep=";") #low_memory=False)
-df["DATE"] = pd.to_datetime(df["DATE"])
-df["MONTH"] = pd.to_datetime(df["MONTH"])
-zoning = df[['DACR','ZONE','SECTEUR']].drop_duplicates(keep='first')
-# filtered_data = pd.DataFrame()
-# date_sup =  pd.to_datetime(str(max(df['DATE']))).strftime('%Y-%m-%d')
-# date_inf =  pd.to_datetime(str(min(df['DATE']))).strftime('%Y-%m-%d')
-# current_date = date_sup
-# current_locale = locale.getlocale(locale.LC_ALL) # get current locale
-# locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
-MONTHS = [MONTH_NAMES[pd.to_datetime(x).strftime('%B')] + ' ' + pd.to_datetime(x).strftime('%Y') for x in df['MONTH'].unique()]
-MonthSup = MONTH_NAMES[pd.to_datetime(df['MONTH'].max()).strftime('%B')] + ' ' + pd.to_datetime(df['MONTH'].max()).strftime('%Y')
-MonthSupValue  = pd.to_datetime(df['MONTH'].max()).strftime('%Y-%m-%d')
-DateSup  = pd.to_datetime(df['DATE'].max()).strftime('%d') + ' ' + MONTH_NAMES[pd.to_datetime(df['DATE'].max()).strftime('%B')].lower() + ' ' + pd.to_datetime(df['DATE'].max()).strftime('%Y')
+# Dates options
+date_df = pd.read_csv(DATA_PATH.joinpath("upsales_app.csv"),sep=";",usecols = ['DATE','MONTH']).drop_duplicates(keep='first') #low_memory=False)
+date_df["DATE"] = pd.to_datetime(date_df["DATE"])
+date_df["MONTH"] = pd.to_datetime(date_df["MONTH"])
+MONTHS = [MONTH_NAMES[pd.to_datetime(x).strftime('%B')] + ' ' + pd.to_datetime(x).strftime('%Y') for x in date_df['MONTH'].unique()]
+MonthSup = MONTH_NAMES[pd.to_datetime(date_df['MONTH'].max()).strftime('%B')] + ' ' + pd.to_datetime(date_df['MONTH'].max()).strftime('%Y')
+MonthSupValue  = pd.to_datetime(date_df['MONTH'].max()).strftime('%Y-%m-%d')
+DateSup  = pd.to_datetime(date_df['DATE'].max()).strftime('%d') + ' ' + MONTH_NAMES[pd.to_datetime(date_df['DATE'].max()).strftime('%B')].lower() + ' ' + pd.to_datetime(date_df['DATE'].max()).strftime('%Y')
 month_options = [
     {
         "label": MONTH_NAMES[pd.to_datetime(month).strftime('%B')] + ' ' + pd.to_datetime(month).strftime('%Y'), 
         "value": pd.to_datetime(month).strftime('%Y-%m-%d')
-    } for month in df['MONTH'].unique()
+    } for month in date_df['MONTH'].unique()
 ]
 
-# locale.setlocale(locale.LC_ALL, '') # use user's preferred locale
-# locale.setlocale(locale.LC_ALL, 'C') # use default (C) locale
-# locale.setlocale(locale.LC_ALL, current_locale) # restore saved locale
 
-
-
+# Data for geo options
+zoning = pd.read_csv(DATA_PATH.joinpath("out_ref_sites.csv"),sep=";") #low_memory=False)
+zoning = zoning[['DACR','ZONE','SECTEUR']].drop_duplicates(keep='first')
 
 # DACR Dropdown options
 DACRS = list(zoning['DACR'].unique())
@@ -99,344 +108,424 @@ secteur_options = [
     {"label": secteur, "value": secteur} for secteur in SECTEURS
 ]
 
-# Keep this out of source code repository - save in a file or a database
-VALID_USERNAME_PASSWORD_PAIRS = {
-    'upsales': '123@range'
-}
-
-server = Flask(__name__)
-app = Dash(
-    server=server,
-    # requests_pathname_prefix='/FlaskApp/',
-    external_stylesheets=[dbc.themes.BOOTSTRAP],
-    meta_tags=[{"name": "viewport", "content": "width=device-width"}]
-)
-app.title = "Capillarité"
-
-auth = dash_auth.BasicAuth(
-    app,
-    VALID_USERNAME_PASSWORD_PAIRS
-)
-
-# Function for export to csv ability
-@server.route("/download/<path:path>")
-def download(path):
-    """Serve a file from the upload directory."""
-    return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
-
-
-# load logo
-logo = html.Div(
-    [
-        html.Img(
-            src=app.get_asset_url("logo_upsales.jfif"),
-            id="logo_upsales",
-            style={
-                "height": "60px",
-                "width": "auto",
-                "float": "left",
-                'margin-right': '1.5rem'
-            }
-        )
-    ],
-    className="dash-bootstrap",
-    style={"float":"left"}
-)
-
-# Main form ---------------------------------------------------------------------
-controls = dbc.Card(
-    [
-        # Month Dropdown selector
-        dbc.FormGroup(
-            [
-                dbc.Label("Mois",style={'margin-right':'0.5rem','marging-top' : '3rem'}),
-                html.Br(),
-                dcc.Dropdown(
-                    id="month_selector",
-                    options=month_options,
-                    placeholder="Select a month",
-                    disabled=False,
-                    multi=False,
-                    value=MonthSupValue,
-                    className="dash-bootstrap"
-                ),
-
-                # dcc.DatePickerSingle(
-                #    id='date_selector',
-                #    min_date_allowed=date_inf,
-                #    max_date_allowed=date_sup,
-                #    initial_visible_month=current_date,
-                #    date=current_date,
-                #    display_format="DD/MM/YYYY",
-                #    className="dash-bootstrap"
-                # ),
-            ]
-        ),
-
-        # Activity selector
-        dbc.FormGroup(
-            [
-                html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
-                dbc.Label("Activités"),
-                dcc.Dropdown(
-                    id="pos_activity_selector",
-                    options=activity_options,
-                    placeholder="Select POS activities",
-                    disabled=True,
-                    multi=True,
-                    value=[ACTIVITIES[0]],
-                ),
-            ]
-        ),
-
-        # Global pos status selector
-        dbc.FormGroup(
-            [
-                html.Br(),
-                dbc.Label("Statut global"),
-                dbc.Checklist(
-                    options=status_options,
-                    value=STATUS,
-                    id="global_om_status_selector",
-                    switch=True,
-                    inline=True
-                ),
-            ]
-        ),
-        
-        # Cash In/Out status selector
-        dbc.FormGroup(
-            [
-                html.Br(),
-                # html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
-                dbc.Label("Statut Cash in/Cash out"),
-                dbc.Checklist(
-                    options=status_options,
-                    value=STATUS,
-                    id="cashx_status_selector",
-                    switch=True,
-                    inline=True
-                ),
-            ]
-        ),
-        
-        # Commission perf selector
-        dbc.FormGroup(
-            [
-                html.Br(),
-                # html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
-                dbc.Label("Commissions mesnuelles ≥ 1 000F"),
-                dbc.Checklist(
-                    options=[{'label': 'Oui', 'value': 'Oui'},{'label': 'Non', 'value': 'Non'}],
-                    value=['Oui','Non'],
-                    id="commission_status_selector",
-                    # switch=True,
-                    inline=True
-                ),
-            ]
-        ),
-
-        # DACR selector
-        dbc.FormGroup(
-            [
-                html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
-                # html.P('Filtres Géo',style={'margin-top':'0','text-align': 'right','font-style': 'italic','color':'red'}),
-                dbc.Label("Régions"),
-                dcc.Dropdown(
-                    id="dacr_selector",
-                    placeholder="Select DACR(S)...",
-                    options=dacr_options,
-                    multi=True,
-                    value=['Niamey','Dosso','Tillaberi']
-                ),
-            ]
-        ),
-        
-        # Zone selector
-        html.Br(),
-        dbc.FormGroup(
-            [
-                dbc.Label("Zones"),
-                dcc.Dropdown(
-                    id="zone_selector",
-                    placeholder="Select ZONE(S)...",
-                    options=zone_options,
-                    multi=True,
-                    value=ZONES,
-                ),
-            ]
-        ),
-        
-        # Sector selector
-        html.Br(),
-        dbc.FormGroup(
-            [
-                dbc.Label("Secteurs"),
-                dcc.Dropdown(
-                    id="sector_selector",
-                    placeholder="Select SECTOR(S)...",
-                    options=secteur_options,
-                    multi=True,
-                    value=SECTEURS,
-                ),
-            ]
-        ),
-        
-        
-        # Submit button
-        dbc.FormGroup(
-            [
-                html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
-                dbc.Button("Valider", id="submit_button", className="mr-2",style={'display': 'inline-block','float':'right'}),
-                # html.Span(id="example-output", style={"vertical-align": "middle"}),
-            ]
-        ),
-    ],
-    body=True,
-)
 
 
 
-# Visualization tabs ---------------------------------------------------------------------
-# Overview tab content
-tab1_content = dbc.Card(
-    dbc.CardBody(
+
+def serve_layout():
+    # session_id = str(uuid.uuid4())
+    
+    # App main form ****************************
+    controls = dbc.Card(
         [
-            # html.P("Overview", className="card-text"),
-            # dbc.Button("Click here", color="success"),
-            overview_layout,
-        ],
-        id="visu_overview"
-    ),
-    className="mt-3",
-)
-
-# Map tab content
-tab2_content = dbc.Card(
-    dbc.CardBody(
-        [
+            # Month Dropdown selector
             dbc.FormGroup(
                 [
-                    html.H4("Axe d'analyse ... ",className="card-title",style={'width':'50%','float':'left'}),
+                    dbc.Label("Mois",style={'margin-right':'0.5rem','marging-top' : '3rem'}),
+                    html.Br(),
                     dcc.Dropdown(
-                        id="map_theme_selector",
-                        placeholder="Select theme",
-                        options=map_theme_options,
+                        id="month_selector",
+                        options=month_options,
+                        placeholder="Select a month",
+                        disabled=False,
                         multi=False,
-                        value=MAP_THEMES_VALUES[0],
-                        style={'width':'50%','float':'right'}
+                        value=MonthSupValue,
+                        className="dash-bootstrap"
+                    ),
+
+                    # dcc.DatePickerSingle(
+                    #    id='date_selector',
+                    #    min_date_allowed=date_inf,
+                    #    max_date_allowed=date_sup,
+                    #    initial_visible_month=current_date,
+                    #    date=current_date,
+                    #    display_format="DD/MM/YYYY",
+                    #    className="dash-bootstrap"
+                    # ),
+                ]
+            ),
+
+            # Activity selector
+            dbc.FormGroup(
+                [
+                    html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
+                    dbc.Label("Activités"),
+                    dcc.Dropdown(
+                        id="pos_activity_selector",
+                        options=activity_options,
+                        placeholder="Select POS activities",
+                        disabled=True,
+                        multi=True,
+                        value=[ACTIVITIES[0]],
                     ),
                 ]
             ),
-            html.Br(),
-            html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
-            html.Br(),
-            # html.P("Map", className="card-text"),
-            dcc.Graph(id="mapbox_fig"),
-            html.Br(), 
-            html.Br(),
-            html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
-            html.Br(),
-            dbc.Row(
-                [
-                    dbc.Col(
-                        html.H4(className="card-title",id="map_selection_tab_len"),
-                    )
-                ]                
-            ),
-            html.Br(),
-            html.Div(id="map_selected_tab_data",style={'height': '400px','overflow': 'scroll'}),
-            # html.Pre(id="map_selected_tab_data",style={'paddingTop': 35}),
-        ],
-        id="visu_map"
-    ),
-    
-    className="mt-3",
-)
 
-# Export tab data to csv content
-tab3_content = dbc.Card(
-    dbc.CardBody(
-        [
-            dbc.Row(
+            # Global pos status selector
+            dbc.FormGroup(
                 [
-                    dbc.Col(
-                        html.H4(className="card-title",id="export_tab_len"),
+                    html.Br(),
+                    dbc.Label("Statut global"),
+                    dbc.Checklist(
+                        options=status_options,
+                        value=STATUS,
+                        id="global_om_status_selector",
+                        switch=True,
+                        inline=True
                     ),
-                    dbc.Col(
-                        dbc.Button("Download", color="primary",style={"float":"right"},id="download_button",external_link=True),
-                        # html.A("Download", style={"float":"right"},id="download_button"),
-                    )
-                ]                
+                ]
             ),
-            # html.P(id="tab_len_2"),
-            html.Br(),
-            html.Div(id="export_tab_data",style={'height': '600px','overflow': 'scroll'}),
-            html.Div(id='intermediate_value', style={'display': 'none'}),
-            html.Div(id='intermediate_value2', style={'display': 'none'})
-            # dbc.Button("Click here", color="success"),
-        ]        
-    ),
-    className="mt-3",
-)
-
-
-# All tabs toguether
-tabs = dbc.Tabs(
-    [
-        dbc.Tab(tab1_content, label="Overview",tab_id="Overview"),
-        dbc.Tab(tab2_content, label="Map",tab_id="Map"),
-        dbc.Tab(tab3_content, label="Export",tab_id="Export")
-    ],
-    card=True,
-    active_tab="Overview"
-)
-
-
-# Main top bar
-navbar = dbc.Navbar(
-    [
-        html.A(
-            # Use row and col to control vertical alignment of logo / brand
-            dbc.Row(
+            
+            # Cash In/Out status selector
+            dbc.FormGroup(
                 [
-                    dbc.Col(html.Img(src=app.get_asset_url("logo_upsales.jfif"), height="60px"),md=3),
-                    dbc.Col(dbc.NavbarBrand("Capillarité Orange Money | {0}".format(DateSup), className="ml-2",style={"font-weight": "bold","fontSize": "2rem"})),
-                ],
-                align="center",
-                no_gutters=True
+                    html.Br(),
+                    # html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
+                    dbc.Label("Statut Cash in/Cash out"),
+                    dbc.Checklist(
+                        options=status_options,
+                        value=STATUS,
+                        id="cashx_status_selector",
+                        switch=True,
+                        inline=True
+                    ),
+                ]
             ),
-        )
-    ],
-    color="light",
-    dark=False,
-)
+            
+            # Commission perf selector
+            dbc.FormGroup(
+                [
+                    html.Br(),
+                    # html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
+                    dbc.Label("Commissions mesnuelles ≥ 1 000F"),
+                    dbc.Checklist(
+                        options=[{'label': 'Oui', 'value': 'Oui'},{'label': 'Non', 'value': 'Non'}],
+                        value=['Oui','Non'],
+                        id="commission_status_selector",
+                        # switch=True,
+                        inline=True
+                    ),
+                ]
+            ),
+
+            # DACR selector
+            dbc.FormGroup(
+                [
+                    html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
+                    # html.P('Filtres Géo',style={'margin-top':'0','text-align': 'right','font-style': 'italic','color':'red'}),
+                    dbc.Label("Régions"),
+                    dcc.Dropdown(
+                        id="dacr_selector",
+                        placeholder="Select DACR(S)...",
+                        options=dacr_options,
+                        multi=True,
+                        value=['Niamey','Dosso','Tillaberi']
+                    ),
+                ]
+            ),
+            
+            # Zone selector
+            html.Br(),
+            dbc.FormGroup(
+                [
+                    dbc.Label("Zones"),
+                    dcc.Dropdown(
+                        id="zone_selector",
+                        placeholder="Select ZONE(S)...",
+                        options=zone_options,
+                        multi=True,
+                        value=ZONES,
+                    ),
+                ]
+            ),
+            
+            # Sector selector
+            html.Br(),
+            dbc.FormGroup(
+                [
+                    dbc.Label("Secteurs"),
+                    dcc.Dropdown(
+                        id="sector_selector",
+                        placeholder="Select SECTOR(S)...",
+                        options=secteur_options,
+                        multi=True,
+                        value=SECTEURS,
+                    ),
+                ]
+            ),
+            
+            
+            # Submit button
+            dbc.FormGroup(
+                [
+                    html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
+                    dbc.Button("Valider", id="submit_button", className="mr-2",style={'display': 'inline-block','float':'right'}),
+                    # dbc.Button("Out", id="zzz", className="mr-2",style={'display': 'inline-block','float':'left'}),
+                    # html.Span(id="example-output", style={"vertical-align": "middle"}),
+                ]
+            ),
+        ],
+        body=True,
+    )
 
 
-# main layout
-app.layout = dbc.Container(
+    # App Visu tabs ****************************
+    # Overview tab content
+    tab1_content = dbc.Card(
+        dbc.CardBody(
             [
-              
-                # logo,
-                # html.H1("Capillarité Orange Money",style={'margin': 0}),      
-                navbar,  
-                html.Br(),  
-                html.Br(),       
-                # html.Hr(className="dash-bootstrap",style={'margin-bottom':'2rem','border-top': '1px solid rgb(200,200,200)'}),
+                # html.P("Overview", className="card-text"),
+                # dbc.Button("Click here", color="success"),
+                overview_layout,
+            ],
+            id="visu_overview"
+        ),
+        className="mt-3",
+    )
+
+    # Map tab content
+    tab2_content = dbc.Card(
+        dbc.CardBody(
+            [
+                dbc.FormGroup(
+                    [
+                        html.H4("Axe d'analyse ... ",className="card-title",style={'width':'50%','float':'left'}),
+                        dcc.Dropdown(
+                            id="map_theme_selector",
+                            placeholder="Select theme",
+                            options=map_theme_options,
+                            multi=False,
+                            value=MAP_THEMES_VALUES[0],
+                            style={'width':'50%','float':'right'}
+                        ),
+                    ]
+                ),
+                html.Br(),
+                html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
+                html.Br(),
+                # html.P("Map", className="card-text"),
+                dcc.Graph(id="mapbox_fig"),
+                html.Br(), 
+                html.Br(),
+                html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(200,200,200)'}),
+                html.Br(),
                 dbc.Row(
                     [
-                        dbc.Col(controls, md=4),
-                        dbc.Col(tabs, md=8),
-                    ],
-                    align="top",
+                        dbc.Col(
+                            html.H4(className="card-title",id="map_selection_tab_len"),
+                        )
+                    ]                
                 ),
+                html.Br(),
+                html.Div(id="map_selected_tab_data",style={'height': '400px','overflow': 'scroll'}),
+                # html.Pre(id="map_selected_tab_data",style={'paddingTop': 35}),
             ],
-            fluid=True
-        )
+            id="visu_map"
+        ),
+        
+        className="mt-3",
+    )
+
+    # Export tab data to csv content
+    tab3_content = dbc.Card(
+        dbc.CardBody(
+            [
+                dbc.Row(
+                    [
+                        dbc.Col(
+                            html.H4(className="card-title",id="export_tab_len"),
+                        ),
+                        dbc.Col(
+                            dbc.Button("Download", color="primary",style={"float":"right"},id="download_button",external_link=True),
+                            # html.A("Download", style={"float":"right"},id="download_button"),
+                        )
+                    ]                
+                ),
+                # html.P(id="tab_len_2"),
+                html.Br(),
+                html.Div(id="export_tab_data",style={'height': '600px','overflow': 'scroll'}),
+                # html.Div(id='intermediate_value', style={'display': 'none'}),
+                # html.Div(id='intermediate_value2', style={'display': 'none'}),
+                # dbc.Button("Click here", color="success"),
+                dcc.Store(id='intermediate_value', storage_type='session'),
+                dcc.Store(id='intermediate_value2', storage_type='session')
+            ]        
+        ),
+        className="mt-3",
+    )
 
 
+    # All tabs toguether
+    tabs = dbc.Tabs(
+        [
+            dbc.Tab(tab1_content, label="Overview",tab_id="Overview"),
+            dbc.Tab(tab2_content, label="Map",tab_id="Map"),
+            dbc.Tab(tab3_content, label="Export",tab_id="Export")
+        ],
+        card=True,
+        active_tab="Overview"
+    )
 
-# Back End ---------------------------------------------------------------------
+    logout_button = dbc.Row(
+        [
+            # dbc.Col(dbc.Input(type="search", placeholder="Search")),
+            dbc.Col(
+                dbc.Button(id='logout_btn',children="Logout", color="danger", className="ml-2"),
+                width="auto",
+            ),
+        ],
+        no_gutters=True,
+        className="ml-auto flex-nowrap mt-3 mt-md-0",
+        align="center",
+    )
+
+    # Main top bar
+    navbar = dbc.Navbar(
+        [
+            html.A(
+                # Use row and col to control vertical alignment of logo / brand
+                dbc.Row(
+                    [
+                        dbc.Col(html.Img(src=app.get_asset_url("logo_upsales.jfif"), height="60px"),md=3),
+                        dbc.Col(dbc.NavbarBrand("Capillarité Orange Money | {0}".format(DateSup), className="ml-2",style={"font-weight": "bold","fontSize": "2rem"})),
+                    ],
+                    align="center",
+                    no_gutters=True
+                ),
+            ),
+            dbc.Collapse(logout_button, id="navbar-collapse", navbar=True)
+        ],
+        color="light",
+        dark=False,
+    )
+
+    # main layout
+    final_layout = dbc.Container(
+        [
+            # logo,
+            # html.H1("Capillarité Orange Money",style={'margin': 0}), 
+            dcc.Location(id='home-url',pathname='/home'),    
+            navbar,  
+            html.Br(),  
+            html.Br(),       
+            # html.Hr(className="dash-bootstrap",style={'margin-bottom':'2rem','border-top': '1px solid rgb(200,200,200)'}),
+            dbc.Row(
+                [
+                    dbc.Col(controls, md=4),
+                    dbc.Col(tabs, md=8),
+                ],
+                align="top",
+            ),
+        ],
+        fluid=True
+    )
+
+    return final_layout
+
+
+#*****************************************************************************************************************************
+
+# login layout content
+def login_layout():
+    return html.Div(
+        [
+            dcc.Location(id='login-url',pathname='/login',refresh=False),
+            dbc.Container(
+                [
+                    dbc.Row(
+                        dbc.Col(
+                            dbc.Card(
+                                [
+                                    html.H4('Login',className='card-title'),
+                                    dbc.Input(id='login-email',placeholder='User'),
+                                    dbc.Input(id='login-password',placeholder='Assigned password',type='password'),
+                                    dbc.Button('Submit',id='login-button',color='success',block=True),
+                                    html.Br(),
+                                    html.Div(id='login-alert')
+                                ],
+                                body=True
+                            ),
+                            width=6
+                        ),
+                        justify='center'
+                    )
+                ]
+            )
+        ]
+    )
+
+# home layout content
+@validate_login_session
+def app_layout():
+    return \
+        serve_layout()
+
+# main app layout
+app.layout = html.Div(
+    [
+        dcc.Location(id='url',refresh=False),
+        html.Div(
+            login_layout(),
+            id='page-content'
+        ),
+    ]
+)
+
+
+###############################################################################
+# utilities
+###############################################################################
+
+# router
+@app.callback(
+    Output('page-content','children'),
+    [Input('url','pathname')]
+)
+def router(url):
+    if url=='/home':
+        return app_layout()
+    elif url=='/login':
+        return login_layout()
+    else:
+        return login_layout()
+
+# authenticate 
+@app.callback(
+    [Output('url','pathname'),
+     Output('login-alert','children')],
+    [Input('login-button','n_clicks')],
+    [State('login-email','value'),
+     State('login-password','value')])
+def login_auth(n_clicks,email,pw):
+    '''
+    check credentials
+    if correct, authenticate the session
+    otherwise, authenticate the session and send user to login
+    '''
+    if n_clicks is None or n_clicks==0:
+        return no_update,no_update
+    credentials = {'user':email,"password":pw}
+    if authenticate_user(credentials):
+        session['authed'] = True
+        return '/home',''
+    session['authed'] = False
+    return no_update,dbc.Alert('Incorrect credentials.',color='danger',dismissable=True)
+
+@app.callback(
+    Output('home-url','pathname'),
+    [Input('logout_btn','n_clicks')]
+)
+def logout_(n_clicks):
+    '''clear the session and send user to login'''
+    if n_clicks is None or n_clicks==0:
+        return no_update
+    session['authed'] = False
+    return '/login'
+
+
+###############################################################################
+# callbacks
+###############################################################################
 
 # Drildown geo
 @app.callback(
@@ -464,10 +553,9 @@ def down_to_sectors(selected_dacrs,selected_zones):
 
 
 
-
 # Cache cleaned data in hiden div
 @app.callback(
-    Output("intermediate_value", "children"),
+    Output("intermediate_value", "data"),
     [
         Input("submit_button", "n_clicks")
     ],
@@ -482,6 +570,10 @@ def down_to_sectors(selected_dacrs,selected_zones):
     ]
 )
 def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_commission_status,selected_dacrs,selected_zones,selected_sectors):
+    # Load main data
+    df = pd.read_csv(DATA_PATH.joinpath("upsales_app.csv"),sep=";") #low_memory=False)
+    df["DATE"] = pd.to_datetime(df["DATE"])
+    df["MONTH"] = pd.to_datetime(df["MONTH"])
     # apply date filter
     selected_month = datetime.strptime(selected_month[:10],"%Y-%m-%d")
     fdf = df[df['MONTH'] == selected_month]
@@ -508,6 +600,7 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
         fdf = fdf[cached_columns]
         save_file(filename='extract.csv', fdf = fdf)
         filtered_data = fdf.to_json()
+        # filtered_data = df.to_json(date_format='iso', orient='split')  # pd.read_json(query_data(), orient='split')        
     else:
         Path(os.path.join(UPLOAD_DIRECTORY, "extract.csv"),exist_ok=True).touch()
         filtered_data = None
@@ -525,7 +618,7 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
         Output("export_tab_len", "children")
     ],
     [
-        Input("intermediate_value", "children")
+        Input("intermediate_value", "data")
     ]
 )
 def refresh_export_tab_data(jsonified_cleaned_data):
@@ -714,7 +807,7 @@ def gen_map_content(map_data,map_theme):
 @app.callback(
     Output("mapbox_fig", "figure"),
     [
-        Input("intermediate_value", "children"),
+        Input("intermediate_value", "data"),
         Input("map_theme_selector", "value")
     ]
 )
@@ -728,7 +821,7 @@ def refresh_map(jsonified_cleaned_data,map_theme):
     Output('map_selected_tab_data', 'children'),
     [
         Input('mapbox_fig', 'selectedData'),
-        Input('intermediate_value', 'children'),
+        Input('intermediate_value', 'data'),
     ]
 )
 def map_selected_data_table(selectedData, jsonified_cleaned_data):
@@ -832,7 +925,7 @@ def update_output(n_clicks):
         Output('overview_main_comment_detail_str','children')
     ],
     [
-        Input('intermediate_value', 'children'),
+        Input('intermediate_value', 'data'),
         Input('overwiew_axe_selector', 'value')
     ]
 )
@@ -914,11 +1007,11 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
 @app.callback(
     [
         Output('overview_zone_chart','figure'),
-        Output('intermediate_value2','children'),
+        Output('intermediate_value2','data'),
         Output('zone_chart_title', 'children')
     ],    
     [
-        Input('intermediate_value', 'children'),
+        Input('intermediate_value', 'data'),
         Input('overview_dacr_chart', 'clickData'),
         Input('overwiew_axe_selector', 'value')
     ]
@@ -988,7 +1081,7 @@ def refresh_overview_zone_chart(jsonified_cleaned_data,clickData,selected_axis):
         Output('sector_chart_title','children'),
     ],  
     [
-        Input('intermediate_value2', 'children'),
+        Input('intermediate_value2', 'data'),
         Input('overview_zone_chart', 'clickData'),
         Input('overwiew_axe_selector', 'value')
     ]
@@ -1046,28 +1139,13 @@ def refresh_overview_sector_chart(jsonified_cleaned_data,clickData,selected_axis
     fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
 
     return fig, "Secteurs de {0} {1}: ".format(dacr_name,zone_name)
-    
 
-# @app.callback(
-#     Output('click_data','children'),
-#     [
-#         Input('overview_dacr_chart', 'clickData')
-#     ]
-# )
-# def json_print(clickData):
-#     # return json.dumps(clickData,indent=2)
-#     # data = json.dumps(clickData,indent=2)
-#     data = clickData
-#     if data['points'][0]['currentPath'] == '/':
-#         dacr_name = data['points'][0]['id']
-#     elif data['points'][0]['currentPath'] in ['/Agadez/','/Diffa/','/Dosso/','/Maradi/','/Niamey/','/Tahoua/','/Tillaberi/','/Zinder/']:
-#         dacr_name = data['points'][0]['parent']
-#     else:
-#         dacr_name = None
-#     return dacr_name
-
-
-
+###############################################################################
+# run app
+###############################################################################
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    
+    app.run_server(
+        debug=True
+    )
