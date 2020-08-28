@@ -8,7 +8,7 @@ app = Dash(
     server=server,
     # requests_pathname_prefix='/FlaskApp/',
     external_stylesheets=[dbc.themes.BOOTSTRAP],
-    prevent_initial_callbacks=True
+    # prevent_initial_callbacks=True
     # meta_tags=[{"name": "viewport", "content": "width=device-width"}]
 )
 app.title = "Capillarité"

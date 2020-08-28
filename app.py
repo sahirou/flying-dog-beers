@@ -219,7 +219,7 @@ def serve_layout():
                         placeholder="Select DACR(S)...",
                         options=dacr_options,
                         multi=True,
-                        value=['Niamey','Dosso','Tillaberi']
+                        value=['Maradi','Zinder','Tahoua']
                     ),
                 ]
             ),
