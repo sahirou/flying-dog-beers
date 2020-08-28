@@ -6,7 +6,7 @@ from flask import session
 
 # fake users dict
 users = {
-    'test':'pw'
+    'upsales':'123@range'
 }
 
 def authenticate_user(credentials):
