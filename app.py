@@ -19,6 +19,7 @@ from dash import Dash
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.exceptions import PreventUpdate
 import pandas as pd
 import numpy as np
 # import plotly.graph_objs as go
@@ -214,12 +215,20 @@ def serve_layout():
                     html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(153,153,153)'}),
                     # html.P('Filtres Géo',style={'margin-top':'0','text-align': 'right','font-style': 'italic','color':'red'}),
                     dbc.Label("Régions"),
+                    dbc.Checklist(
+                        options=[{'label': 'Toutes', 'value': 'Toutes'}],
+                        value=[],
+                        id="all_dacr_selector",
+                        # switch=True,
+                        inline=True,
+                        style={'float':'right'}
+                    ),
                     dcc.Dropdown(
                         id="dacr_selector",
                         placeholder="Select DACR(S)...",
                         options=dacr_options,
                         multi=True,
-                        value=['Maradi','Zinder','Tahoua']
+                        value=['Diffa','Niamey','Agadez']
                     ),
                 ]
             ),
@@ -229,6 +238,14 @@ def serve_layout():
             dbc.FormGroup(
                 [
                     dbc.Label("Zones"),
+                    dbc.Checklist(
+                        options=[{'label': 'Toutes', 'value': 'Toutes'}],
+                        value=[],
+                        id="all_zone_selector",
+                        # switch=True,
+                        inline=True,
+                        style={'float':'right'}
+                    ),
                     dcc.Dropdown(
                         id="zone_selector",
                         placeholder="Select ZONE(S)...",
@@ -244,6 +261,14 @@ def serve_layout():
             dbc.FormGroup(
                 [
                     dbc.Label("Secteurs"),
+                    dbc.Checklist(
+                        options=[{'label': 'Tous', 'value': 'Tous'}],
+                        value=[],
+                        id="all_sector_selector",
+                        # switch=True,
+                        inline=True,
+                        style={'float':'right'}
+                    ),
                     dcc.Dropdown(
                         id="sector_selector",
                         placeholder="Select SECTOR(S)...",
@@ -527,6 +552,8 @@ def logout_(n_clicks):
 # callbacks
 ###############################################################################
 
+
+
 # Drildown geo
 @app.callback(
     Output("zone_selector", "options"),
@@ -553,6 +580,51 @@ def down_to_sectors(selected_dacrs,selected_zones):
 
 
 
+# Select All DACRs
+@app.callback(
+    Output("dacr_selector", "disabled"),
+    [
+        Input("all_dacr_selector", "value")
+    ]
+)
+def all_dacr_fn(all_dacr_selector_value):
+    if len(all_dacr_selector_value) > 0:
+        return True
+    else:
+        return False
+
+
+# Select All Zones
+@app.callback(
+    Output("zone_selector", "disabled"),
+    [
+        Input("all_zone_selector", "value")
+    ]
+)
+def all_zone_fn(all_zone_selector_value):
+    if len(all_zone_selector_value) > 0:
+        return True
+    else:
+        return False
+
+
+# Select All Sectors
+@app.callback(
+    Output("sector_selector", "disabled"),
+    [
+        Input("all_sector_selector", "value")
+    ]
+)
+def all_sector_fn(all_sector_selector_value):
+    if len(all_sector_selector_value) > 0:
+        return True
+    else:
+        return False
+
+
+
+
+
 # Cache cleaned data in hiden div
 @app.callback(
     Output("intermediate_value", "data"),
@@ -565,11 +637,17 @@ def down_to_sectors(selected_dacrs,selected_zones):
         State("cashx_status_selector", "value"),
         State("commission_status_selector", "value"),
         State("dacr_selector", "value"),
+        State("dacr_selector", "disabled"),
         State("zone_selector", "value"),
-        State("sector_selector", "value")
+        State("zone_selector", "disabled"),
+        State("sector_selector", "value"),
+        State("sector_selector", "disabled")
     ]
 )
-def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_commission_status,selected_dacrs,selected_zones,selected_sectors):
+def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_commission_status,
+                selected_dacrs,dacr_selector_disabled,
+                selected_zones,zone_selector_disabled,
+                selected_sectors,sector_selector_disabled):
     # Load main data
     df = pd.read_csv(DATA_PATH.joinpath("upsales_app.csv"),sep=";") #low_memory=False)
     df["DATE"] = pd.to_datetime(df["DATE"])
@@ -587,13 +665,13 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
     if len(pos_commission_status) > 0:
         fdf = fdf[fdf['COMMISSION_PERF'].isin(pos_commission_status)]
     # apply dacr filter
-    if len(selected_dacrs) > 0:
+    if len(selected_dacrs) > 0 and not dacr_selector_disabled:
         fdf = fdf[fdf['DACR'].isin(selected_dacrs)]
     # apply zone filters
-    if len(selected_zones) > 0:
+    if len(selected_zones) > 0 and not zone_selector_disabled:
         fdf = fdf[fdf['ZONE'].isin(selected_zones)]
     # apply sector filters
-    if len(selected_sectors) > 0:
+    if len(selected_sectors) > 0 and not sector_selector_disabled:
         fdf = fdf[fdf['SECTEUR'].isin(selected_sectors)]
     #    
     if fdf.shape[0] > 0:
@@ -922,7 +1000,8 @@ def update_output(n_clicks):
     [
         Output('overview_dacr_chart','figure'),
         Output('overview_main_comment_main_str','children'),
-        Output('overview_main_comment_detail_str','children')
+        Output('overview_main_comment_detail_str','children'),
+        Output('overview_dacr_tab_data','figure')
     ],
     [
         Input('intermediate_value', 'data'),
@@ -960,7 +1039,14 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
         chart_color_dict = {x:impact_markers_colors[x] for x in dacr_data[analysis_axis]}
 
     # Chart
-    fig = px.sunburst(dacr_data, path=['DACR', analysis_axis], values='NOMBRE DE PDVs', color=analysis_axis,color_discrete_map=chart_color_dict)
+    fig = px.sunburst(
+        dacr_data, 
+        path=['DACR', analysis_axis], 
+        values='NOMBRE DE PDVs', 
+        color=analysis_axis,
+        color_discrete_map=chart_color_dict
+    )
+
     fig.update_layout(
         margin = dict(t=5, l=5, r=5, b=5)
         # color  = [x:status_markers_colors[x] for x in dacr_data['POS_STATUS']]
@@ -997,7 +1083,28 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
             format_int(dacr_data[dacr_data['IMPACT_VISITE'].isin(['Nouveau PDV visité'])]['NOMBRE DE PDVs'].sum()),
         )
 
-    return fig, main_str, detail_str
+    
+    dacr_data = dacr_data[['DACR',analysis_axis,"NOMBRE DE PDVs"]]
+    dacr_data = (
+    dacr_data
+    .pivot(index="DACR",columns=analysis_axis,values='NOMBRE DE PDVs')
+    .reset_index()
+    )
+
+    tab_data = go.Figure(data=[go.Table(
+        header=dict(
+            values=list(dacr_data.columns),
+            fill_color=COLORS['orange'],
+            align='left'
+        ),
+        cells=dict(
+            values=[dacr_data[x] for x in  dacr_data.columns],
+            fill_color=COLORS['lightgray'],
+            align='left'
+        )
+        )])
+
+    return fig, main_str, detail_str,tab_data
 
 
 
@@ -1019,6 +1126,7 @@ def refresh_overview_dacr_chart(jsonified_cleaned_data,selected_axis):
 def refresh_overview_zone_chart(jsonified_cleaned_data,clickData,selected_axis):
     # Init chart when none click
     if json.dumps(clickData,indent=2) == "null":
+        # raise PreventUpdate
         return px.sunburst(), None, None
 
     # Axe definition 
@@ -1055,19 +1163,53 @@ def refresh_overview_zone_chart(jsonified_cleaned_data,clickData,selected_axis):
     # Chart color dict
     if selected_axis == 'Statut des PDVs':
         chart_color_dict = {x:status_markers_colors[x] for x in dacr_data[analysis_axis]}
+        chart_color_dict_bar = status_markers_colors
     else:
         chart_color_dict = {x:impact_markers_colors[x] for x in dacr_data[analysis_axis]}
+        chart_color_dict_bar = impact_markers_colors
 
     
-    fig = px.sunburst(
-        dacr_data, 
-        path=[geo_axis, analysis_axis], 
-        values='NOMBRE DE PDVs', 
-        color=analysis_axis,
-        color_discrete_map=chart_color_dict
-        # hovertemplate='<extra>{fullData.DACR}</extra>'        
+    # fig = px.sunburst(
+    #     dacr_data, 
+    #     path=[geo_axis, analysis_axis], 
+    #     values='NOMBRE DE PDVs', 
+    #     color=analysis_axis,
+    #     color_discrete_map=chart_color_dict
+    #     # hovertemplate='<extra>{fullData.DACR}</extra>'        
+    # )
+    # fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
+
+    # AGG DATA
+    data_cols = list(dacr_data[analysis_axis].unique())
+    dacr_data = dacr_data[[geo_axis,analysis_axis,"NOMBRE DE PDVs"]]
+    dacr_data = (
+    dacr_data
+    # .groupby(['MONTH','DACR',geo_axis,analysis_axis])
+    # .agg({"POS" : "nunique"})
+    # .reset_index()
+    # .rename(columns={"POS" : "NOMBRE DE PDVs"})
+    .pivot(index=geo_axis,columns=analysis_axis,values='NOMBRE DE PDVs')
+    .reset_index()
     )
-    fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
+
+    fig = go.Figure()
+    for data_col in data_cols:
+        fig.add_trace(go.Bar(
+            y=dacr_data[geo_axis],
+            x=dacr_data[data_col],
+            text=dacr_data[data_col],
+            textposition='auto',
+            name=data_col,
+            orientation='h',
+            marker=dict(
+                color=chart_color_dict_bar[data_col],
+                # line=dict(color='rgba(246, 78, 139, 1.0)', width=3)
+            )
+        ))
+ 
+    fig.update_layout(barmode='stack')  
+
+
 
     return fig,filtered_data, "Zones de {0}: ".format(dacr_name)
 
@@ -1089,7 +1231,7 @@ def refresh_overview_zone_chart(jsonified_cleaned_data,clickData,selected_axis):
 def refresh_overview_sector_chart(jsonified_cleaned_data,clickData,selected_axis):
     # Init chart when none click
     if json.dumps(clickData,indent=2) == "null":
-        return px.sunburst(), None
+        raise PreventUpdate
 
     # Axis definition 
     geo_axis = "SECTEUR"   
@@ -1098,17 +1240,19 @@ def refresh_overview_sector_chart(jsonified_cleaned_data,clickData,selected_axis
     else:
         analysis_axis = 'IMPACT_VISITE'
 
-    # Clicked DACR
-    if clickData['points'][0]['currentPath'] == '/':
-        zone_name = clickData['points'][0]['id']
-    else:
-        zone_name = clickData['points'][0]['parent']
+    # Clicked ZONE
+    zone_name = clickData['points'][0]['y']
 
 
     # load pos data
     df2 = pd.read_json(jsonified_cleaned_data)
     df2 = df2[df2['ZONE'] == zone_name]
+    # Test Zone - DACR coherence
+    if df2.shape[0] == 0:
+        return px.sunburst(), None
     dacr_name = list(df2['DACR'].unique())[0]
+
+    
 
     # AGG DATA
     zone_data = (
@@ -1124,21 +1268,68 @@ def refresh_overview_sector_chart(jsonified_cleaned_data,clickData,selected_axis
     # Chart color dict
     if selected_axis == 'Statut des PDVs':
         chart_color_dict = {x:status_markers_colors[x] for x in zone_data[analysis_axis]}
+        chart_color_dict_bar = status_markers_colors
     else:
         chart_color_dict = {x:impact_markers_colors[x] for x in zone_data[analysis_axis]}
+        chart_color_dict_bar = impact_markers_colors
 
     
-    fig = px.sunburst(
-        zone_data, 
-        path=[geo_axis, analysis_axis], 
-        values='NOMBRE DE PDVs', 
-        color=analysis_axis,
-        color_discrete_map=chart_color_dict
-        # hovertemplate='<extra>{fullData.DACR}</extra>'        
+    # fig = px.sunburst(
+    #     zone_data, 
+    #     path=[geo_axis, analysis_axis], 
+    #     values='NOMBRE DE PDVs', 
+    #     color=analysis_axis,
+    #     color_discrete_map=chart_color_dict
+    #     # hovertemplate='<extra>{fullData.DACR}</extra>'        
+    # )
+    # fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
+
+
+    # AGG DATA
+    data_cols = list(zone_data[analysis_axis].unique())
+    zone_data = zone_data[[geo_axis,analysis_axis,"NOMBRE DE PDVs"]]
+    zone_data = (
+    zone_data
+    # .groupby(['MONTH','DACR',geo_axis,analysis_axis])
+    # .agg({"POS" : "nunique"})
+    # .reset_index()
+    # .rename(columns={"POS" : "NOMBRE DE PDVs"})
+    .pivot(index=geo_axis,columns=analysis_axis,values='NOMBRE DE PDVs')
+    .reset_index()
     )
-    fig.update_layout(margin = dict(t=5, l=5, r=5, b=5))
+
+    fig = go.Figure()
+    for data_col in data_cols:
+        fig.add_trace(go.Bar(
+            y=zone_data[geo_axis],
+            x=zone_data[data_col],
+            text=zone_data[data_col],
+            textposition='auto',
+            name=data_col,
+            orientation='h',
+            marker=dict(
+                color=chart_color_dict_bar[data_col],
+                # line=dict(color='rgba(246, 78, 139, 1.0)', width=3)
+            )
+        ))
+ 
+    fig.update_layout(barmode='stack') 
+
 
     return fig, "Secteurs de {0} {1}: ".format(dacr_name,zone_name)
+
+
+
+
+# @app.callback(
+#     Output('json_pre','childre'), 
+#     [
+#         Input('overview_zone_chart', 'clickData')
+#     ]
+# )
+# def refresh_overview_sector_chart(clickData):
+#     # Init chart when none click
+#     return json.dumps(clickData,indent=2)
 
 ###############################################################################
 # run app

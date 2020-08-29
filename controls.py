@@ -82,7 +82,7 @@ COLORS = {
 status_markers_colors = {
     'Actif': COLORS['green'],                   
     'Futur inactif': COLORS['blue'],            
-    'Inactif récent': COLORS['orange'],           
+    'Inactif récent': COLORS['fucha'],           
     'Inactif âgé': COLORS['red'],                 
 }
 
@@ -141,6 +141,38 @@ overview_main_comment = dbc.Jumbotron(
 )
 
 
+
+# Overview DACR Tabs
+overview_dacr_chart = dbc.Card(
+    dbc.CardBody(
+        [
+            # html.H4("Détails par DACR: ",className="card-title",style={'float':'left'}), 
+            dcc.Graph(id="overview_dacr_chart")
+        ]
+    ),
+    className="mt-3",
+)
+
+overview_dacr_tab = dbc.Card(
+    dbc.CardBody(
+        [
+            # html.H4("Détails par DACR: ",className="card-title",style={'float':'left'}), 
+            dcc.Graph(id="overview_dacr_tab_data")
+        ]
+    ),
+    className="mt-3",
+)
+
+
+overview_dacrs = dbc.Tabs(
+    [
+        dbc.Tab(overview_dacr_chart, label="Graphe"),
+        dbc.Tab(overview_dacr_tab, label="Table")
+    ]
+)
+
+
+
 # Overview filters
 overview_layout = dbc.Card(
     dbc.CardBody(
@@ -171,19 +203,16 @@ overview_layout = dbc.Card(
             html.Br(),
             html.H4("Détails par DACR: ",className="card-title",style={'float':'left'}), 
             html.Br(), 
+            html.Br(), 
+            html.Br(), 
             # DACR
-            dbc.Row(
-                [
-                    # html.H4(children="DACR Chart",className="card-title",id="overview_dacr_chart_title"),
-                    html.Br(),
-                    html.Br(),
-                    dcc.Graph(
-                        id="overview_dacr_chart"  
-                    ),
-                    html.Br()
-                ],justify="center", align="center", className="h-50"
-                # style={'justify':'center','align':'center'} 
-            ),
+            overview_dacrs,
+            # dbc.Row(
+            #     [
+            #         overview_dacrs
+
+            #     ],justify="center", align="center", className="h-50"     
+            # ),
 
             # ZONE
             html.Br(),            
@@ -223,7 +252,7 @@ overview_layout = dbc.Card(
 
             dbc.Row(
                [
-                   html.Pre(id='click_data',style={'paddingTop':35})
+                   html.Pre(id='json_pre',style={'paddingTop':35})
                ]
             )
         ]        
