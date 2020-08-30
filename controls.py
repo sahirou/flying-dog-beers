@@ -48,6 +48,20 @@ om_cx_category_options = [
     {"label": category, "value": category} for category in OM_CX_CATEGORIES
 ]
 
+
+# POS performance
+PERF_CATERORIES = [
+    'Zero',
+    'Low',
+    'Medium',
+    'High',
+    'Super High'
+]
+perf_category_options = [
+    {"label": category, "value": category} for category in PERF_CATERORIES
+]
+
+
 # Thematic maps options
 MAP_THEMES_VALUES = [
     "Status des PDVs",
@@ -57,7 +71,7 @@ MAP_THEMES_VALUES = [
 MAP_THEMES_LABEL = {
     "Status des PDVs": "Status des PDVs",
     "Impact des visites": "Impact des visites",
-    "Commissions": "Commissions mensuelles ≥ 1 000F"
+    "Commissions": "Performance"
 }
 map_theme_options = [
     {"label": MAP_THEMES_LABEL[map_theme], "value": map_theme} for map_theme in MAP_THEMES_VALUES
@@ -99,8 +113,27 @@ impact_markers_colors = {
 
 # Commissions performance colors
 commission_markers_colors = {
-    'Oui': COLORS['green'],
-    'Non': COLORS['red']
+    'Zero': COLORS['red'],
+    'Low': COLORS['orange'],
+    'Medium': COLORS['fucha'],
+    'High': COLORS['green'],
+    'Super High': COLORS['green']
+}
+
+commission_markers_radius = {
+    'Zero': 5,
+    'Low': 8,
+    'Medium': 11,
+    'High': 14,
+    'Super High': 17
+}
+
+commission_markers_opacity = {
+    'Zero': 1,
+    'Low': 1,
+    'Medium': 1,
+    'High': 0.6,
+    'Super High': 0.6
 }
 
 
@@ -285,7 +318,8 @@ cached_columns = [
     "VISITE",
     "COMMISSIONS_AMNT",
     "IMPACT_VISITE",
-    "COMMISSION_PERF"
+    "COMMISSION_PERF",
+    "COMMISSION_PERF_2"
 ]
 
 

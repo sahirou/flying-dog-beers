@@ -39,7 +39,7 @@ import plotly.express as px
 #
 import sys
 # sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
-from controls import overview_layout,mapbox_access_token,cached_columns,MONTH_NAMES,format_int
+from controls import overview_layout,mapbox_access_token,cached_columns,MONTH_NAMES,format_int,commission_markers_radius,PERF_CATERORIES,perf_category_options,commission_markers_opacity
 from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
 from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
 
@@ -93,18 +93,21 @@ zoning = zoning[['DACR','ZONE','SECTEUR']].drop_duplicates(keep='first')
 
 # DACR Dropdown options
 DACRS = list(zoning['DACR'].unique())
+DACRS.append('-')
 dacr_options = [
     {"label": dacr, "value": dacr} for dacr in DACRS
 ]
 
 # Zone Dropdown options
 ZONES = list(zoning['ZONE'].unique())
+ZONES.append('-')
 zone_options = [
     {"label": zone, "value": zone} for zone in ZONES
 ]
 
 # Sector Dropdown options
 SECTEURS = list(zoning['SECTEUR'].unique())
+SECTEURS.append('-')
 secteur_options = [
     {"label": secteur, "value": secteur} for secteur in SECTEURS
 ]
@@ -198,12 +201,12 @@ def serve_layout():
                 [
                     html.Br(),
                     # html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
-                    dbc.Label("Commissions mesnuelles ≥ 1 000F"),
+                    dbc.Label("Performance"),
                     dbc.Checklist(
-                        options=[{'label': 'Oui', 'value': 'Oui'},{'label': 'Non', 'value': 'Non'}],
-                        value=['Oui','Non'],
+                        options=perf_category_options,
+                        value=PERF_CATERORIES,
                         id="commission_status_selector",
-                        # switch=True,
+                        switch=True,
                         inline=True
                     ),
                 ]
@@ -380,12 +383,23 @@ def serve_layout():
     )
 
 
+    # Lexique
+    lexique_md = open(DATA_PATH.joinpath("lexique.md"),'r',encoding='utf-8').read()
+    tab4_content = dbc.Card(
+        dbc.CardBody(
+            dcc.Markdown(children=lexique_md)
+        ),
+        className="mt-3",
+    )
+
+
     # All tabs toguether
     tabs = dbc.Tabs(
         [
             dbc.Tab(tab1_content, label="Overview",tab_id="Overview"),
             dbc.Tab(tab2_content, label="Map",tab_id="Map"),
-            dbc.Tab(tab3_content, label="Export",tab_id="Export")
+            dbc.Tab(tab3_content, label="Export",tab_id="Export"),
+            dbc.Tab(tab4_content, label="Lexique",tab_id="Lexique")
         ],
         card=True,
         active_tab="Overview"
@@ -623,7 +637,17 @@ def all_sector_fn(all_sector_selector_value):
 
 
 
-
+def commission_perf(x):
+    if x == 0:
+        return 'Zero'
+    elif x > 0 and x <= 1000:
+        return 'Low'
+    elif x > 1000 and x <= 10000:
+        return 'Medium'
+    elif x > 10000 and x <= 50000:
+        return 'High'
+    else:
+        return ('Super High')
 
 # Cache cleaned data in hiden div
 @app.callback(
@@ -652,6 +676,7 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
     df = pd.read_csv(DATA_PATH.joinpath("upsales_app.csv"),sep=";") #low_memory=False)
     df["DATE"] = pd.to_datetime(df["DATE"])
     df["MONTH"] = pd.to_datetime(df["MONTH"])
+    df['COMMISSION_PERF_2'] = df['COMMISSIONS_AMNT'].apply(commission_perf)
     # apply date filter
     selected_month = datetime.strptime(selected_month[:10],"%Y-%m-%d")
     fdf = df[df['MONTH'] == selected_month]
@@ -663,7 +688,7 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
         fdf = fdf[fdf['CASH_IN_OUT_STATUS'].isin(pos_cx_status)]
     # apply pos commission status
     if len(pos_commission_status) > 0:
-        fdf = fdf[fdf['COMMISSION_PERF'].isin(pos_commission_status)]
+        fdf = fdf[fdf['COMMISSION_PERF_2'].isin(pos_commission_status)]
     # apply dacr filter
     if len(selected_dacrs) > 0 and not dacr_selector_disabled:
         fdf = fdf[fdf['DACR'].isin(selected_dacrs)]
@@ -838,10 +863,13 @@ def gen_map_content(map_data,map_theme):
         )
 
     # Theme = Commissions
+    all_perf_flags = ['Zero','Low','Medium','High','Super High']
+    real_perf_flags = list(map_data['COMMISSION_PERF_2'].unique())
+    commission_perf_options_2 = [x for x in all_perf_flags if x in real_perf_flags]
     if map_theme == "Commissions":
         traces = []
-        for commission_perf in commission_perf_options:
-            fdf2 = map_data[map_data['COMMISSION_PERF'] == commission_perf]
+        for commission_perf in commission_perf_options_2:
+            fdf2 = map_data[map_data['COMMISSION_PERF_2'] == commission_perf]
             trace = dict(
                 type="scattermapbox",
                 lon=[float(x) for x in fdf2['LONGITUDE']],
@@ -866,9 +894,9 @@ def gen_map_content(map_data,map_theme):
                 customdata=fdf2["POS"],
                 name=commission_perf,
                 marker=dict(
-                    size=7, 
-                    opacity=0.6,
-                    color=[commission_markers_colors[x] for x in fdf2['COMMISSION_PERF']]
+                    size=[commission_markers_radius[y] for y in fdf2['COMMISSION_PERF_2']], 
+                    opacity=[commission_markers_opacity[z] for z in fdf2['COMMISSION_PERF_2']],
+                    color=[commission_markers_colors[x] for x in fdf2['COMMISSION_PERF_2']] # commission_markers_radius
                 ),
             )
             traces.append(trace)
