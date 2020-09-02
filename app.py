@@ -34,6 +34,7 @@ import json
 import dash_auth
 import plotly.figure_factory as ff
 import plotly.express as px
+from react_table_dash import ReactTableDash
 
 
 #
@@ -371,7 +372,7 @@ def serve_layout():
                 ),
                 # html.P(id="tab_len_2"),
                 html.Br(),
-                html.Div(id="export_tab_data",style={'height': '600px','overflow': 'scroll'}),
+                html.Div(id="export_tab_data"), # ,style={'height': '600px','overflow': 'scroll'}
                 # html.Div(id='intermediate_value', style={'display': 'none'}),
                 # html.Div(id='intermediate_value2', style={'display': 'none'}),
                 # dbc.Button("Click here", color="success"),
@@ -740,8 +741,29 @@ def refresh_export_tab_data(jsonified_cleaned_data):
     else:
         fdf = pd.DataFrame()
     
-    # responsive='md'
-    return dbc.Table.from_dataframe(df = fdf, striped=True, bordered=True, hover=True),"{0} résultat(s) selectionné(s)...".format(format_int(pd.read_json(jsonified_cleaned_data).shape[0]))
+    #
+    columns = [{'Header': c, 'accessor': c} for c in fdf.columns]
+    data = fdf.to_dict(orient='records')
+    
+    tbl = ReactTableDash(
+        id='tbl',
+        data=data,
+        columns=columns,
+        defaultPageSize=100,
+        className="-striped -highlight",
+        showPagination=True,
+        showPaginationTop=False,
+        showPaginationBottom=True,
+        showPageSizeOptions=True,
+        pageSizeOptions=[10, 20, 25, 50, 100, 500],
+        style={'height': '600px'},
+        filterable=True
+    )
+
+    return tbl,"{0} résultat(s) selectionné(s)...".format(format_int(pd.read_json(jsonified_cleaned_data).shape[0]))
+    
+    # # responsive='md'
+    # return dbc.Table.from_dataframe(df = fdf, striped=True, bordered=True, hover=True),"{0} résultat(s) selectionné(s)...".format(format_int(pd.read_json(jsonified_cleaned_data).shape[0]))
 
 
 

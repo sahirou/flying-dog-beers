@@ -28,3 +28,4 @@ six
 traitlets
 Werkzeug
 dash-auth
+react-table-dash
