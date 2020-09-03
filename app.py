@@ -114,7 +114,14 @@ secteur_options = [
 ]
 
 
+# POS groups options
+pos_groups = pd.read_csv(DATA_PATH.joinpath("pos_groups.csv"),sep=";") #low_memory=False)
 
+# DACR Dropdown options
+POSGROUPS = list(pos_groups['POS_GROUP'].unique())
+pos_group_options = [
+    {"label": group, "value": group} for group in POSGROUPS
+]
 
 
 def serve_layout():
@@ -207,6 +214,22 @@ def serve_layout():
                         options=perf_category_options,
                         value=PERF_CATERORIES,
                         id="commission_status_selector",
+                        switch=True,
+                        inline=True
+                    ),
+                ]
+            ),
+
+            # POS group selector
+            dbc.FormGroup(
+                [
+                    html.Br(),
+                    # html.Hr(className="dash-bootstrap",style={'border-top': '1px dashed rgb(135,153,153)'}),
+                    dbc.Label("Type PDV"),
+                    dbc.Checklist(
+                        options=pos_group_options,
+                        value=POSGROUPS,
+                        id="pos_group_selector",
                         switch=True,
                         inline=True
                     ),
@@ -661,6 +684,7 @@ def commission_perf(x):
         State("global_om_status_selector", "value"),
         State("cashx_status_selector", "value"),
         State("commission_status_selector", "value"),
+        State("pos_group_selector", "value"),
         State("dacr_selector", "value"),
         State("dacr_selector", "disabled"),
         State("zone_selector", "value"),
@@ -669,7 +693,7 @@ def commission_perf(x):
         State("sector_selector", "disabled")
     ]
 )
-def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_commission_status,
+def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_commission_status,pos_groups,
                 selected_dacrs,dacr_selector_disabled,
                 selected_zones,zone_selector_disabled,
                 selected_sectors,sector_selector_disabled):
@@ -690,6 +714,9 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
     # apply pos commission status
     if len(pos_commission_status) > 0:
         fdf = fdf[fdf['COMMISSION_PERF_2'].isin(pos_commission_status)]
+    # apply pos group filter
+    if len(pos_groups) > 0:
+        fdf = fdf[fdf['POS_GROUP'].isin(pos_groups)]
     # apply dacr filter
     if len(selected_dacrs) > 0 and not dacr_selector_disabled:
         fdf = fdf[fdf['DACR'].isin(selected_dacrs)]

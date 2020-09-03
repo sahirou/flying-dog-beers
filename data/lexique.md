@@ -14,7 +14,7 @@ Le `Statut global` est calculé sur l’activité globale du PDV, tandis que le 
 
 >`Performance PDV`: Il s’agit d’une catégorisation des PDVs en fonction des montants des commissions réalisées au cours du mois.  
 - `Zero` si le montant des commissions est égal à `0`
-- `Low` si le montant des commisions est compris entre supérieur à `0` et inférieur ou égal à `1 000`
+- `Low` si le montant des commisions est compris entre `0` et `1 000`
 - `Medium` si le montant des commisions est compris entre `1 000` et `10 000`
 - `High` si le montant des commissions est compris entre `10 000` et `50 000`
 - `Super High` si le montant des commissions est supérieur à `50 000`
