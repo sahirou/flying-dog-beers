@@ -29,3 +29,11 @@ traitlets
 Werkzeug
 dash-auth
 react-table-dash
+dash_renderer
+flask-login
+sqlalchemy
+werkzeug
+brotli
+flask-sqlalchemy
+future
+retrying
