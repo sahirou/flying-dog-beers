@@ -10,6 +10,7 @@ from server import app, User
 from flask_login import login_user,login_required
 
 from users_mgt import del_user, add_user
+from views import notif
 
 
 form_username = dbc.FormGroup(
@@ -100,16 +101,20 @@ def sucess_(n_clicks, user_name, cur_pw,new_pw,new_pw_check):
     if not current_user.is_authenticated:
         return '/login_fd'
     else:
+        # logout_user()
         user = User.query.filter_by(username=user_name).first()
         if user:
             if check_password_hash(user.password, cur_pw) and (new_pw == new_pw_check) and (len(new_pw) >= 6):
                 # hashed_new_pw = generate_password_hash(new_pw, method='sha256')
                 email = user.email
+                region = user.region
+                fullname = user.fullname
                 del_user(username = user_name)
-                add_user(username = user_name, password = new_pw, email = email)
-                user = User.query.filter_by(username=user_name).first()
-                login_user(user)
-                return '/home'
+                add_user(username = user_name, password = new_pw, email = email, region = region, fullname = fullname)
+                # user = User.query.filter_by(username=user_name).first()
+                logout_user()
+                notif.telegram_notif_gmkt(user_name = user_name ,message = "Cet utilisisateur a changé son mot de passe à")
+                return '/login'
             else:
                 pass
         else:

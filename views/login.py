@@ -6,6 +6,7 @@ from dash.dependencies import Input, Output, State
 from server import app, User
 from flask_login import login_user
 from werkzeug.security import check_password_hash
+from views import notif
 
 form_username = dbc.FormGroup(
     [
@@ -74,6 +75,7 @@ def sucess(n_clicks, input1, input2):
     if user:
         if check_password_hash(user.password, input2):
             login_user(user)
+            notif.telegram_notif_gmkt(user_name = input1 ,message = "Cet utilisisateur s'est connecté à l'application à")
             return '/home'
         else:
             pass

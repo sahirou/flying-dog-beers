@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output
 
 from server import app, server
 from flask_login import logout_user, current_user
-from views import success, login, login_fd, logout, change_password
+from views import success, login, login_fd, logout, change_password, notif
 
 
 import sys
@@ -52,6 +52,7 @@ Path(os.path.join(UPLOAD_DIRECTORY, "extract.csv"),exist_ok=True).touch()
 
 
 sys.path.append(PATH)
+# from controls import telegram_notif_gmkt
 from controls import overview_layout,mapbox_access_token,cached_columns,MONTH_NAMES,format_int,commission_markers_radius,PERF_CATERORIES,perf_category_options,commission_markers_opacity
 from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
 from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
@@ -587,6 +588,7 @@ def connexion_helper(update_pw_cc, logout_cc):
         return '/change_password'
     
     if current_user.is_authenticated and logout_cc != None and logout_cc > 0:
+        notif.telegram_notif_gmkt(user_name = current_user.username ,message = "Cet utilisisateur s'est deconnecté de l'application à")
         logout_user()
         return '/login'
     

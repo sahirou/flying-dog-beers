@@ -3,6 +3,7 @@ import dash_core_components as dcc
 import dash_bootstrap_components as dbc
 import plotly.graph_objects as go
 
+#
 mapbox_access_token = 'pk.eyJ1Ijoic2FuaXJvdSIsImEiOiJja2U0cWwweDEwdnlhMnpsZm9oeWJzNm84In0.Xwoh5FQDOPwq-vUWFqzEcA'
 
 # Form data *********************************
@@ -353,3 +354,6 @@ MONTH_NAMES = {
 
 def format_int(x):
     return f"{x:,}".replace(',',' ')
+
+#--------------------------------------------------------------------------------------------
+

@@ -37,3 +37,4 @@ brotli
 flask-sqlalchemy
 future
 retrying
+python-telegram-bot
