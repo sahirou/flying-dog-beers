@@ -1,62 +1,37 @@
-# package imports
-import dash
-import dash_bootstrap_components as dbc
-import dash_html_components as html
+# index page
 import dash_core_components as dcc
-from dash.dependencies import Input, Output, State
-from dash import no_update
-from flask import session, copy_current_request_context
+import dash_html_components as html
+from dash.dependencies import Input, Output
 
-import base64
+from server import app, server
+from flask_login import logout_user, current_user
+from views import success, login, login_fd, logout, change_password
+
+
+import sys
 import os
 import pathlib
-from urllib.parse import quote as urlquote
+from pathlib import Path
 from flask import Flask, send_from_directory
-# import dash_table_experiments as dtab
-
-import dash
-from dash import Dash
-import dash_bootstrap_components as dbc
-import dash_core_components as dcc
-import dash_html_components as html
-from dash.exceptions import PreventUpdate
 import pandas as pd
-import numpy as np
-# import plotly.graph_objs as go
-import plotly.graph_objects as go
+import dash_bootstrap_components as dbc
+import dash_html_components as html  
+import dash_core_components as dcc
 from dash.dependencies import Input, Output, State
 import datetime as dt
 from datetime import datetime
-import pathlib
-from pathlib import Path
+import plotly.express as px
+import numpy as np
+import plotly.graph_objects as go
 import json
-# import dash_table
 import dash_auth
 import plotly.figure_factory as ff
-import plotly.express as px
+from urllib.parse import quote as urlquote
+from dash import no_update
+from dash.exceptions import PreventUpdate
 from react_table_dash import ReactTableDash
 
 
-#
-import sys
-# sys.path.append('/var/www/DashApps/FlaskApp/FlaskApp/')
-from controls import overview_layout,mapbox_access_token,cached_columns,MONTH_NAMES,format_int,commission_markers_radius,PERF_CATERORIES,perf_category_options,commission_markers_opacity
-from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
-from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
-
-
-# local imports
-from auth import authenticate_user, validate_login_session
-from server import app, server
-
-# Function for export to csv ability
-@server.route("/download/<path:path>")
-def download(path):
-    """Serve a file from the upload directory."""
-    return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
-
-
-#*****************************************************************************************************************************
 
 
 # Get relative path : data folder
@@ -64,8 +39,31 @@ PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("data").resolve()
 UPLOAD_DIRECTORY = PATH.joinpath("app_uploaded_files").resolve()
 
+if not os.path.exists(DATA_PATH):
+    os.makedirs(DATA_PATH)
+
 if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
+
+
+# init export file
+Path(os.path.join(UPLOAD_DIRECTORY, "extract.csv"),exist_ok=True).touch()
+
+
+
+sys.path.append(PATH)
+from controls import overview_layout,mapbox_access_token,cached_columns,MONTH_NAMES,format_int,commission_markers_radius,PERF_CATERORIES,perf_category_options,commission_markers_opacity
+from controls import ACTIVITIES, activity_options,STATUS, status_options,OM_CX_CATEGORIES,om_cx_category_options
+from controls import MAP_THEMES_VALUES,MAP_THEMES_LABEL,map_theme_options,COLORS,tab_columns_rename,status_markers_colors,impact_markers_colors,commission_markers_colors
+
+
+# Function for export to csv ability
+@server.route("/download/<path:path>")
+def download(path):
+    """Serve a file from the upload directory."""
+    return send_from_directory(UPLOAD_DIRECTORY, path, as_attachment=True)
+
+#--------------------------------------------------------------------------------------------------------------------------
 
 
 # init export file
@@ -122,6 +120,10 @@ POSGROUPS = list(pos_groups['POS_GROUP'].unique())
 pos_group_options = [
     {"label": group, "value": group} for group in POSGROUPS
 ]
+
+
+
+#--------------------------------------------------------------------------------------------------------------------------
 
 
 def serve_layout():
@@ -244,7 +246,7 @@ def serve_layout():
                     dbc.Label("Régions"),
                     dbc.Checklist(
                         options=[{'label': 'Toutes', 'value': 'Toutes'}],
-                        value=[],
+                        value=['Toutes'],
                         id="all_dacr_selector",
                         # switch=True,
                         inline=True,
@@ -252,10 +254,10 @@ def serve_layout():
                     ),
                     dcc.Dropdown(
                         id="dacr_selector",
-                        placeholder="Select DACR(S)...",
+                        placeholder="Selectionner ici",
                         options=dacr_options,
                         multi=True,
-                        value=['Diffa','Niamey','Agadez']
+                        value=[], #['Diffa','Niamey','Agadez']
                     ),
                 ]
             ),
@@ -267,7 +269,7 @@ def serve_layout():
                     dbc.Label("Zones"),
                     dbc.Checklist(
                         options=[{'label': 'Toutes', 'value': 'Toutes'}],
-                        value=[],
+                        value=['Toutes'],
                         id="all_zone_selector",
                         # switch=True,
                         inline=True,
@@ -275,10 +277,10 @@ def serve_layout():
                     ),
                     dcc.Dropdown(
                         id="zone_selector",
-                        placeholder="Select ZONE(S)...",
+                        placeholder="Selectionner ici",
                         options=zone_options,
                         multi=True,
-                        value=ZONES,
+                        value=[],
                     ),
                 ]
             ),
@@ -290,7 +292,7 @@ def serve_layout():
                     dbc.Label("Secteurs"),
                     dbc.Checklist(
                         options=[{'label': 'Tous', 'value': 'Tous'}],
-                        value=[],
+                        value=['Tous'],
                         id="all_sector_selector",
                         # switch=True,
                         inline=True,
@@ -298,10 +300,10 @@ def serve_layout():
                     ),
                     dcc.Dropdown(
                         id="sector_selector",
-                        placeholder="Select SECTOR(S)...",
+                        placeholder="Selectionner ici",
                         options=secteur_options,
                         multi=True,
-                        value=SECTEURS,
+                        value=[],
                     ),
                 ]
             ),
@@ -442,6 +444,21 @@ def serve_layout():
         align="center",
     )
 
+    logout_menu = dbc.DropdownMenu(
+        children=
+        [
+            dbc.DropdownMenuItem(current_user.username, header=True),
+            dbc.DropdownMenuItem("Changer le mot de passe",id="dropdown-update-pw"),
+            dbc.DropdownMenuItem("Logout",id="dropdown-logout")
+        ],
+        # nav=True,
+        # in_navbar=True,
+        color='info',
+        label=current_user.fullname,
+        bs_size = 'md',
+        className="ml-auto flex-nowrap mt-3 mt-md-0"        
+    )
+
     # Main top bar
     navbar = dbc.Navbar(
         [
@@ -456,7 +473,8 @@ def serve_layout():
                     no_gutters=True
                 ),
             ),
-            dbc.Collapse(logout_button, id="navbar-collapse", navbar=True)
+            # dbc.Collapse(logout_button, id="navbar-collapse", navbar=True),
+            dbc.Collapse(logout_menu, navbar=True),
         ],
         color="light",
         dark=False,
@@ -485,112 +503,99 @@ def serve_layout():
 
     return final_layout
 
+#--------------------------------------------------------------------------------------------------------------------------
 
-#*****************************************************************************************************************************
 
-# login layout content
-def login_layout():
-    return html.Div(
-        [
-            dcc.Location(id='login-url',pathname='/login',refresh=False),
-            dbc.Container(
-                [
-                    dbc.Row(
-                        dbc.Col(
-                            dbc.Card(
-                                [
-                                    html.H4('Login',className='card-title'),
-                                    dbc.Input(id='login-email',placeholder='User'),
-                                    dbc.Input(id='login-password',placeholder='Assigned password',type='password'),
-                                    dbc.Button('Submit',id='login-button',color='success',block=True),
-                                    html.Br(),
-                                    html.Div(id='login-alert')
-                                ],
-                                body=True
-                            ),
-                            width=6
-                        ),
-                        justify='center'
-                    )
-                ]
-            )
-        ]
-    )
 
-# home layout content
-@validate_login_session
-def app_layout():
-    return \
-        serve_layout()
 
-# main app layout
 app.layout = html.Div(
     [
-        dcc.Location(id='url',refresh=False),
-        html.Div(
-            login_layout(),
-            id='page-content'
-        ),
+        html.Div([
+            html.Div(
+                html.Div(id='page-content', className='content'),
+                className='content-container'
+            ),
+        ], className='container-width'),
+        dcc.Location(id='url', refresh=False),
     ]
 )
 
 
-###############################################################################
-# utilities
-###############################################################################
-
-# router
-@app.callback(
-    Output('page-content','children'),
-    [Input('url','pathname')]
-)
-def router(url):
-    if url=='/home':
-        return app_layout()
-    elif url=='/login':
-        return login_layout()
+@app.callback(Output('page-content', 'children'),
+              [Input('url', 'pathname')])
+def display_page(pathname):
+    if pathname == '/':
+        return login.layout
+    elif pathname == '/login':
+        return login.layout
+    elif pathname == '/success':
+        if current_user.is_authenticated:
+            return success.layout
+        else:
+            return login_fd.layout
+    elif pathname == '/home':
+        if current_user.is_authenticated:
+            return serve_layout()
+        else:
+            return login_fd.layout
+    elif pathname == '/logout':
+        if current_user.is_authenticated:
+            logout_user()
+            return logout.layout
+        else:
+            return logout.layout
+    elif pathname == "/change_password":
+        return change_password.layout
+    elif pathname == "/login_fd":
+        return login_fd.layout
     else:
-        return login_layout()
+        return '404'
 
-# authenticate 
-@app.callback(
-    [Output('url','pathname'),
-     Output('login-alert','children')],
-    [Input('login-button','n_clicks')],
-    [State('login-email','value'),
-     State('login-password','value')])
-def login_auth(n_clicks,email,pw):
-    '''
-    check credentials
-    if correct, authenticate the session
-    otherwise, authenticate the session and send user to login
-    '''
-    if n_clicks is None or n_clicks==0:
-        return no_update,no_update
-    credentials = {'user':email,"password":pw}
-    if authenticate_user(credentials):
-        session['authed'] = True
-        return '/home',''
-    session['authed'] = False
-    return no_update,dbc.Alert('Incorrect credentials.',color='danger',dismissable=True)
 
 @app.callback(
-    Output('home-url','pathname'),
-    [Input('logout_btn','n_clicks')]
+    Output('user-name', 'children'),
+    [Input('page-content', 'children')])
+def cur_user(input1):
+    if current_user.is_authenticated:
+        return html.Div('Current user: ' + current_user.username)
+        # 'User authenticated' return username in get_id()
+    else:
+        return ''
+
+
+# @app.callback(
+#     Output('logout', 'children'),
+#     [Input('page-content', 'children')])
+# def user_logout_(input1):
+#     if current_user.is_authenticated:
+#         logout_user(current_user)
+#         return html.A('Logout', href='/login')
+#     else:
+#         return ''
+
+@app.callback(
+    Output('url','pathname'),
+    [Input('dropdown-update-pw','n_clicks'),Input('dropdown-logout','n_clicks')]
 )
-def logout_(n_clicks):
+def connexion_helper(update_pw_cc, logout_cc):
     '''clear the session and send user to login'''
-    if n_clicks is None or n_clicks==0:
+    if (update_pw_cc is None or update_pw_cc==0) and (logout_cc is None or logout_cc==0):
         return no_update
-    session['authed'] = False
-    return '/login'
+
+    if current_user.is_authenticated and update_pw_cc != None and  update_pw_cc > 0:
+        # logout_user()
+        return '/change_password'
+    
+    if current_user.is_authenticated and logout_cc != None and logout_cc > 0:
+        logout_user()
+        return '/login'
+    
+    return no_update
 
 
 ###############################################################################
 # callbacks
 ###############################################################################
-
-
 
 # Drildown geo
 @app.callback(
@@ -702,6 +707,9 @@ def filter_data(n_clicks,selected_month,pos_globla_status,pos_cx_status,pos_comm
     df["DATE"] = pd.to_datetime(df["DATE"])
     df["MONTH"] = pd.to_datetime(df["MONTH"])
     df['COMMISSION_PERF_2'] = df['COMMISSIONS_AMNT'].apply(commission_perf)
+    # apply user geo filter
+    if current_user.region in ['Agadez','Diffa','Dosso','Maradi','Niamey','Tahoua','Tillaberi','Zinder']:
+        df = df[df['DACR'] == current_user.region]
     # apply date filter
     selected_month = datetime.strptime(selected_month[:10],"%Y-%m-%d")
     fdf = df[df['MONTH'] == selected_month]
@@ -1395,25 +1403,10 @@ def refresh_overview_sector_chart(jsonified_cleaned_data,clickData,selected_axis
 
     return fig, "Secteurs de {0} {1}: ".format(dacr_name,zone_name)
 
-
-
-
-# @app.callback(
-#     Output('json_pre','childre'), 
-#     [
-#         Input('overview_zone_chart', 'clickData')
-#     ]
-# )
-# def refresh_overview_sector_chart(clickData):
-#     # Init chart when none click
-#     return json.dumps(clickData,indent=2)
-
 ###############################################################################
 # run app
 ###############################################################################
 
-if __name__ == "__main__":
-    
-    app.run_server(
-        debug=True
-    )
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
