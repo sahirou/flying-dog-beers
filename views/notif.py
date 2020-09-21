@@ -11,7 +11,7 @@ import datetime  as dt
 def telegram_notif_gmkt(user_name, message, activity_dt = dt.datetime.now()):
     
     # initializing the bot with API
-    bot = Bot("1215887198:AAFlRV9fiZUqi3fK1yisue7KvpWRWiwlB50")
+    bot = Bot("some str")
 
     # getting the bot details
     # print(bot.get_me())
